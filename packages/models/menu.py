@@ -1,39 +1,21 @@
 """ model for the menus"""
-import time
-from pyfiglet 
+from utils.display_welcome import display_welcome_message
 
-welcome_message = 'WELCOME TO YOUR CHESS TOURNAMENT MANAGER'
-
-# only lowercase characters
-list_of_menus = [
-                    'home',
-]
-
-
-home = [
-            'create new tournament',
-            'add players',
-            'enter results',
-            'show tournament ranking'
-]
-
-class Welcome:
-    def __init__(self):
-        self.title = welcome_message
+class WelcomeModel:
+    def __init__(self, message):
+        self.title = message
 
     def __call__(self):
-        print(list(welcome_message))
+        display_welcome_message(self.title.lower())
 
 class MenuModel:
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, one_list, choice):
+        for i in one_list:
+            self.__dict__[i] = i
+        self.choice = choice
 
-
-    def __call__(self):
-        
-        if self.name.lower() in list_of_menus:
-            for i in home:
-                print(i)
+    def get_menu(self):
+        return self.__dict__
 
 
             

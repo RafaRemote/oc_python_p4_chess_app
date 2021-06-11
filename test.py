@@ -1,3 +1,14 @@
-elements = ['bob', 'beck', 'baba']
-for i in range(len(elements)):
-    print(i)
+sentence = 'bonjour toi, bobo, bo'
+
+word = 'bo'
+
+
+
+x = sentence[:len(word)]
+
+print(x)
+
+
+
+
+
