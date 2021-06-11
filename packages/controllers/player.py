@@ -1,7 +1,7 @@
-from views.player import get_player_name, get_player_elo
-from views.tournament import get_tournament_name
-from models.tournament import TournamentModel
-from models.player import PlayerModel
+from packages.views.player import get_player_name, get_player_elo
+from packages.views.tournament import get_tournament_name
+from packages.models.tournament import TournamentModel
+from packages.models.player import PlayerModel
 from .tournament import players
 from utils.error import print_error
 
@@ -14,7 +14,7 @@ class PlayerController:
     def new_player(self):
         name = self.get_name()
         elo = self.get_elo()
-        players.ppend.PlayerModel(name, elo)
+        players.qppend.PlayerModel(name, elo)
 
     def get_name():
         name = get_player_name()
