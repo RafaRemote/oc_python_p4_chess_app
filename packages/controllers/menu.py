@@ -21,14 +21,14 @@ class MenuController:
         if isinstance(res, list) and 'error' in res:
             error = Error(res)
             answer_from_error = error()
-            if 'y' in answer_from_error:
+            if 'y' in answer_from_error:               
                 restart = MenuModel(answer_from_error[0], choice=None)
                 display_menu(restart().__dict__)
                 get_choice(answer_from_error[0], choice=None)
 
         elif res.__dict__['choice'] == 1:
             tournmanent_inputs = TournamentView()
-            tournament_model = TournamentModel(tournmanent_inputs())
+            tournament_model = TournamentModel(tournmanent_inputs(), obj_player=None)
             res = tournament_model()
             if isinstance(res, list) and 'error' in res:
                 print('send', res)
@@ -42,8 +42,15 @@ class MenuController:
 
         elif res.__dict__['choice'] == 2:
             player_inputs = PlayerView()
-            new_player = PlayerController(player_inputs())
-            new_player()
+            res = player_inputs().__dict__.items()
+            data_for_player_controller = PlayerController(res)
+            data_for_player_controller()
+            if res is not None:
+                restart = MenuController('HomeMenu', choice=None)
+                restart()
+
+
+
 
         else:
             print(res.__dict__)

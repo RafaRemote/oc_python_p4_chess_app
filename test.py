@@ -1,3 +1,3 @@
-y = 'f'
+lst = []
 
-print( y.isalpha())
+print(len(lst))
