@@ -1,14 +1,3 @@
-sentence = 'bonjour toi, bobo, bo'
+y = 'f'
 
-word = 'bo'
-
-
-
-x = sentence[:len(word)]
-
-print(x)
-
-
-
-
-
+print( y.isalpha())

@@ -1,24 +1,30 @@
-from packages.controllers.menu import MenuController, WelcomeController
+from packages.controllers.menu import MenuController
+# from packages.controllers.welcome import WelcomeController
+
+
 
 class HomeMenu:
     def __init__(self):
         self.name = self.__class__.__name__
+        # self.name = 'bob'
 
     def __call__(self):
         # welcome = WelcomeController()
         # welcome()
-        menu = MenuController(self.name, choice=None)
-        menu()
-        choice = Choice()
-        choice()
 
-class Choice:
-    def __init__(self):
-        self.name = self.__class__.__name__
+        menu = MenuController(self.name, choice=None)
+        menu()    
+
+        
+
+
     
-    def __call__(self):
-        choice = input('your choice: ')
-        chosen_option = MenuController(self.name, choice)
-        chosen_option()
+  
+
+        
+        
+        
+
+    
 
 

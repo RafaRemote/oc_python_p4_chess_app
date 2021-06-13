@@ -3,30 +3,13 @@ from packages.views.tournament import get_tournament_name
 from packages.models.tournament import TournamentModel
 from packages.models.player import PlayerModel
 from .tournament import players
-from utils.error import print_error
+
 
 
 class PlayerController:
     def __init__(self):
-        self.name = None
-        self.elo = None
+        pass
 
-    def new_player(self):
-        name = self.get_name()
-        elo = self.get_elo()
-        players.qppend.PlayerModel(name, elo)
-
-    def get_name():
-        name = get_player_name()
-        while not name.isalpha():
-            print_error('le nom contient des chiffres')
-            name = get_tournament_name()
-        return name
-
-    def get_elo():
-        elo = get_player_elo()
-        while not elo.isnumeric():
-            print_error('Veuillez indiquer un chiffre ')
-
-
+    def __call__(self):
+        print('i got', self.__dict__)
     

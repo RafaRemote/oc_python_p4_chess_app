@@ -8,12 +8,14 @@ from termcolor import colored
 
 colors = [
             'green',
-            'yellow'
+            'yellow',
+            'magenta'
 ]
 
 list_to_print = []
 
 def clean_sentence(sentence):
+
     """ returns a list of words from a string"""
     sentence_stripped = sentence.strip(' ')
     word = ''
@@ -31,16 +33,14 @@ def clean_sentence(sentence):
 
 def display_welcome_message(sentence):
     """ returns a display of a welcome message in the console"""
-    message = clean_sentence(sentence)
+    message = clean_sentence(sentence.__dict__['title'])
+    message_string = (' ').join(message)
     os.system('cls' if os.name == 'nt' else 'clear')
-    f = Figlet(font='bubble')
-    for i in message:
-        time.sleep(.5)
-        print(colored(f.renderText(i.upper()), random.choice(colors)))
-        time.sleep(1)
-        os.system('cls' if os.name == 'nt' else 'clear')
+    f = Figlet(font='term')
+    print(colored(f.renderText(message_string.upper()), random.choice(colors)))
     time.sleep(1)
-    os.system('clear')
+
+
 
         
 
