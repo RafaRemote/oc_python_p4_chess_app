@@ -14,7 +14,7 @@ class MenuController:
     def __init__(self, name, choice):
         self.name = name
         self.choice = choice
-  
+
     def __call__(self):
         menu = MenuModel(self.name, self.choice)
         res = menu()
@@ -25,7 +25,7 @@ class MenuController:
                 restart = MenuModel(answer_from_error[0], choice=None)
                 display_menu(restart().__dict__)
                 get_choice(answer_from_error[0], choice=None)
-        
+
         elif res.__dict__['choice'] == 1:
             tournmanent_inputs = TournamentView()
             tournament_model = TournamentModel(tournmanent_inputs())
@@ -44,11 +44,11 @@ class MenuController:
             player_inputs = PlayerView()
             new_player = PlayerController(player_inputs())
             new_player()
-  
+
         else:
             print(res.__dict__)
             display_menu(res.__dict__)
             answer = get_choice(self.name, self.choice)
             new_menu = MenuController(answer[0], answer[1])
             new_menu()
-        
+
