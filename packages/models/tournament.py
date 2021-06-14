@@ -1,4 +1,6 @@
 import datetime
+import operator
+
 from packages.models.player import PlayerModel
 
 TOTALROUNDS = 4
@@ -20,6 +22,8 @@ choice_of_times = ['bullet', 'blitz', 'rapid']
 date = datetime.datetime.now().strftime("%a %d %B %Y")
 
 tournament_list = []
+ranking = []
+sorted_ranking = []
 class TournamentModel:
     def __init__(self, obj_from_controller, obj_player):
         if obj_from_controller is not None:
@@ -47,6 +51,18 @@ class TournamentModel:
     def add_a_round(self, instance_of_round):
         tournament_list[0].__dict__.get('rounds').append(instance_of_round)
         return(tournament_list[0])
+
+    def update_round(self, results):       
+        for i in range(0,16):
+            if i%2 == 0:
+                j = i
+                elo = results[j][0].__dict__.get('elo')
+                ranking.append([results[j][0],results[j+1], elo])
+        sorted_ranking = sorted(ranking, key=operator.itemgetter(1, 2))
+        sorted_ranking.reverse()
+        # for i in sorted_ranking:
+        #     print(i)
+        return [tournament_list, sorted_ranking]
 
     def __call__(self):
         players.append(self.players)

@@ -94,10 +94,17 @@ class MenuController:
         
         elif res.__dict__['choice'] == 3:
             score_view = ScoringView(tournament_list)
-            score_view()
-        
-        
-        
+            res = score_view.round_one()
+            update_tournament = TournamentModel(None, None)
+            update = update_tournament.update_round(res)
+            round2 = RoundController(tournament_list[0].__dict__.get('name'), players=None)
+            round2.round2(update)
+            
+
+
+            restart = MenuController('HomeMenu', choice=None)
+            restart()
+
         else:
             display_menu(res.__dict__)
             answer = get_choice(self.name, self.choice)

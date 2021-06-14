@@ -18,6 +18,12 @@ class RoundController:
         # update_scoring = ScoringModel(up_tournament)
         return(up_tournament) #tournament with round 1 matches
         
+    def round2(self, update):
+        update_round_model = RoundModel(self.name, players=None)
+        update_round_model.round2(update)
+        
+
+
 
 
 
