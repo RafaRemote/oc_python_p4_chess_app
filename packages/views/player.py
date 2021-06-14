@@ -15,7 +15,7 @@ class PlayerView:
         counter = 0        
         while counter < 8:
             os.system('cls' if os.name == 'nt' else 'clear')
-            print(colored('Enter infos about the players'.upper(), 'green'))
+            print(colored('Enter infos about the players'.upper(), 'magenta'))
             print()
             print(f'Yet, you entered {counter} on 8')
             print()

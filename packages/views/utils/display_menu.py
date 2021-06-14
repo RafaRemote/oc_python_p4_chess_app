@@ -1,7 +1,7 @@
 import os
 
 def display_menu(one_dictionnary):
-    # os.system('cls' if os.name == 'nt' else 'clear')
+    os.system('cls' if os.name == 'nt' else 'clear')
     print('   ', one_dictionnary['name'])
     print()
     print()
