@@ -24,7 +24,7 @@ class RoundModel:
         self.name = None
         self.start_date = None
         self.end_date = None
-        self.matches = []
+        self.matches = dict()
         self.players = sorted(players, key=lambda x: x.elo, reverse=True)
 
 

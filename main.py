@@ -1,9 +1,9 @@
 """ entry point of the application"""
 
-from packages.views.home import HomeMenu
+from packages.views.start import StartMenu
 
 
 if __name__ == "__main__":
-    app = HomeMenu()
+    app = StartMenu()
     app.welcome()
     app()

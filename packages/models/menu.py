@@ -11,16 +11,15 @@ menus = {
         ]
 }
 
+
 class MenuModel:
     def __init__(self, name, choice):
-        self.name = name,
+        self.name = name
         self.choice = choice
-        self.menu = None
+        self.menu = menus[self.name]
        
     def __call__(self):
-        for i in menus.keys():
-            if i == self.choice.lower():
-                return MenuModel(self.name, self.choice, self.menus)
+        return self
 
 
 
