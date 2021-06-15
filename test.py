@@ -124,3 +124,135 @@
 # for i in range(4,8):
 #     print(i)
 
+# obj_ranking = [
+#     [<packages.models.player.PlayerModel object at 0x1094e13d0>, 1, 5000], 
+#     [<packages.models.player.PlayerModel object at 0x1094e1370>, 1, 3000], 
+#     [<packages.models.player.PlayerModel object at 0x1094dbfa0>, 1, 3000], 
+#     [<packages.models.player.PlayerModel object at 0x1094dbe20>, 1, 2000],
+#     [<packages.models.player.PlayerModel object at 0x1094e1430>, 1, 2000], 
+#     [<packages.models.player.PlayerModel object at 0x1094e1160>, 1, 1500], 
+#     [<packages.models.player.PlayerModel object at 0x1094dbd00>, 1, 1000], 
+#     [<packages.models.player.PlayerModel object at 0x1094dbf10>, 1, 500]
+# ]
+
+
+# for i in self.players:
+#             print(i)
+
+# <packages.models.player.PlayerModel object at 0x10b86f3d0>
+# <packages.models.player.PlayerModel object at 0x10b86f430>
+# <packages.models.player.PlayerModel object at 0x10b869fa0>
+# <packages.models.player.PlayerModel object at 0x10b86f160>
+# <packages.models.player.PlayerModel object at 0x10b86f370>
+# <packages.models.player.PlayerModel object at 0x10b869d00>
+# <packages.models.player.PlayerModel object at 0x10b869e20>
+# <packages.models.player.PlayerModel object at 0x10b869f10>
+
+
+# for j in range(0,8):
+#     if j%2 != 0:
+#         print(j)
+
+
+# for i in self.players:
+#         print(i.__dict__.get('surname'))
+
+# Charles
+# Ned
+# Lisa
+# Maggie
+# Apu
+# Homer
+# Marge
+# Bart
+# yes
+# Ned
+
+# Apu
+# Ned
+# Maggie
+# Bart
+# Charles
+# Lisa
+# Marge
+# Homer
+
+dico = {
+    'a' : [
+        'b'
+    ],
+    'b' : [
+        'c'
+    ],
+    'c' : [
+        'd'
+    ],
+    'd' : [
+        'e'
+    ],
+    'e' : [
+        'f'
+    ],
+    'f' : [
+        'g'
+    ],
+    'g' : [
+        'h'
+    ],
+    'h' : [
+        'a'
+    ],
+    
+}
+
+lst = [
+    'a',
+    'b',
+    'c',
+    'd',
+    'e',
+    'f',
+    'g',
+    'h'
+]
+
+current_players = []
+
+
+
+print(lst[0])
+print(dico[lst[0]])
+
+print(lst[1] in dico[lst[0]])
+
+if lst[1] not in dico[lst[0]] and lst[1] not in current_players:
+    print('match01', lst[0], lst[1])
+    current_players.append(lst[1])
+    current_players.append(lst[2])
+
+elif lst[2] not in dico[lst[1]] and lst[2] not in current_players:
+    print('match12', lst[1], lst[2])
+    current_players.append(lst[1])
+    current_players.append(lst[2])
+elif lst[3] not in  dico[lst[1]] and lst[3] not in current_players:
+    print('match13', lst[1], lst[3])
+    current_players.append(lst[1])
+    current_players.append(lst[3])
+elif lst[4] not in dico[lst[1]] and lst[4] not in current_players:
+    print('match414', lst[1], lst[4])
+    current_players.append(lst[1])
+    current_players.append(lst[4])
+elif lst[5] not in dico[lst[1]] and lst[5] not in current_players:
+    print('match15', lst[1], lst[5])
+    current_players.append(lst[1])
+    current_players.append(lst[5])
+elif lst[6] not in dico[lst[1]] and lst[6] not in current_players:
+    print('match16', lst[1], lst[6])
+    current_players.append(lst[1])
+    current_players.append(lst[6])
+elif lst[7] not in dico[lst[1]] and lst[7] not in current_players:
+    print('match17', lst[1], lst[7])
+    current_players.append(lst[1])
+    current_players.append(lst[7])
+else:
+    print('no match')

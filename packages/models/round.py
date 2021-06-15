@@ -46,4 +46,83 @@ class RoundModel:
             players_opponents[player].append(opponent)    
             players_opponents[opponent].append(player)
 
+        self.players = []
+
+        for i in obj_ranking:
+            self.players.append(i[0])
+
+        for i in self.players:
+            print(i.__dict__.get('surname'))
+
+        players_ones = []
+        players_twos = []
+
+        for i in range(0, len(self.players)):
+            
+            if i%2 == 0:
+                players_ones.append(self.players[i])
+            elif i%2 != 0:
+                players_twos.append(self.players[i])
+
+        print('player ones')
+        for i in players_ones:
+            print('p1', i.__dict__.get('surname'))
+        print()
+        print('player twos')
+        for i in players_twos:
+            print('p2', i.__dict__.get('surname'))
+        players_current_round = []
+
+
+        for i in range(0, 4):
+            if players_ones[i] not in players_current_round:
+                if players_twos[i] not in players_opponents[players_ones[i]] and players_twos[i] not in players_current_round:
+                    print('match ', players_ones[i].__dict__.get('surname') , ' // ', players_twos[i].__dict__.get('surname'))
+                    players_current_round.append(players_ones[i])
+                    players_current_round.append(players_twos[i])
+                    for i in players_current_round:
+                        print(i.__dict__.get('surname'))
+                else:
+                    players_twos[i+1]
+
+     
+       
+        # for i in range(0, len(self.players)):            
+        #     if i%2 == 0:
+        #         player_one = self.players[i]
+        #         if player_one not in players_current_round: 
+        #             player_two = self.players[i+1]
+        #             print('match before', player_one.__dict__.get('surname'), '//', player_two.__dict__.get('surname'))
+        #             if player_two not in players_opponents[player_one]:
+        #                 print('match after', player_one.__dict__.get('surname'), '//', player_two.__dict__.get('surname'))
+        #                 players_current_round.append(player_one)
+        #                 players_current_round.append(player_two)
+        #                 f
+                        
+                    
+
+                    
+
+
+        
+
+
+
+
+
+
+
+
+
+        
+        # for i in range(0, len(self.players)-1):
+        #     if self.players[i+1] in players_opponents[self.players[i]] :
+        #         print('yes')        
+        #         print(self.players[i+1].__dict__.get('surname'))
+        #         print(self.players[i+1])
+        #         print(players_opponents[self.players[i]])
+        #         print(i)
+        #     else:
+        #         print('no')
+        
         exit()

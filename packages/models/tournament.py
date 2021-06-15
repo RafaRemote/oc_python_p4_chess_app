@@ -18,7 +18,6 @@ players = [
 ]
 choice_of_times = ['bullet', 'blitz', 'rapid']
 
-
 date = datetime.datetime.now().strftime("%a %d %B %Y")
 
 tournament_list = []
