@@ -85,11 +85,8 @@
 # ]
 
 
-# for i in range(0,16):
-#     if i%2 == 0:
-#         j = i
-    
-#         print(j,j+1)
+#3
+
 
 
 
@@ -116,9 +113,14 @@
 
     
 
-for i in range(0,8):
-    if i%2 == 0:
-        j = i
+# for i in range(0,8):
+#     if i%2 == 0:
+#         j = i
 
-        print(j,j+1)
-        print(j,j+1)
+#         print(j,j+1)
+#         3
+
+
+# for i in range(4,8):
+#     print(i)
+
