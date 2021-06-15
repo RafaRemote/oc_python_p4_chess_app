@@ -179,28 +179,28 @@
 
 dico = {
     'a' : [
-        'b'
-    ],
-    'b' : [
-        'c'
-    ],
-    'c' : [
-        'd'
-    ],
-    'd' : [
         'e'
     ],
-    'e' : [
+    'b' : [
         'f'
     ],
-    'f' : [
+    'c' : [
         'g'
     ],
-    'g' : [
+    'd' : [
         'h'
     ],
-    'h' : [
+    'e' : [
         'a'
+    ],
+    'f' : [
+        'b'
+    ],
+    'g' : [
+        'c'
+    ],
+    'h' : [
+        'd'
     ],
     
 }
@@ -220,39 +220,14 @@ current_players = []
 
 
 
-print(lst[0])
-print(dico[lst[0]])
 
-print(lst[1] in dico[lst[0]])
+def recursive(lst):
+    i = 0
+    while len(lst) != 0:
+        if lst[i+1] not in dico(lst[i]) and lst[i] not in current_players and lst[i+1]:
+            print('match', lst[i])
+        else:
+            i += 1
 
-if lst[1] not in dico[lst[0]] and lst[1] not in current_players:
-    print('match01', lst[0], lst[1])
-    current_players.append(lst[1])
-    current_players.append(lst[2])
 
-elif lst[2] not in dico[lst[1]] and lst[2] not in current_players:
-    print('match12', lst[1], lst[2])
-    current_players.append(lst[1])
-    current_players.append(lst[2])
-elif lst[3] not in  dico[lst[1]] and lst[3] not in current_players:
-    print('match13', lst[1], lst[3])
-    current_players.append(lst[1])
-    current_players.append(lst[3])
-elif lst[4] not in dico[lst[1]] and lst[4] not in current_players:
-    print('match414', lst[1], lst[4])
-    current_players.append(lst[1])
-    current_players.append(lst[4])
-elif lst[5] not in dico[lst[1]] and lst[5] not in current_players:
-    print('match15', lst[1], lst[5])
-    current_players.append(lst[1])
-    current_players.append(lst[5])
-elif lst[6] not in dico[lst[1]] and lst[6] not in current_players:
-    print('match16', lst[1], lst[6])
-    current_players.append(lst[1])
-    current_players.append(lst[6])
-elif lst[7] not in dico[lst[1]] and lst[7] not in current_players:
-    print('match17', lst[1], lst[7])
-    current_players.append(lst[1])
-    current_players.append(lst[7])
-else:
-    print('no match')
+

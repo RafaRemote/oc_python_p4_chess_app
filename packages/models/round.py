@@ -1,23 +1,36 @@
 import datetime
+from os import name
 from time import strftime
 
+from packages.models.player import PlayerModel
 from packages.models.match import MatchModel 
 
-players_opponents = {}
+
+players = [
+    PlayerModel('Simpsons', 'Homer', 1980, 'm', [], 1000, 0),
+    PlayerModel('Simpsons', 'Marge', 1985, 'w', [], 2000, 0),
+    PlayerModel('Simpsons', 'Bart', 2010, 'm', [], 500, 0),
+    PlayerModel('Simpsons', 'Lisa', 2011, 'w', [], 3000, 0),
+    PlayerModel('Simpsons', 'Maggie', 2018, 'w', [], 1500, 0),
+    PlayerModel('Nahasapee', 'Apu', 1970, 'm', [], 3000, 0),
+    PlayerModel('Montgomery', 'Charles', 1900, [], 'm', 5000, 0),
+    PlayerModel('Flanders', 'Ned', 1880, 'm', [], 2000, 0)
+]
+
+
 class RoundModel:
-    def __init__(self, tournament_name, players):
+    def __init__(self, tournament_name):
         self.tournmanent_name = tournament_name
         self.name = None
         self.start_date = None
         self.end_date = None
         self.matches = []
-        self.players = players
+        self.players = sorted(players, key=lambda x: x.elo, reverse=True)
 
-    def round1(self):
-        self.name = 'Round1'
+
+    def round(self):
+        self.name = name
         self.start_date = datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
-        list_of_players = self.players[:8]
-        cleaned_list = []
         
         for i in list_of_players:
             cleaned_list.append(i.__dict__.get('elo'))

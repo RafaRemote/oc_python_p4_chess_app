@@ -19,10 +19,7 @@ from packages.views.utils.display_get_choice import get_choice
 class MenuController:
     def __init__(self, name, choice):
         self.name = name
-        if choice == '':
-            self.choice = None
-        else:
-            self.choice = choice
+        self.choice = choice
 
     def __call__(self):
         menu = MenuModel(self.name, self.choice)

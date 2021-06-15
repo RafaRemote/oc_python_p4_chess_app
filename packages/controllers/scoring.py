@@ -6,6 +6,6 @@ class ScoringController:
 
     def __call__(self):
         update_scoring_model = ScoringModel(self.obj)
-        print('SC', update_scoring_model())
-        exit()
+        update_scoring_model()
+
 

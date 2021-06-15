@@ -1,21 +1,12 @@
 import datetime
 import operator
 
-from packages.models.player import PlayerModel
+
 
 TOTALROUNDS = 4
 PLACE = 'Paris'
 
-players = [
-    PlayerModel(['Simpsons', 'Homer', 1980, 'm', 1000]),
-    PlayerModel(['Simpsons', 'Marge', 1985, 'm', 2000]),
-    PlayerModel(['Simpsons', 'Bart', 2010, 'm', 500]),
-    PlayerModel(['Simpsons', 'Lisa', 2011, 'm', 3000]),
-    PlayerModel(['Simpsons', 'Maggie', 2018, 'm', 1500]),
-    PlayerModel(['Nahasapee', 'Apu', 1970, 'm', 3000]),
-    PlayerModel(['Montgomery', 'Charles', 1900, 'm', 5000]),
-    PlayerModel(['Flanders', 'Ned', 1880, 'm', 2000])
-]
+
 choice_of_times = ['bullet', 'blitz', 'rapid']
 
 date = datetime.datetime.now().strftime("%a %d %B %Y")
@@ -47,7 +38,7 @@ class TournamentModel:
         if obj_player is not None:
             self.players = obj_player
 
-    def add_a_round(self, instance_of_round):
+    def add_a_round(self, instance_of_round):#enlever le a
         tournament_list[0].__dict__.get('rounds').append(instance_of_round)
         return(tournament_list[0])
 

@@ -3,8 +3,6 @@ from packages.models.tournament import TournamentModel
 # from packages.controllers.scoring import ScoringController
 
 
-
-
 class RoundController:
     def __init__(self, name, players):
         self.name = name
@@ -22,9 +20,3 @@ class RoundController:
         update_round_model = RoundModel(self.name, players=None)
         update_round_model.round2(update)
         
-
-
-
-
-
-

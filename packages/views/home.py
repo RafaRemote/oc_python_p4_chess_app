@@ -4,7 +4,7 @@ from packages.controllers.welcome import WelcomeController
 
 class HomeMenu:
     def __init__(self):
-        self.name = self.__class__.__name__
+        self.name = 'HomeMenu'
 
     def welcome(self):
         welcome = WelcomeController()
@@ -13,6 +13,4 @@ class HomeMenu:
     def __call__(self):        
         menu = MenuController(self.name, choice=None)
         menu()    
-
-   
 
