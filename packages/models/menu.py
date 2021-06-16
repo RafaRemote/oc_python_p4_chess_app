@@ -16,7 +16,7 @@ class MenuModel:
     def __init__(self, name, choice):
         self.name = name
         self.choice = choice
-        self.menu = menus[self.name]
+        self.choice_list = menus[self.name]
        
     def __call__(self):
         return self

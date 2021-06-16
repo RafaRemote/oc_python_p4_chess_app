@@ -2,9 +2,9 @@ from packages.controllers.menu import MenuController
 from packages.controllers.welcome import WelcomeController
 
 
-class StartMenu:
+class HomeMenu:
     def __init__(self):
-        self.name = 'StartMenu'
+        self.name = 'HomeMenu'
 
     def welcome(self):
         welcome = WelcomeController()

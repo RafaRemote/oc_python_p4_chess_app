@@ -19,9 +19,9 @@ players = [
 
 
 class RoundModel:
-    def __init__(self, tournament_name):
+    def __init__(self, tournament_name, number):
         self.tournmanent_name = tournament_name
-        self.name = None
+        self.name = number
         self.start_date = None
         self.end_date = None
         self.matches = dict()

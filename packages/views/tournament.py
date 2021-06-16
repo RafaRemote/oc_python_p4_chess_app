@@ -11,7 +11,15 @@ class TournamentView:
         self.description = self.get_description()
         self.date = datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
 
+    def display_title(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print(colored('      INPUT TOURNAMENT INFORMATIONS', 'magenta'))
+        print()
+        print()
+
+
     def get_name(self):
+        self.display_title()
         name = input('Enter the name of the tournament[max: 20 characters]: ')
         print()
         if len(name) > 20:
@@ -26,7 +34,7 @@ class TournamentView:
         times = ['bullet', 'blitz', 'rapid']
         time_control = input('Enter time option: bullet, blitz or rapid: ')
         print()
-        if time_control.lower() not in times:
+        while time_control.lower() not in times:
             print(colored('the only options availabe are bullet, blitz or rapid.', 'red'))
             print('try again')
             print()
@@ -45,6 +53,10 @@ class TournamentView:
             return description
 
     def __call__(self):
+        print()
+        print(colored('Saving informations...', 'green'))
+        time.sleep(1)
+  
         return self
 
 

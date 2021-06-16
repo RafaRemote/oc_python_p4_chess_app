@@ -1,5 +1,5 @@
 from packages.models.welcome import WelcomeModel
-from packages.views.utils.display_welcome import display_welcome_message
+from packages.views.welcome import WelcomeView
 
 
 class WelcomeController:
@@ -8,4 +8,7 @@ class WelcomeController:
 
     def __call__(self):
         welcome = WelcomeModel()
-        display_welcome_message(welcome())
+        res = welcome().__dict__.get('message')
+        welcomeview = WelcomeView(res)
+        welcomeview()
+        

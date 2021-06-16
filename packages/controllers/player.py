@@ -2,8 +2,14 @@ from packages.models.player import PlayerModel
 from packages.models.tournament import TournamentModel
 
 class PlayerController:
-    def __init__(self, obj_players):
-        self.players = obj_players
+    def __init__(self, name, surname, year, gender, elo, score) :
+        self.name = name
+        self.surname = surname
+        self.year = year
+        self.gender = gender
+        self.elo = elo
+        self.score = score
+        
 
     def __call__(self):
         player = []
@@ -17,11 +23,12 @@ class PlayerController:
             year = player[i+ 2*sequence]
             gender = player[i+ 3*sequence]
             elo = player[i+ 4*sequence]
-            added_player = PlayerModel([name, surname, year, gender, elo])
-            update_tournament = TournamentModel(obj_from_controller=None, obj_player=added_player())
-            update_tournament()
-            i += 8
+           
 
 
 
 
+# added_player = PlayerModel([name, surname, year, gender, elo])
+# update_tournament = TournamentModel(obj_from_controller=None, obj_player=added_player())
+# update_tournament()
+# i += 8
