@@ -1,3 +1,5 @@
+""" dcostrings """
+
 from packages.models.player import PlayerModel
 from packages.models.tournament import TournamentModel
 

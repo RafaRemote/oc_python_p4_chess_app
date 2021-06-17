@@ -1,4 +1,4 @@
-
+""" docstrings """
 class PlayerModel:
     def __init__(self, name, surname, year_birth, gender, elo, score):    
         self.name = name
@@ -7,8 +7,7 @@ class PlayerModel:
         self.gender = gender
         self.opponents = list()
         self.elo = elo
-        self.score = score
+        self.score = float(score)
 
     def __call__(self):
         return self
-    

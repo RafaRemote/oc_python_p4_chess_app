@@ -1,3 +1,5 @@
+""" docstrings """
+
 import os
 import time
 
@@ -15,7 +17,7 @@ class PlayerView:
         os.system('cls' if os.name == 'nt' else 'clear')
         print('      ', colored('ENTER PLAYER INFORMATIONS', 'magenta'))
 
-        counter = 0        
+        counter = 0
         while counter < 8:
             os.system('cls' if os.name == 'nt' else 'clear')
             print(colored('      Enter infos about the players'.upper(), 'magenta'))
@@ -46,4 +48,3 @@ class PlayerView:
                 os.system('cls' if os.name == 'nt' else 'clear')
                 break
         return self
-        

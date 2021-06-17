@@ -1,3 +1,5 @@
+""" docstrings """
+
 import datetime
 import time
 import os
@@ -6,14 +8,14 @@ from termcolor import colored
 
 class TournamentView:
     def __init__(self):
-        self.name = self.get_name()
-        self.time_control = self.get_time_control()
-        self.description = self.get_description()
-        self.date = datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
+        self.tour_title = self.get_name()
+        self.tour_time_control = self.get_time_control()
+        self.tour_description = self.get_description()
+        self.tour_start_date = datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
 
     def display_title(self):
         os.system('cls' if os.name == 'nt' else 'clear')
-        print(colored('      INPUT TOURNAMENT INFORMATIONS', 'magenta'))
+        print(colored('      FIRST OF ALL: INPUT TOURNAMENT INFORMATIONS', 'magenta'))
         print()
         print()
 
@@ -56,11 +58,5 @@ class TournamentView:
         print()
         print(colored('Saving informations...', 'green'))
         time.sleep(1)
-  
+
         return self
-
-
-
-   
-
-

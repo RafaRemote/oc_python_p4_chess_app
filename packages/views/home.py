@@ -1,5 +1,8 @@
+""" docstrings """
+
 from packages.controllers.menu import MenuController
 from packages.controllers.welcome import WelcomeController
+from packages.controllers.tournament import TournamentController
 
 
 class HomeMenu:
@@ -11,5 +14,5 @@ class HomeMenu:
         welcome()
 
     def __call__(self):        
-        menu = MenuController(name=self.name, choice=None)
-        menu()    
+        tournament = TournamentController()
+        tournament()    

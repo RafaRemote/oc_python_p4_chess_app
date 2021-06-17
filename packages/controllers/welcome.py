@@ -1,3 +1,5 @@
+""" docstrings """
+
 from packages.models.welcome import WelcomeModel
 from packages.views.welcome import WelcomeView
 
@@ -11,4 +13,3 @@ class WelcomeController:
         res = welcome().__dict__.get('message')
         welcomeview = WelcomeView(res)
         welcomeview()
-        
