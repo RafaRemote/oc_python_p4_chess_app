@@ -1,1 +1,17 @@
-[['1', '17/06/2021, 22:44:39', None, [<packages.models.match.MatchModel object at 0x10c113af0>, <packages.models.match.MatchModel object at 0x10c113b50>, <packages.models.match.MatchModel object at 0x10c113c70>, <packages.models.match.MatchModel object at 0x10c113d90>]]]
+
+people = ['jean', 'marguerite']
+
+
+
+# name = ''
+
+# for i in people:
+#     name += i + ', '
+
+# print(name)
+
+boba = ''
+y = [str(boba+x) for x in people]
+
+
+print(y)

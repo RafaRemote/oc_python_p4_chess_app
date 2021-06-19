@@ -1,7 +1,5 @@
 """ docstrings """
 
-import datetime
-
 TOTALROUNDS = 4
 PLACE = 'Paris'
 class TournamentModel:
@@ -13,12 +11,15 @@ class TournamentModel:
         self.place = PLACE
         self.total_rounds = TOTALROUNDS
         self.rounds = list()
+        self.players = list()
 
 
-    def update_tour(self, round_number, round_start_date, round_end_date, round_matches):
+    def update_tour(tour_info, players, round_number, round_start_date, round_end_date, round_matches):
         round = [round_number, round_start_date, round_end_date, round_matches]
-        self.rounds.append(round)
-        return self
+        tour_info.rounds.append(round)
+        if len(tour_info.players) == 0:
+            tour_info.players.append(players)
+        return tour_info
 
     def update_tour_round(tour_info, round_number, round_start_date, round_end_date, round_matches):
         round = [round_number, round_start_date, round_end_date, round_matches]

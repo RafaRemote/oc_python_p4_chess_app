@@ -1,4 +1,4 @@
-""" docstrings """
+""" tournament view returns user inputs about tournament details """
 
 import datetime
 import time
@@ -40,7 +40,7 @@ class TournamentView:
             print(colored('the only options availabe are bullet, blitz or rapid.', 'red'))
             print('try again')
             print()
-            self.get_time_control()
+            return self.get_time_control()
         else:
             return time_control
 

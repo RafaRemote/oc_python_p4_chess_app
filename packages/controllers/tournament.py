@@ -1,7 +1,6 @@
 """ docstrings """
 
 from packages.controllers.menu import MenuController
-
 from packages.views.tournament import TournamentView
 from packages.models.tournament import TournamentModel
 

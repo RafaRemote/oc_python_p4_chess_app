@@ -7,10 +7,8 @@ menus = {
             'enter results for round2',
             'enter results for round3',
             'enter results for round4',
-            'show players details',
-            'show tournament ranking',
+            'show ranking',
             'show tournament details',
-            'show current state of the tournament'
         ]
 }
 

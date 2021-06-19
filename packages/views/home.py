@@ -1,9 +1,7 @@
 """ docstrings """
 
-from packages.controllers.menu import MenuController
 from packages.controllers.welcome import WelcomeController
 from packages.controllers.tournament import TournamentController
-
 
 class HomeMenu:
     def __init__(self):

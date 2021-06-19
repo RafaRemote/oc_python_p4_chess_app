@@ -2,6 +2,7 @@
 
 from packages.views.scoring import ScoringView
 from packages.controllers.round import RoundController
+from packages.models.match import MatchModel
 
 
 class ScoringController:
@@ -16,8 +17,15 @@ class ScoringController:
 
     def __call__(self):
         score_inputs = ScoringView(self.round_number, self.matches)
-        tour_info = RoundController.update_tour(self.tour_info, score_inputs())
+        inputs = score_inputs()
+        list_matches = [] 
+        for i in inputs.matches:
+            player1 = i.player1[0]
+            score1 = i.player1[0].score
+            player2 = i.player2[0]
+            score2 = i.player2[0].score
+            list_matches.append(MatchModel(player1, player2, score1, score2))
+        inputs.matches = []
+        inputs.matches = list_matches
+        tour_info = RoundController.update_tour(self.tour_info, inputs)
         return tour_info
-
-
-
