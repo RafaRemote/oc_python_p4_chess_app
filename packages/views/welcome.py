@@ -22,7 +22,7 @@ class WelcomeView:
                          justify="center")
         table.add_row(self.sub_title)
         console.print(table)
-        time.sleep(3)
+        time.sleep(0)
 
     def __call__(self):
         self.clean_sentence(self.message)

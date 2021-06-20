@@ -19,19 +19,22 @@ class MenuView:
         while i < 1:
             print()
             choice = input('your choice ?: ')
-            if choice.isnumeric() and int(choice) in range(1, len(self.choice_list)+1):
+            if choice.isnumeric() and int(choice) in range(0, len(self.choice_list)):
                 i += 1
                 return choice
             else:
-                print(colored('you need to choose between 1 and', 'red'), len(self.choice_list))
+                print(colored('you need to choose between 0 and', 'red'), len(self.choice_list)-1)
 
     def __call__(self):
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
-        table = Table(title=colored(self.name.upper(), 'magenta'), show_header=True, header_style="bold blue")
+        if self.name is not None:
+            table = Table(title=colored(self.name.upper(), 'magenta'), show_header=True, header_style="bold blue")
+        else:
+            table = Table(show_header=True, header_style="bold blue")
         table.add_column('choice', justify="center")
         table.add_column('option')
-        counter = 0
+        counter = -1
         for i in self.choice_list:
             table.add_row(str(counter + 1), i)
             counter += 1

@@ -2,12 +2,14 @@
 
 menus = {
         "homemenu": [
+            'create tournament',
             'add players',
             'enter results for round1',
             'enter results for round2',
             'enter results for round3',
             'enter results for round4',
-            'show ranking'
+            'show ranking',
+            'show opponents'
         ]
 }
 

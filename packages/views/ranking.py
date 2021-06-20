@@ -1,4 +1,4 @@
-""" display the details about the players at instant t """
+""" display the details about the players """
 
 import os
 
@@ -40,4 +40,5 @@ class RankingView:
             if back_home == 'y':
                 return 'y'
             else:
-                print(colored('You did not type the good key. Type \'y\' to go back to the menu', 'red'))
+                print(colored('You did not type the good key. Type \'y\' to go back to the menu',
+                              'red'))

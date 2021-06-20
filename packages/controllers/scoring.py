@@ -12,7 +12,7 @@ class ScoringController:
         self.matches = self.get_matches()
 
     def get_matches(self):
-        matches = self.tour_info.__dict__.get('rounds')[self.round_number-2][3]
+        matches = self.tour_info.__dict__.get('rounds')[self.round_number-1][3]
         return matches
 
     def __call__(self):
@@ -27,5 +27,8 @@ class ScoringController:
             list_matches.append(MatchModel(player1, player2, score1, score2))
         inputs.matches = []
         inputs.matches = list_matches
-        tour_info = RoundController.update_tour(self.tour_info, inputs)
-        return tour_info
+        tour_info = RoundController.update_tour(tour_info=self.tour_info, 
+                                                score_info=inputs
+                                                )
+        update_tour = tour_info()
+        return update_tour()

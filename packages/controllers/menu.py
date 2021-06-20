@@ -1,6 +1,7 @@
 """ controller returning a view for the menus """
 # import time
 
+from packages.controllers.tournament import TournamentController
 from packages.controllers.round import RoundController
 from packages.controllers.scoring import ScoringController
 from packages.controllers.ranking import RankingController
@@ -8,6 +9,7 @@ from packages.models.menu import MenuModel
 from packages.views.menu import MenuView
 from packages.views.error import Error
 from packages.views.quit import QuitView
+from packages.views.opponents import OpponentsView
 
 home_name = 'HomeMenu'
 
@@ -27,74 +29,107 @@ class MenuController:
                 'gender': ['m', 'w', 'm', 'w', 'w', 'm', 'm', 'm'],
                 'elo': ['1100', '1900', '1300', '3000', '1050', '1500', '2000', '6000']
                 }
-        round1 = RoundController(self.tour_info, round_number, players)
-        round = round1.round1()
-        back_home = MenuController(tour_info=round, name=home_name, choice=None)
+        round1 = RoundController(tour_info=self.tour_info,
+                                 round_number=round_number,
+                                 players=players
+                                 )
+        tour_info = round1.round1()     
+        back_home = MenuController(tour_info=tour_info,
+                                   name=home_name,
+                                   choice=None
+                                   )
         back_home()
 
-    def enter_1stround_score(self, round_number):
-        round_number = round_number-1
-        score = ScoringController(self.tour_info, round_number)
+    def add_round(self, round_number):
+        score = ScoringController(tour_info=self.tour_info,
+                                  round_number=round_number
+                                  )
         tour_info = score()
-        back_home = MenuController(tour_info=tour_info, name=home_name, choice=None)
+        next_round = RoundController.round_above_1(tour_info, round_number)
+        updated_tour_info = next_round()
+        back_home = MenuController(tour_info=updated_tour_info,
+                                   name=home_name,
+                                   choice=None
+                                   )
         back_home()
 
-    def enter_round_score(self, round_number):
-        round_number = round_number-1
-        score = RoundController.round_above_1(self.tour_info, round_number)
-        updated_tour = score()
-        scoring = ScoringController(updated_tour, round_number)
-        scoring()
-        tour_info = scoring.__dict__['tour_info']
-        back_home = MenuController(tour_info, name=home_name, choice=None)
-        back_home()
+    def manage_error(self, error):
+        if error.option == 'y':
+            menu = MenuController(self.tour_info, name=home_name, choice=None)
+            menu()
+        else:
+            quit = QuitView('Bye, bye')
+            quit()
 
     def __call__(self):
         if self.name == home_name:
-            menu = MenuModel(home_name.lower(), self.choice)
-            name = self.tour_info().__dict__.get('tour_title') + ' Chess Tournament' + ' MENU '
+            menu = MenuModel(name=home_name.lower(),
+                             choice=self.choice
+                             )
+            if self.tour_info is not None:
+                name = self.tour_info().__dict__.get('tour_title') + ' Chess Tournament' + ' MENU '
+            else:
+                name = None
             choice_list = menu().__dict__.get('choice_list')
-            menuview = MenuView(name, choice_list, choice=None)
+            menuview = MenuView(name=name,
+                                choice_list=choice_list,
+                                choice=None
+                                )
             user_input = menuview()
             user_choice = int(user_input.__dict__.get('choice'))
-            len_rounds = len(self.tour_info.__dict__.get('rounds'))
-            if user_choice == 1 and len_rounds == 0:
-                self.manage_choice()
-            elif user_choice == 1 and len_rounds > 0:
-                error = Error('There is already a set of user.')
-                if error().__dict__.get('option') == 'y':
-                    menu = MenuController(tour_info=self.tour_info, name=home_name, choice=None)
-                    menu()
+            if user_choice == 0 and self.tour_info is None :
+                tournament = TournamentController()
+                self.tour_info = tournament()
+                menu = MenuController(tour_info=self.tour_info, name=self.name, choice=None)
+                menu()
+            elif user_choice == 0 and self.tour_info is not None:
+                error = Error('Details of the tournament are already entered')
+                err = error()
+                self.manage_error(self.tour_info, err)
+                
+            elif self.tour_info is not None:
+                len_rounds = len(self.tour_info.__dict__.get('rounds'))
+                if user_choice == 1 and len_rounds == 0:
+                    self.manage_choice()
+                elif user_choice == 1 and len_rounds >= 0:
+                    error = Error('There is already a set of user.')
+                    self.manage_error(self.tour_info, error())
+                elif user_choice == 2 and len_rounds == 1:
+                    round = 1
+                    self.add_round(round)
+                elif user_choice == 3 and len_rounds == 2:
+                    round = 2
+                    self.add_round(round)
+                elif user_choice == 4 and len_rounds == 3:
+                    round = 3
+                    self.add_round(round)
+                elif user_choice == 5 and len_rounds == 4:
+                    round = 4 
+                    self.add_round(round)
+                elif user_choice == 6:
+                    player_info = RankingController(tour_info=self.tour_info)
+                    res = player_info()
+                    if res is None:
+                        back_home = MenuController(tour_info=self.tour_info,
+                                                name=home_name,
+                                                choice=None
+                                                )
+                        back_home()
+                elif user_choice == 7:
+                    show_opponents = OpponentsView(self.tour_info)
+                    res = show_opponents()
+                    if res == 'y':
+                        back_home = MenuController(tour_info=self.tour_info,
+                                                name=home_name,
+                                                choice=None
+                                                )
+                        back_home()
+
                 else:
-                    quit = QuitView('See you soon!')
-                    quit()
-            elif int(user_choice) in range(2, 10) and len_rounds == 0:
-                error = Error('You need to add players first. Please select \'1\'')
-                if error().__dict__.get('option') == 'y':
-                    menu = MenuController(tour_info=self.tour_info, name=home_name, choice=None)
-                    menu()
-                else:
-                    quit = QuitView('See you soon!')
-                    quit()
-            elif user_choice == 2 and len_rounds == 1:
-                self.enter_1stround_score(user_choice)
-            elif user_choice == 3 and len_rounds == 1:
-                self.enter_round_score(user_choice)
-            elif user_choice == 4 and len_rounds == 2:
-                self.enter_round_score(user_choice)
-            elif user_choice == 5 and len_rounds == 3:
-                self.enter_round_score(user_choice)
-            elif user_choice == 6:
-                player_info = RankingController(self.tour_info)
-                res = player_info()
-                if res is None:
-                    back_home = MenuController(self.tour_info, name=home_name, choice=None)
-                    back_home()
+                    error = Error('Attention: you need to enter the scores round after round')
+                    err = error()
+                    self.manage_error(err)
             else:
-                error = Error('Attention please: you need to enter the scores round after round')
-                if error().__dict__.get('option') == 'y':
-                    menu = MenuController(tour_info=self.tour_info, name=home_name, choice=None)
-                    menu()
-                else:
-                    quit = QuitView('See you soon!')
-                    quit()
+                error = Error('no tournament existing yet')
+                err = error()
+                self.manage_error(err)

@@ -1,2 +1,3 @@
 env/
 flake-report/
+__pycache__/

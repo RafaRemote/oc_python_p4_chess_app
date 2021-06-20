@@ -1,5 +1,5 @@
 """ docstrings """
-
+import time 
 TOTALROUNDS = 4
 PLACE = 'Paris'
 
@@ -27,7 +27,11 @@ class TournamentModel:
             tour_info.players.append(players)
         return tour_info
 
-    def update_tour_round(tour_info, round_number, round_start_date, round_end_date, round_matches):
+    def update_tour_round(tour_info,
+                          round_number,
+                          round_start_date,
+                          round_end_date,
+                          round_matches):
         round = [round_number, round_start_date, round_end_date, round_matches]
         del tour_info.__dict__['rounds'][round_number-1]
         tour_info.__dict__['rounds'].append(round)

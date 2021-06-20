@@ -16,7 +16,7 @@ class TournamentView:
 
     def display_title(self):
         os.system('cls' if os.name == 'nt' else 'clear')
-        print(colored('      FIRST OF ALL: INPUT TOURNAMENT INFORMATIONS',
+        print(colored('      ENTER TOURNAMENT INFORMATIONS',
                       'magenta'
                       ))
         print()

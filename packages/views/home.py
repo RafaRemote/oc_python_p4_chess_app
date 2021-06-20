@@ -1,17 +1,19 @@
 """ docstrings """
 
 from packages.controllers.welcome import WelcomeController
-from packages.controllers.tournament import TournamentController
+from packages.controllers.menu import MenuController
 
 
 class HomeMenu:
     def __init__(self):
-        self.name = 'HomeMenu'
+        self.name = self.__class__.__name__
 
     def welcome(self):
         welcome = WelcomeController()
         welcome()
 
     def __call__(self):
-        tournament = TournamentController()
-        tournament()
+        menu = MenuController(tour_info=None,
+                              name=self.name,
+                              choice=None)
+        menu()

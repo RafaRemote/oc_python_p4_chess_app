@@ -22,10 +22,7 @@ class ScoringView:
         super_title.add_column(player2_surname, justify="center")
         super_title.add_row(f'ELO {player1_elo}', f'ELO {player2_elo}')
         console.print(super_title)
-        print()
-        print(colored(' >>> Type \'y\', \'n\' or \'d\' for draw match <<< ', 'cyan'))
-        print()
-        score = input(f'Did {player1_surname} won ?: ')
+        score = input(f'Did {player1_surname} won ? (\'y\' for yes, \'n\' for now, \'d\' for draw): ')
         print()
         if score == 'y':
             return 1.0
@@ -64,6 +61,7 @@ class ScoringView:
                 match_score1 += 0.5
                 player2.score += 0.5
                 match_score2 += 0.5
+            print()
             table = Table(title=colored("SCORES MATCH "+str(counter)), show_header=True, header_style="bold blue")
             table.add_column("Name", style="dim")
             table.add_column("Surname")
@@ -72,5 +70,5 @@ class ScoringView:
             table.add_row(str(player2.name), str(player2.surname), str(match_score2))
             console.print(table)
             print()
-            time.sleep(3)
+            time.sleep(0)
         return self

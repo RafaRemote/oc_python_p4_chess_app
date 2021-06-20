@@ -20,6 +20,6 @@ class Error:
         print()
         print(colored('*** ' + self.message.upper() + ' ***', 'red'))
         print()
-        option = input('do you want to try again ? y/n: ')
+        option = input('do you want to try again ? \'y\' for yes, any other key to quit: ')
         self.option = option.lower()
         return self

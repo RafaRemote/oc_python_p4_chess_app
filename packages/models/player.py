@@ -15,8 +15,10 @@ class PlayerModel:
         # list_players = tour_info.__dict__['players'][0]
         list_matches = tour_info.__dict__['rounds'][int(round_number)-1][3]
         for i in list_matches:
-            i.player1[0].opponents.append(i.player2[0])
-            i.player2[0].opponents.append(i.player1[0])
+            if i.player2[0] not in i.player1[0].opponents:
+                i.player1[0].opponents.append(i.player2[0])
+            if i.player1[0] not in i.player2[0].opponents:
+                i.player2[0].opponents.append(i.player1[0])
         return tour_info
 
     def __call__(self):

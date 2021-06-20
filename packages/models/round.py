@@ -17,7 +17,8 @@ class RoundModel:
 
     def __call__(self):
         if self.number != '1':
-            self.matches.append(self.next_matches)
+            for i in self.next_matches:
+                self.matches.append(i)
         else:
             for i in range(0, len(self.players[0])):
                 self.matches.append(MatchModel(self.players[0][i], self.players[1][i], score1=0.0, score2=0.0))
