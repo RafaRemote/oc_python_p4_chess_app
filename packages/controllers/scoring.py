@@ -18,12 +18,12 @@ class ScoringController:
     def __call__(self):
         score_inputs = ScoringView(self.round_number, self.matches)
         inputs = score_inputs()
-        list_matches = [] 
+        list_matches = []
         for i in inputs.matches:
             player1 = i.player1[0]
-            score1 = i.player1[0].score
+            score1 = i.player1[1]
             player2 = i.player2[0]
-            score2 = i.player2[0].score
+            score2 = i.player2[1]
             list_matches.append(MatchModel(player1, player2, score1, score2))
         inputs.matches = []
         inputs.matches = list_matches

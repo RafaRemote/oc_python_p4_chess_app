@@ -6,6 +6,7 @@ import os
 
 from termcolor import colored
 
+
 class TournamentView:
     def __init__(self):
         self.tour_title = self.get_name()
@@ -15,10 +16,11 @@ class TournamentView:
 
     def display_title(self):
         os.system('cls' if os.name == 'nt' else 'clear')
-        print(colored('      FIRST OF ALL: INPUT TOURNAMENT INFORMATIONS', 'magenta'))
+        print(colored('      FIRST OF ALL: INPUT TOURNAMENT INFORMATIONS',
+                      'magenta'
+                      ))
         print()
         print()
-
 
     def get_name(self):
         self.display_title()
@@ -28,8 +30,8 @@ class TournamentView:
             print(colored('You have enterd too many characters, the max is 20', 'red'))
             print('try again')
             print()
-            self.get_name() 
-        else: 
+            self.get_name()
+        else:
             return name
 
     def get_time_control(self):
@@ -46,7 +48,7 @@ class TournamentView:
 
     def get_description(self):
         description = input('Enter a description for the tournament: ')
-        if len(description)  > 500:
+        if len(description) > 500:
             print(colored('You have enterd too many characters, the max is 500', 'red'))
             print('try again')
             print()

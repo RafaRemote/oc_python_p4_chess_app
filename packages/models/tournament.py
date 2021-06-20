@@ -2,6 +2,8 @@
 
 TOTALROUNDS = 4
 PLACE = 'Paris'
+
+
 class TournamentModel:
     def __init__(self, tour_title, tour_time_control, tour_description, tour_start_date):
         self.tour_title = tour_title
@@ -13,8 +15,12 @@ class TournamentModel:
         self.rounds = list()
         self.players = list()
 
-
-    def update_tour(tour_info, players, round_number, round_start_date, round_end_date, round_matches):
+    def update_tour(tour_info,
+                    players,
+                    round_number,
+                    round_start_date,
+                    round_end_date,
+                    round_matches):
         round = [round_number, round_start_date, round_end_date, round_matches]
         tour_info.rounds.append(round)
         if len(tour_info.players) == 0:

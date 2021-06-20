@@ -2,6 +2,7 @@
 
 from packages.views.ranking import RankingView
 
+
 class RankingController:
     def __init__(self, tour_info):
         self.tour_info = tour_info

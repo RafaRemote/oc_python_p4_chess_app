@@ -6,8 +6,8 @@ from termcolor import colored
 
 
 class Error:
-    """ expect a string 
-    
+    """ expect a string
+
     returns the name of the class from where comes the error and y or n to continue or quit
     """
 

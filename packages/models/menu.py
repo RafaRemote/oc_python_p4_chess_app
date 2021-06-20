@@ -1,16 +1,16 @@
 """ model for the menus"""
 
 menus = {
-        "homemenu" : [
+        "homemenu": [
             'add players',
             'enter results for round1',
             'enter results for round2',
             'enter results for round3',
             'enter results for round4',
-            'show ranking',
-            'show tournament details',
+            'show ranking'
         ]
 }
+
 
 class MenuModel:
     def __init__(self, name, choice):

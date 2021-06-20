@@ -5,6 +5,7 @@ import time
 
 from termcolor import colored
 
+
 class PlayerView:
     def __init__(self):
         self.name = []

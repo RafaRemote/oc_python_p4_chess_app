@@ -2,21 +2,30 @@
 
 import time
 import os
+
 from termcolor import colored
+from rich.console import Console
+from rich.table import Table
+
 
 class ScoringView:
     def __init__(self, round_number, matches):
         self.round_number = round_number
         self.matches = matches
 
-    def check_score(self, player1_surname, player1_elo, player2_surname, player2_elo):
+    def check_score(self, player1_surname, player1_elo, player2_surname, player2_elo, counter):
+        console = Console()
+        super_title = Table(title=colored('MATCH ', 'yellow')+str(counter),
+                            show_header=True,
+                            header_style="bold yellow")
+        super_title.add_column(player1_surname, justify="center")
+        super_title.add_column(player2_surname, justify="center")
+        super_title.add_row(f'ELO {player1_elo}', f'ELO {player2_elo}')
+        console.print(super_title)
         print()
-        print(colored('MATCH ','yellow'), colored(f' -- >> {player1_surname} (elo: {player1_elo}) VS {player2_surname} (elo: {player2_elo}) ', 'yellow'))
-        print('--------')
+        print(colored(' >>> Type \'y\', \'n\' or \'d\' for draw match <<< ', 'cyan'))
         print()
-        print(colored('[ >>> Type \'y\', \'n\' or \'d\' for draw match <<< ]','cyan'))
-        print()
-        score = input('score ?: ')
+        score = input(f'Did {player1_surname} won ?: ')
         print()
         if score == 'y':
             return 1.0
@@ -26,25 +35,42 @@ class ScoringView:
             return 0.5
         else:
             print(colored(f'[[[  {score}  ]]] is not correct. You need to choose between: 0, 0.5 or 1', 'red'))
-            self.check_score(player1_surname, player1_elo, player2_surname, player2_elo)
+            self.check_score(player1_surname, player1_elo, player2_surname, player2_elo, counter)
 
     def __call__(self):
         os.system('cls' if os.name == 'nt' else 'clear')
-        print(colored(f'ENTER THE RESULT FOR ROUND {self.round_number}', 'magenta'))
+        console = Console()
+        welcome = Table(show_header=True, header_style="yellow")
+        welcome.add_column('SCORES INPUTS', justify="center")
+        welcome.add_row('ROUND ' + str(self.round_number))
+        console.print(welcome)
+        print()
+        counter = 0
         for i in self.matches:
+            counter += 1
             player1 = i.__dict__['player1'][0]
+            match_score1 = i.__dict__['player1'][1]
             player2 = i.__dict__['player2'][0]
-            points = self.check_score(player1.surname, player1.elo, player2.surname, player2.elo)
+            match_score2 = i.__dict__['player2'][1]
+            points = self.check_score(player1.surname, player1.elo, player2.surname, player2.elo, counter)
             if points == 1.0:
                 player1.score += 1.0
+                match_score1 += 1.0
             elif points == 0.0:
                 player2.score += 1.0
+                match_score2 += 1.0
             elif points == 0.5:
                 player1.score += 0.5
+                match_score1 += 0.5
                 player2.score += 0.5
+                match_score2 += 0.5
+            table = Table(title=colored("SCORES MATCH "+str(counter)), show_header=True, header_style="bold blue")
+            table.add_column("Name", style="dim")
+            table.add_column("Surname")
+            table.add_column("score", justify="center")
+            table.add_row(str(player1.name), str(player1.surname), str(match_score1))
+            table.add_row(str(player2.name), str(player2.surname), str(match_score2))
+            console.print(table)
             print()
-            print('Player Score for this match')
-            print(player1.surname, ':', player1.score)
-            print(player2.surname, ':', player2.score)
-            time.sleep(1)
+            time.sleep(3)
         return self

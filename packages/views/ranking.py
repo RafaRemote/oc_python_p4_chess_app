@@ -25,13 +25,19 @@ class RankingView:
         table.add_column("Elo", justify="center")
         table.add_column("Score", justify="center")
         for i in self.info:
-            table.add_row(  str(i.name),
-                            str(i.surname),
-                            str(i.year_birth),
-                            str(i.gender),
-                            str(i.elo),
-                            str(i.score)
-                        )
+            table.add_row(str(i.name),
+                          str(i.surname),
+                          str(i.year_birth),
+                          str(i.gender),
+                          str(i.elo),
+                          str(i.score)
+                          )
         console.print(table)
         print('\n' * 2)
-    
+        i = 0
+        while i < 1:
+            back_home = input('Type \'y\' to come back to the menu.')
+            if back_home == 'y':
+                return 'y'
+            else:
+                print(colored('You did not type the good key. Type \'y\' to go back to the menu', 'red'))

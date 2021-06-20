@@ -10,6 +10,7 @@ class WelcomeController:
 
     def __call__(self):
         welcome = WelcomeModel()
-        res = welcome().__dict__.get('message')
-        welcomeview = WelcomeView(res)
+        message = welcome.message
+        sub_title = welcome.sub_title
+        welcomeview = WelcomeView(message, sub_title)
         welcomeview()
