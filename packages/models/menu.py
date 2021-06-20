@@ -8,7 +8,8 @@ menus = {
             'enter results for round2',
             'enter results for round3',
             'enter results for round4',
-            'show ranking',
+            'show ranking per score',
+            'show players per alphabetical order',
             'show opponents'
         ]
 }

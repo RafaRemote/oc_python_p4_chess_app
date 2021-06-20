@@ -51,73 +51,34 @@ class RoundController:
         list_players = []
         for i in tour_info.players[0]:
             list_players.append(i)
+        list_matches = []
+        for i in tour_info.rounds[0][3]:
+            list_matches.append((i.player1[0], i.player1[0].surname, i.player2[0], i.player2[0].surname))
         matches_list = list()
-        while list_players != 0:
-            try:
-                i = 0
-                player1 = list_players[i]
-                player2 = list_players[i+1]
-                if player2.surname not in player1.opponents:
-                    print('match', player1.surname, player2.surname)
-                    player1.opponents.append(player2)
-                    
-
-                    player2 = list_players[i + 2]
-                else:
-
-                    player2 = list_players[i+1]
+        while len(list_players) != 0:
+            i=0
+            player1 = list_players[i]
+            player2 = list_players[i+1]
+            while player2.elo in player1.opponents:
+                try:
                     i += 1
-            except IndexError:
-                break
-        del list_players[i]
-        print(player1.surname)
-        print(player2.surname)
-            
-        # while len(list_players) != 0:
-        #     i = 0
-        #     player1 = list_players[i]
-        #     player2 = list_players[i+1]
-        #     while player2.elo in player1.opponents:
-        #         try:
-        #             i += 1
-        #             player2 = list_players[i+1]
-        #         except IndexError:
-        #             player2 = list_players[1]
-        #             break
-        #     matches_list.append(MatchModel(player1=player1,
-        #                                    player2=player2
-        #                                    ))
-       
-        #     if player2 not in player1.opponents:
-        #         player1.opponents.append(player2)
-        #     if player1 not in player2.opponents:
-        #         player2.opponents.append(player1)
-            
-
-        #     del list_players[0]
-        #     del list_players[i]
-        #     for i in player1.opponents:
-        #         print(player1.surname, ' : ', i.surname)
-        #     import time
-        #     time.sleep(3)
-
- 
-        next_round = RoundModel(tour_info=tour_info,
-                                number=round_number+1,
-                                players=tour_info.players,
-                                next_matches=matches_list
-                                )
+                    player2 = list_players[i+1]
+                except IndexError:
+                    player2 = list_players[1]
+                    break
+            matches_list.append(MatchModel(player1, player2))
+            del list_players[0]
+            del list_players[i]
+        next_round = RoundModel(tour_info, round_number, tour_info.players, matches_list)
         round = next_round()
-        update = TournamentModel.update_tour(tour_info=round.tour_info,
-                                             players=round.players,
-                                             round_number=round.number,
-                                             round_start_date=round.start_date,
-                                             round_end_date=round.end_date,
-                                             round_matches=round.next_matches
-                                             )
-        tour_info = update()
-
-        return tour_info
+        update = TournamentModel.update_tour(    round.tour_info,
+                                        round.players,
+                                        round.number,
+                                        round.start_date,
+                                        round.end_date,
+                                        round.matches
+                                    )
+        return update()
 
     def update_tour(tour_info, score_info):
         score = score_info.__dict__

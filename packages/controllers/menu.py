@@ -7,6 +7,7 @@ from packages.controllers.scoring import ScoringController
 from packages.controllers.ranking import RankingController
 from packages.models.menu import MenuModel
 from packages.views.menu import MenuView
+from packages.views.round import RoundView
 from packages.views.error import Error
 from packages.views.quit import QuitView
 from packages.views.opponents import OpponentsView
@@ -107,7 +108,9 @@ class MenuController:
                     round = 4 
                     self.add_round(round)
                 elif user_choice == 6:
-                    player_info = RankingController(tour_info=self.tour_info)
+                    choice = "score"
+                    player_info = RankingController(tour_info=self.tour_info,
+                                                    choice=choice)
                     res = player_info()
                     if res is None:
                         back_home = MenuController(tour_info=self.tour_info,
@@ -116,7 +119,28 @@ class MenuController:
                                                 )
                         back_home()
                 elif user_choice == 7:
+                    choice = "alpha"
+                    player_info = RankingController(tour_info=self.tour_info,
+                                                    choice=choice)
+                    res = player_info()
+                    if res is None:
+                        back_home = MenuController(tour_info=self.tour_info,
+                                                name=home_name,
+                                                choice=None
+                                                )
+                        back_home()
+
+                elif user_choice == 8:
                     show_opponents = OpponentsView(self.tour_info)
+                    res = show_opponents()
+                    if res == 'y':
+                        back_home = MenuController(tour_info=self.tour_info,
+                                                name=home_name,
+                                                choice=None
+                                                )
+                        back_home()
+                elif user_choice == 9:
+                    show_opponents = RoundView(self.tour_info)
                     res = show_opponents()
                     if res == 'y':
                         back_home = MenuController(tour_info=self.tour_info,
