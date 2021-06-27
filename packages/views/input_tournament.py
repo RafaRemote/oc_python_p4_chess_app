@@ -25,7 +25,7 @@ class InputTournamentView:
         if len(name) > max:
             print(colored(f'You have entered too many characters, the max is {max}', 'red'))
             time.sleep(1)
-            return  False           
+            return False
         else:
             return True
 

@@ -1,21 +1,19 @@
 """ controller returning a view for the menus """
-from packages.views.input_player import InputPlayerView
-from packages.views.ranking import RankingView
-from packages.models.match import MatchModel
-from packages.views.scoring import ScoringView
+
 import time
 import datetime
-from termcolor import colored
 
-from packages.models.tournament import TournamentModel, tournaments_list
 from packages.controllers.tournament import TournamentController
-from packages.controllers.round import RoundController
-from packages.models.menu import MenuModel
+from packages.views.ranking import RankingView
+from packages.views.scoring import ScoringView
 from packages.views.menu import MenuView
 from packages.views.quit import QuitView
 from packages.views.error import Error
 from packages.views.round import RoundView
 from packages.views.match import MatchView
+from packages.models.menu import MenuModel
+from packages.models.match import MatchModel
+from packages.models.tournament import tournaments_list
 
 
 class MenuController:
@@ -42,23 +40,23 @@ class MenuController:
             menu()
 
     def manage_list_choice(self, choice):
-        """ handle choice in list of tournaments 
+        """ handle choice in list of tournaments
         """
         checker_menu = MenuModel()
         menu_length = len(checker_menu.all_tournaments_menu)
         if choice == 0:
             menu = MenuController(self.tour_info)
             menu()
-        elif choice == menu_length-2:
+        elif choice == 1:
             tournament = TournamentController()
             tournament()
             menu = MenuController(self.tour_info)
             menu()
-        elif choice == menu_length -1:
+        elif choice == menu_length - 1:
             quit = QuitView('The app is shutting down.')
             quit()
         elif choice in range(0, menu_length-1):
-            self.tour_info = tournaments_list[int(choice)-1]
+            self.tour_info = tournaments_list[int(choice)-2]
             choice = TournamentController.show_one(self.tour_info)
             self.manage_tour_details_choice(choice)
         else:
@@ -131,15 +129,3 @@ class MenuController:
 
     def __call__(self):
         self.select_handler()
-
-
-# if len(self.tour_info.players) == 8:
-#                 error = Error('There is already a set of registered players')
-#                 error()
-#                 choice = TournamentController.show_one(self.tour_info)
-#                 self.manage_tour_details_choice(choice)
-#             else: 
-#                 player = InputPlayerView()
-#                 players = player()
-#                 print(players)
-#                 exit()

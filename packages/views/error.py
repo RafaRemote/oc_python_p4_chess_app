@@ -12,7 +12,7 @@ class Error:
     ----------
 
     message: string to be printed
-    
+
 
     Methods
     -------

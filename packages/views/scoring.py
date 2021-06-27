@@ -1,6 +1,5 @@
 """ docstrings """
 
-import time
 import os
 
 from termcolor import colored
@@ -34,12 +33,12 @@ class ScoringView:
         elif score == 'd':
             return 0.5
         else:
-            print(colored(f'[[[  {score}  ]]] is not correct. You need to choose between: \'y\', \'n\' or \'d\'', 'red'))
+            print("[red]"+"invalid choice: you need to choose between: \'y\', \'n\' or \'d\'")
             self.check_score(player1_surname, player1_elo, player2_surname, player2_elo, counter)
 
     def __call__(self):
         os.system('cls' if os.name == 'nt' else 'clear')
-       
+
         counter = 0
 
         for i in self.matches:

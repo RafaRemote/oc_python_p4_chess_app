@@ -9,7 +9,7 @@ from rich import print
 
 
 class TournamentView:
-    def __init__(self, tour_info, menu):      
+    def __init__(self, tour_info, menu):
         self.tour_info = tour_info
         self.menu = menu
         self.choice = None
@@ -17,8 +17,8 @@ class TournamentView:
     def print_tournament_details(self):
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
-        table = Table(title=colored(self.tour_info.tour_title + ' CHESS TOURNAMENT','magenta'),
-                      show_header=True, 
+        table = Table(title=colored(self.tour_info.tour_title + ' CHESS TOURNAMENT', 'magenta'),
+                      show_header=True,
                       header_style="bold magenta"
                       )
         table.add_column('Denomination')
@@ -27,7 +27,7 @@ class TournamentView:
         table.add_row("Place", self.tour_info.place)
         table.add_row("Start Date", self.tour_info.tour_start_date[:10])
         table.add_row("Time-Control", self.tour_info.tour_time_control)
-        table.add_row("Description", self.tour_info.tour_description) 
+        table.add_row("Description", self.tour_info.tour_description)
         table.add_row("Total Rounds", str(self.tour_info.total_rounds))
         table.add_row("Players", str(len(self.tour_info.players)))
         table.add_row("Matches per Round", str(len(self.tour_info.rounds[0].matches)))

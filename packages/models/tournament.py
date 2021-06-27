@@ -1,7 +1,6 @@
 """ docstrings """
 
 import datetime
-import time
 
 from packages.models.player import PlayerModel
 
@@ -30,6 +29,6 @@ class TournamentModel:
         self.total_rounds = TOTALROUNDS
         self.rounds = list()
         self.players = players
-    
+
     def __call__(self):
         return self

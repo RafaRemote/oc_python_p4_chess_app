@@ -2,13 +2,13 @@
 
 start_menu = ['create a new tournament',
               'choose en existing tournament'
-             ]
+              ]
 
 
 all_tournaments_menu = ['Previous',
                         'Create new tournament',
                         'Quit'
-                       ]
+                        ]
 
 tournament_menu = ['Show All Tournaments',
                    'Add players',
@@ -18,6 +18,7 @@ tournament_menu = ['Show All Tournaments',
                    'Players menu',
                    'Quit'
                    ]
+
 
 class MenuModel:
     def __init__(self):

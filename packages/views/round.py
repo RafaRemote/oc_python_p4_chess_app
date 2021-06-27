@@ -19,9 +19,9 @@ class RoundView:
         table.add_column('Start Date')
         table.add_column('End Date')
         for i in self.rounds:
-            if i.start_date == None:
+            if i.start_date is None:
                 i.start_date = 'not yet'
-            if i.end_date == None:
+            if i.end_date is None:
                 i.end_date = 'not yet'
             table.add_row("Round"+str(i.number), i.start_date, i.end_date)
         console.print(table)

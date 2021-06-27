@@ -2,7 +2,7 @@ import os
 
 from termcolor import colored
 from rich.console import Console
-from rich.table import Column, Table
+from rich.table import Table
 from rich import print
 
 
@@ -22,29 +22,29 @@ class MatchView:
         for round in self.rounds:
             for match in round.matches:
                 if match.player1[1] == 0.0 and match.player2[1] == 0.0:
-                    table.add_row("[orange1]"+str(round.number), 
-                                "[orange1]"+match.player1[0].surname, 
-                                "[orange1]"+str(match.player1[1]), 
-                                "[orange1]"+str(match.player2[1]),
-                                "[orange1]"+match.player2[0].surname,
-                                )
+                    table.add_row("[orange1]"+str(round.number),
+                                  "[orange1]"+match.player1[0].surname,
+                                  "[orange1]"+str(match.player1[1]),
+                                  "[orange1]"+str(match.player2[1]),
+                                  "[orange1]"+match.player2[0].surname,
+                                  )
                 elif round.number == 2 or round.number == 4:
-                    table.add_row("[yellow]"+str(round.number), 
-                                        "[yellow]"+match.player1[0].surname, 
-                                        "[yellow]"+str(match.player1[1]), 
-                                        "[yellow]"+str(match.player2[1]),
-                                        "[yellow]"+match.player2[0].surname,
-                                        )
+                    table.add_row("[yellow]"+str(round.number),
+                                  "[yellow]"+match.player1[0].surname,
+                                  "[yellow]"+str(match.player1[1]),
+                                  "[yellow]"+str(match.player2[1]),
+                                  "[yellow]"+match.player2[0].surname,
+                                  )
                 else:
-                    table.add_row("[green]"+str(round.number), 
-                                "[green]"+match.player1[0].surname, 
-                                "[green]"+str(match.player1[1]), 
-                                "[green]"+str(match.player2[1]),
-                                "[green]"+match.player2[0].surname,
-                                )
+                    table.add_row("[green]"+str(round.number),
+                                  "[green]"+match.player1[0].surname,
+                                  "[green]"+str(match.player1[1]),
+                                  "[green]"+str(match.player2[1]),
+                                  "[green]"+match.player2[0].surname,
+                                  )
         console.print(table)
         self.print_color_meanings()
-        
+
     def print_color_meanings(self):
         console = Console()
         table = Table(title='Meaning of Colors')
@@ -55,7 +55,7 @@ class MatchView:
         console.print(table)
 
     def __call__(self):
-        self.print_matches()        
+        self.print_matches()
         print()
         input(colored('press return to go back to the main menu', 'blue'))
         return

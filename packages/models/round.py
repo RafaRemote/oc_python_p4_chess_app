@@ -1,8 +1,5 @@
 """ docstrings """
 import datetime
-# import time
-
-from packages.models.match import MatchModel
 
 
 class RoundModel:
@@ -14,5 +11,3 @@ class RoundModel:
 
     def __call__(self):
         return self
-        
-

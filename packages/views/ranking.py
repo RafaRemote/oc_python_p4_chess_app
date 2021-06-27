@@ -27,11 +27,11 @@ class RankingView:
         choice = input('Your choice: ')
         if choice == '1' or choice == '2':
             self.print_ranking(choice)
-        elif choice =='3':
+        elif choice == '3':
             self.show_scores()
         elif choice == '4':
             return
-        else: 
+        else:
             print("[red]"+"you need to choose between 1,2 or 3")
             input(colored("press return to continue", "blue"))
             self.choose()
@@ -42,7 +42,7 @@ class RankingView:
             color_surname = "[orange1]"
             color_score = "[white]"
         else:
-            players = sorted(self.players, key=lambda x: x.score, reverse=True)
+            players = sorted(self.players, key=lambda x: (x.score, x.elo), reverse=True)
             color_surname = "[white]"
             color_score = "[dark_violet]"
 
@@ -66,7 +66,7 @@ class RankingView:
         print()
         input(colored('press return to continue', 'blue'))
         self.choose()
-    
+
     def show_scores(self):
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
@@ -84,7 +84,7 @@ class RankingView:
         console.print(table)
         print()
         choice = input('which player\'s score do you want to modify?: ')
-        if choice.isnumeric() and int(choice) in range(1,9):
+        if choice.isnumeric() and int(choice) in range(1, 9):
             self.modify_score(choice)
         else:
             print('invalid choice. You need to choose a number between 1 and 8')
@@ -92,17 +92,13 @@ class RankingView:
             self.show_scores()
 
     def modify_score(self, choice):
-        print('ready to mod')
-        player = self.players[int(choice)-1]
-        print(player.__dict__)
-        print(player.surname, player.score)
-        score = input('what is the new score of '+ colored(player.surname, 'yellow') + "? ")
+        player = self.players[int(choice) - 1]
+        score = input('what is the new score of ' + colored(player.surname, 'yellow') + "? ")
         player.score = float(score)
         print('the new score of', player.surname, 'is', player.score)
         input('press return to continue')
         self.choose()
 
-
-    def __call__(self):        
+    def __call__(self):
         self.choose()
         return

@@ -1,16 +1,12 @@
 """ docstrings """
 
-import time
-from packages.models.menu import MenuModel
 from packages.views.input_tournament import InputTournamentView
 from packages.views.tournaments import TournamentsView
 from packages.views.tournament import TournamentView
-from packages.views.error import Error
-from packages.views.scoring import ScoringView
-from packages.views.quit import QuitView
-from packages.models.tournament import TournamentModel, tournaments_list
+from packages.models.menu import MenuModel
 from packages.models.match import MatchModel
 from packages.models.round import RoundModel
+from packages.models.tournament import TournamentModel, tournaments_list
 
 
 class TournamentController:
@@ -30,10 +26,10 @@ class TournamentController:
             matches = []
             for i in range(0, len(high_group)):
                 matches.append(MatchModel(high_group[i], low_group[i]))
-            round = RoundModel(matches, 1)    
+            round = RoundModel(matches, 1)
             self.tour_info.rounds.append(round)
-    
-    def add_round(tour_info):      
+
+    def add_round(tour_info):
         if len(tour_info.rounds) < 4:
             players_list = list()
             for i in tour_info.players:
@@ -41,7 +37,7 @@ class TournamentController:
             players = sorted(players_list, key=lambda x: (x.score, x.elo), reverse=True)
             matches = list()
             while len(players) != 0:
-                i=0
+                i = 0
                 player1 = players[i]
                 player2 = players[i+1]
                 while player2.elo in player1.opponents:
@@ -59,7 +55,6 @@ class TournamentController:
             return
         elif len(tour_info.rounds) == 4:
             return
-
 
     def show_one(tour_info):
         menu = MenuModel()

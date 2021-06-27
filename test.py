@@ -1,5 +1,8 @@
-i = 3.3
-b = 3.4
 
-print(i>b)
+counter = 0
+
+for i in range(10):    
+    print(counter-1)
+    counter -= 1
+
 

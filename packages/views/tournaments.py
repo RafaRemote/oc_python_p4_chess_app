@@ -1,7 +1,6 @@
 """  docstrings """
 
 import os
-import time
 
 from termcolor import colored
 from rich.console import Console
@@ -9,7 +8,7 @@ from rich.table import Table
 
 
 class TournamentsView:
-    def __init__(self, tournaments_list, menu):      
+    def __init__(self, tournaments_list, menu):
         self.tournaments_list = tournaments_list
         self.menu = menu
         self.choice = None
@@ -18,9 +17,8 @@ class TournamentsView:
         counter = 0
         for i in self.tournaments_list:
             if 'Manage tournament: ' + i.tour_title not in self.menu:
-                self.menu.insert(counter + 1, 'Manage tournament: ' + i.tour_title)
-                counter += 1 
-
+                self.menu.insert(counter-1, 'Manage tournament: ' + i.tour_title)
+                counter -= 1
 
     def print_tournaments_list(self):
         console = Console()
