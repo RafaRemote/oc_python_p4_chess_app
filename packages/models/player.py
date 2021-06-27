@@ -11,15 +11,8 @@ class PlayerModel:
         self.elo = elo
         self.score = float(score)
 
-    def get_opponents(tour_info, round_number):
-        # list_players = tour_info.__dict__['players'][0]
-        list_matches = tour_info.__dict__['rounds'][int(round_number)-1][3]
-        for i in list_matches:
-            if i.player2[0] not in i.player1[0].opponents:
-                i.player1[0].opponents.append(i.player2[0])
-            if i.player1[0] not in i.player2[0].opponents:
-                i.player2[0].opponents.append(i.player1[0])
-        return tour_info
+    def add_opponent(self, opponent):
+        self.opponents.append(opponent)
 
     def __call__(self):
         return self

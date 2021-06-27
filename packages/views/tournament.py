@@ -1,64 +1,67 @@
-""" tournament view returns user inputs about tournament details """
+"""  docstrings """
 
-import datetime
-import time
 import os
 
 from termcolor import colored
+from rich.console import Console
+from rich.table import Table
+from rich import print
 
 
 class TournamentView:
-    def __init__(self):
-        self.tour_title = self.get_name()
-        self.tour_time_control = self.get_time_control()
-        self.tour_description = self.get_description()
-        self.tour_start_date = datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
+    def __init__(self, tour_info, menu):      
+        self.tour_info = tour_info
+        self.menu = menu
+        self.choice = None
 
-    def display_title(self):
+    def print_tournament_details(self):
         os.system('cls' if os.name == 'nt' else 'clear')
-        print(colored('      ENTER TOURNAMENT INFORMATIONS',
-                      'magenta'
-                      ))
-        print()
-        print()
-
-    def get_name(self):
-        self.display_title()
-        name = input('Enter the name of the tournament[max: 20 characters]: ')
-        print()
-        if len(name) > 20:
-            print(colored('You have enterd too many characters, the max is 20', 'red'))
-            print('try again')
-            print()
-            self.get_name()
+        console = Console()
+        table = Table(title=colored(self.tour_info.tour_title + ' CHESS TOURNAMENT','magenta'),
+                      show_header=True, 
+                      header_style="bold magenta"
+                      )
+        table.add_column('Denomination')
+        table.add_column('Value', style="cyan")
+        table.add_row("Name", self.tour_info.tour_title)
+        table.add_row("Place", self.tour_info.place)
+        table.add_row("Start Date", self.tour_info.tour_start_date[:10])
+        table.add_row("Time-Control", self.tour_info.tour_time_control)
+        table.add_row("Description", self.tour_info.tour_description) 
+        table.add_row("Total Rounds", str(self.tour_info.total_rounds))
+        table.add_row("Players", str(len(self.tour_info.players)))
+        table.add_row("Matches per Round", str(len(self.tour_info.rounds[0].matches)))
+        current_round = self.tour_info.rounds[-1]
+        if len(self.tour_info.rounds) == 4 and self.tour_info.rounds[3].end_date is not None:
+            table.add_row("Current round", "[red]"+"All rounds finished")
         else:
-            return name
+            table.add_row("Current round", "[red]"+str(current_round.number))
+        console.print(table)
+        self.print_menu()
 
-    def get_time_control(self):
-        times = ['bullet', 'blitz', 'rapid']
-        time_control = input('Enter time option: bullet, blitz or rapid: ')
-        print()
-        while time_control.lower() not in times:
-            print(colored('the only options availabe are bullet, blitz or rapid.', 'red'))
-            print('try again')
-            print()
-            return self.get_time_control()
-        else:
-            return time_control
+    def print_menu(self):
+        console = Console()
+        table = Table(title=colored('OPTIONS', 'blue'), show_header=True, header_style="bold blue")
+        table.add_column('Choice', justify="center")
+        table.add_column('Option')
+        counter = -1
+        for i in self.menu:
+            table.add_row(str(counter + 1), i)
+            counter += 1
+        console.print(table)
+        self.check_choice()
 
-    def get_description(self):
-        description = input('Enter a description for the tournament: ')
-        if len(description) > 500:
-            print(colored('You have enterd too many characters, the max is 500', 'red'))
-            print('try again')
+    def check_choice(self):
+        i = 0
+        while i < 1:
             print()
-            self.get_description()
-        else:
-            return description
+            choice = input('your choice ?: ')
+            if choice.isnumeric() and int(choice) in range(0, len(self.menu)):
+                i += 1
+                self.choice = choice
+            else:
+                print(colored('you need to choose between 0 and', 'red'), len(self.menu)-1)
 
     def __call__(self):
-        print()
-        print(colored('Saving informations...', 'green'))
-        time.sleep(1)
-
-        return self
+        self.print_tournament_details()
+        return self.choice

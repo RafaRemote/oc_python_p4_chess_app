@@ -6,7 +6,7 @@ import time
 from termcolor import colored
 
 
-class PlayerView:
+class InputPlayerView:
     def __init__(self):
         self.name = []
         self.surname = []
@@ -45,7 +45,7 @@ class PlayerView:
                 print()
                 print(colored('Saving informations...', 'green'))
                 print()
-                time.sleep(1.5)
+                time.sleep(1.0)
                 os.system('cls' if os.name == 'nt' else 'clear')
                 break
         return self

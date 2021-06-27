@@ -1,25 +1,29 @@
 """ model for the menus"""
 
-menus = {
-        "homemenu": [
-            'create tournament',
-            'add players',
-            'enter results for round1',
-            'enter results for round2',
-            'enter results for round3',
-            'enter results for round4',
-            'show ranking per score',
-            'show players per alphabetical order',
-            'show opponents'
-        ]
-}
+start_menu = ['create a new tournament',
+              'choose en existing tournament'
+             ]
 
+
+all_tournaments_menu = ['Previous',
+                        'Create new tournament',
+                        'Quit'
+                       ]
+
+tournament_menu = ['Show All Tournaments',
+                   'Add players',
+                   'Enter score for last round played',
+                   'Rounds details',
+                   'Matches details',
+                   'Players menu',
+                   'Quit'
+                   ]
 
 class MenuModel:
-    def __init__(self, name, choice):
-        self.name = name
-        self.choice_number = choice
-        self.choice_list = menus[self.name.lower()]
+    def __init__(self):
+        self.start_menu = start_menu
+        self.all_tournaments_menu = all_tournaments_menu
+        self.tournament_menu = tournament_menu
 
     def __call__(self):
         return self

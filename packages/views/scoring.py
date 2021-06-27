@@ -12,6 +12,9 @@ class ScoringView:
     def __init__(self, round_number, matches):
         self.round_number = round_number
         self.matches = matches
+        self.player1 = tuple()
+        self.player2 = tuple()
+        self.new_matches = []
 
     def check_score(self, player1_surname, player1_elo, player2_surname, player2_elo, counter):
         console = Console()
@@ -31,36 +34,42 @@ class ScoringView:
         elif score == 'd':
             return 0.5
         else:
-            print(colored(f'[[[  {score}  ]]] is not correct. You need to choose between: 0, 0.5 or 1', 'red'))
+            print(colored(f'[[[  {score}  ]]] is not correct. You need to choose between: \'y\', \'n\' or \'d\'', 'red'))
             self.check_score(player1_surname, player1_elo, player2_surname, player2_elo, counter)
 
     def __call__(self):
         os.system('cls' if os.name == 'nt' else 'clear')
-        console = Console()
-        welcome = Table(show_header=True, header_style="yellow")
-        welcome.add_column('SCORES INPUTS', justify="center")
-        welcome.add_row('ROUND ' + str(self.round_number))
-        console.print(welcome)
-        print()
+       
         counter = 0
+
         for i in self.matches:
+            console = Console()
+            welcome = Table(show_header=True, header_style="yellow")
+            welcome.add_column('SCORES INPUTS', justify="center")
+            welcome.add_row('ROUND ' + str(self.round_number))
+            console.print(welcome)
             counter += 1
             player1 = i.__dict__['player1'][0]
-            match_score1 = i.__dict__['player1'][1]
+            match_score1 = 0.0
             player2 = i.__dict__['player2'][0]
-            match_score2 = i.__dict__['player2'][1]
+            match_score2 = 0.0
             points = self.check_score(player1.surname, player1.elo, player2.surname, player2.elo, counter)
             if points == 1.0:
                 player1.score += 1.0
                 match_score1 += 1.0
+                self.player1 == (player1, match_score1)
             elif points == 0.0:
                 player2.score += 1.0
                 match_score2 += 1.0
+                self.player2 == (player2, match_score2)
             elif points == 0.5:
                 player1.score += 0.5
                 match_score1 += 0.5
+                self.player1 == (player1, match_score1)
                 player2.score += 0.5
                 match_score2 += 0.5
+                self.player2 == (player2, match_score2)
+            self.new_matches.append((player1, player2, match_score1, match_score2))
             print()
             table = Table(title=colored("SCORES MATCH "+str(counter)), show_header=True, header_style="bold blue")
             table.add_column("Name", style="dim")
@@ -70,5 +79,6 @@ class ScoringView:
             table.add_row(str(player2.name), str(player2.surname), str(match_score2))
             console.print(table)
             print()
-            time.sleep(0)
+            input(colored('press return to continue', 'blue'))
+            os.system('cls' if os.name == 'nt' else 'clear')
         return self

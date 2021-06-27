@@ -8,18 +8,25 @@ from termcolor import colored
 class Error:
     """ expect a string
 
-    returns the name of the class from where comes the error and y or n to continue or quit
+    Attributes
+    ----------
+
+    message: string to be printed
+    
+
+    Methods
+    -------
+
+    __call__: displays a message and returns nothing when return key is pressed on input
     """
 
     def __init__(self, message):
         self.message = message
-        self.option = None
 
     def __call__(self):
         os.system('cls' if os.name == 'nt' else 'clear')
         print()
         print(colored('*** ' + self.message.upper() + ' ***', 'red'))
         print()
-        option = input('do you want to try again ? \'y\' for yes, any other key to quit: ')
-        self.option = option.lower()
-        return self
+        input(colored('press return to continue', 'blue'))
+        return
