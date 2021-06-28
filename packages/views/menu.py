@@ -1,4 +1,4 @@
-""" docstrings """
+""" display menus """
 
 import os
 

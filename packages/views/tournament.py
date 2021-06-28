@@ -1,4 +1,4 @@
-"""  docstrings """
+"""  display the menu for one tournament """
 
 import os
 

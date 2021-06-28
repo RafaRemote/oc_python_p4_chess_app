@@ -1,4 +1,5 @@
-""" model for the menus"""
+""" menu model """
+
 
 start_menu = ['create a new tournament',
               'choose en existing tournament'

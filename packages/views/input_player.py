@@ -1,4 +1,4 @@
-""" docstrings """
+""" retrieves user inputs for players details """
 
 import os
 import time

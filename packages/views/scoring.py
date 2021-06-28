@@ -1,4 +1,4 @@
-""" docstrings """
+""" retrieve user inputs for the scores """
 
 import os
 

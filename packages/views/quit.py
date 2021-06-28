@@ -1,4 +1,4 @@
-""" quitting message display """
+""" display quitting message """
 
 import time
 import os

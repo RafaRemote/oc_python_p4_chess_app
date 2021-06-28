@@ -1,4 +1,4 @@
-""" tournament view returns user inputs about tournament details """
+""" retrieve user inputs about tournament details """
 
 import time
 import os

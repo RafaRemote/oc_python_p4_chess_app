@@ -1,4 +1,4 @@
-""" docstrings """
+""" welcome model """
 
 welcome_message = 'Welcome'
 welcome_sub_title = 'to your chess tournament app'

@@ -1,4 +1,4 @@
-""" display the details about the players """
+""" display a menu for players details """
 
 import os
 

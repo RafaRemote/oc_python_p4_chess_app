@@ -1,4 +1,4 @@
-""" docstrings """
+""" controller for the message """
 
 from packages.models.welcome import WelcomeModel
 from packages.views.welcome import WelcomeView

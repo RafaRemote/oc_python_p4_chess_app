@@ -1,4 +1,4 @@
-""" docstrings """
+""" player model """
 
 
 class PlayerModel:

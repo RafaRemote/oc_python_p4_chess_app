@@ -1,4 +1,4 @@
-""" message printer in table """
+""" display a welcome message """
 
 import os
 

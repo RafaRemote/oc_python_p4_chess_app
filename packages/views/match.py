@@ -1,3 +1,5 @@
+""" display details for the matches """
+
 import os
 
 from termcolor import colored

@@ -1,4 +1,4 @@
-""" docstrings """
+""" controller for the tournament """
 
 from packages.views.input_tournament import InputTournamentView
 from packages.views.tournaments import TournamentsView
