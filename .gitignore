@@ -1,3 +1,6 @@
 env/
 flake-report/
 __pycache__/
+packages/controllers/__pycache__/
+packages/models/__pycache__/
+packages/views/__pycache__/
