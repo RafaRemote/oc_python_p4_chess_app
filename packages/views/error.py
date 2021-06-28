@@ -1,4 +1,4 @@
-""" docstrings """
+""" display error """
 
 import os
 

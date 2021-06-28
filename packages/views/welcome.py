@@ -1,13 +1,11 @@
-""" message printer in table
-
-
-"""
+""" message printer in table """
 
 import os
 
 from pyfiglet import Figlet
 from rich.console import Console
 from rich.table import Table
+from rich import print
 from termcolor import colored
 
 
@@ -38,7 +36,7 @@ class WelcomeView:
 
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
-        table = Table(show_header=True, header_style="bold magenta")
+        table = Table(show_header=True, header_style="bold orange1")
         f = Figlet(font='bubble')
         table.add_column(f.renderText(message.strip(' ').upper()),
                          justify="center")

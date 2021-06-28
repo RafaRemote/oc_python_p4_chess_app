@@ -1,4 +1,4 @@
-""" controller returning a view for the menus """
+""" main controller managing the choices in the menus """
 
 import time
 import datetime
@@ -81,7 +81,7 @@ class MenuController:
                 error()
                 choice = TournamentController.show_one(self.tour_info)
                 self.manage_tour_details_choice(choice)
-
+            # call score input (ScoringView) if the current round is max the 4th one
             elif len(self.tour_info.rounds) <= 4:
                 round_number = len(self.tour_info.rounds)
                 matches = self.tour_info.rounds[round_number-1].matches

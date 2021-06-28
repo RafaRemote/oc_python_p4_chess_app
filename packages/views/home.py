@@ -1,4 +1,5 @@
-""" docstrings """
+""" displays nothing: main.py call def welcome first, 
+then it calls HomeMenu which activate the __call__ to the menu Controller """
 
 from packages.controllers.welcome import WelcomeController
 from packages.controllers.menu import MenuController
