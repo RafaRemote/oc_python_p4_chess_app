@@ -16,26 +16,33 @@ class TournamentView:
 
     def print_tournament_details(self):
         os.system('cls' if os.name == 'nt' else 'clear')
+        print(self.tour_info)
+        exit()
         console = Console()
-        table = Table(title=colored(self.tour_info.tour_title + ' CHESS TOURNAMENT', 'magenta'),
+        table = Table(title=colored(self.tour_info['tour_title'] + ' CHESS TOURNAMENT', 'magenta'),
                       show_header=True,
                       header_style="bold magenta"
                       )
+
         table.add_column('Denomination')
         table.add_column('Value', style="cyan")
-        table.add_row("Name", self.tour_info.tour_title)
-        table.add_row("Place", self.tour_info.place)
-        table.add_row("Start Date", self.tour_info.tour_start_date[:10])
-        table.add_row("Time-Control", self.tour_info.tour_time_control)
-        table.add_row("Description", self.tour_info.tour_description)
-        table.add_row("Total Rounds", str(self.tour_info.total_rounds))
-        table.add_row("Players", str(len(self.tour_info.players)))
-        table.add_row("Matches per Round", str(len(self.tour_info.rounds[0].matches)))
-        current_round = self.tour_info.rounds[-1]
-        if len(self.tour_info.rounds) == 4 and self.tour_info.rounds[3].end_date is not None:
-            table.add_row("Current round", "[red]"+"All rounds finished")
+        table.add_row("Name", self.tour_info['tour_title'])
+        table.add_row("Place", self.tour_info['place'])
+        table.add_row("Start Date", self.tour_info['tour_start_date'][:10])
+        table.add_row("Time-Control", self.tour_info['tour_time_control'])
+        table.add_row("Description", self.tour_info['tour_description'])
+        table.add_row("Total Rounds", str(self.tour_info['total_rounds']))
+        table.add_row("Players", '8')
+        table.add_row("Matches per Round", '4')
+        current_round = ''
+        if len(self.tour_info['rounds']) > 0:
+            current_round = self.tour_info['rounds'][-1]
+            if len(self.tour_info['rounds']) == 4 and self.tour_info['rounds'][3].end_date is not None:
+                table.add_row("Current round", "[red]"+"All rounds finished")
+            else:
+                table.add_row("Current round", "[red]"+str(current_round.number))
         else:
-            table.add_row("Current round", "[red]"+str(current_round.number))
+            table.add_row("Current round", "[red]"+"No round started yet")
         console.print(table)
         self.print_menu()
 

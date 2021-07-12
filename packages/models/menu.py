@@ -1,8 +1,7 @@
 """ menu model """
 
-
 start_menu = ['create a new tournament',
-              'choose en existing tournament'
+              'choose an existing tournament'
               ]
 
 
@@ -13,10 +12,12 @@ all_tournaments_menu = ['Previous',
 
 tournament_menu = ['Show All Tournaments',
                    'Add players',
+                   'Start Tournament',
                    'Enter score for last round played',
                    'Rounds details',
                    'Matches details',
                    'Players menu',
+                   'Show Opponents',
                    'Quit'
                    ]
 

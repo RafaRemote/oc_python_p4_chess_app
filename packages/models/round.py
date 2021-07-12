@@ -5,10 +5,10 @@ import datetime
 
 
 class RoundModel:
-    def __init__(self, matches, number):
+    def __init__(self, matches, number, start_date=None, end_date=None):
         self.number = number
-        self.start_date = datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
-        self.end_date = None
+        self.start_date = start_date
+        self.end_date = end_date
         self.matches = matches
 
     def __call__(self):

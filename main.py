@@ -1,9 +1,8 @@
 """ entry point of the application"""
 
-from packages.views.home import HomeMenu
+from packages.controllers.menu import MenuController
 
 
 if __name__ == "__main__":
-    app = HomeMenu()
-    app.welcome()
-    app()
+    welcome = MenuController.welcome()
+    welcome()

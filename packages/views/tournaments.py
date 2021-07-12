@@ -16,8 +16,12 @@ class TournamentsView:
     def adjust_self_menu(self):
         counter = 0
         for i in self.tournaments_list:
-            if 'Manage tournament: ' + i.tour_title not in self.menu:
-                self.menu.insert(counter-1, 'Manage tournament: ' + i.tour_title)
+            print('ici ici',i, type(i))
+            import time
+            time.sleep(5)
+
+            if 'Manage tournament: ' + i['tour_title'] not in self.menu:
+                self.menu.insert(counter-1, 'Manage tournament: ' + i['tour_title'])
                 counter -= 1
 
     def print_tournaments_list(self):
@@ -27,7 +31,7 @@ class TournamentsView:
         table.add_column('Title')
         counter = 0
         for i in self.tournaments_list:
-            table.add_row(str(counter + 1), i.tour_title)
+            table.add_row(str(counter + 1), i['tour_title'])
             counter += 1
         console.print(table)
         self.print_menu()

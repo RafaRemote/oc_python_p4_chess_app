@@ -10,16 +10,11 @@ class InputPlayerView:
     def __init__(self):
         self.name = []
         self.surname = []
-        self.year_of_birth = []
+        self.year_birth = []
         self.gender = []
         self.elo = []
 
-    def __call__(self):
-        os.system('cls' if os.name == 'nt' else 'clear')
-        print('      ', colored('ENTER PLAYER INFORMATIONS', 'magenta'))
-
-        counter = 0
-        while counter < 8:
+    def get_att(self, counter, att):
             os.system('cls' if os.name == 'nt' else 'clear')
             print(colored('      Enter infos about the players'.upper(), 'magenta'))
             print()
@@ -27,25 +22,75 @@ class InputPlayerView:
             print()
             print(f'Still {8 - counter} player info to enter')
             print()
-            name = input('Enter the name of the player: ')
-            self.name.append(name)
-            surname = input('Enter the surname of the player: ')
-            self.surname.append(surname)
-            year_of_birth = input('Enter year of birth: ')
-            self.year_of_birth.append(year_of_birth)
-            gender = input('Enter the gender: m or w: ')
-            self.gender.append(gender)
-            elo = input('Enter the Elo of the player: ')
-            self.elo.append(elo)
+            i = 0
+            while i < 1: 
+                if att == "name":
+                    name = input('Enter the name of the player: ')
+                    if len(name) == 0 or len(name) > 30:
+                        print(colored('Name min length is one. Name max length is 30', 'red'))
+                    else:
+                        counter += 1 
+                        self.name.append(name)
+                        i += 1
+                elif att == "surname":
+                    surname = input('Enter the surname of the player: ')
+                    if len(surname) == 0 or len(surname) > 30:
+                        print(colored('Surname min length is one. Name max length is 30', 'red'))
+                    else:
+                        counter += 1
+                        self.surname.append(surname)
+                        i += 1
+                elif att == 'year_birth':
+                    i = 0
+                    while i < 1:
+                        try:
+                            year = input('Year of Birth ? ')
+                            if 1900 <= int(year) <= 2010: 
+                                i += 1
+                            else:
+                                print(colored('Min year is 1900, max year is 2010', 'red'))
+                        except ValueError:
+                            print(colored('You need to type a four-digits composite number', 'red'))
+                    counter += 1
+                    self.year_birth.append(year)
+                elif att == 'gender':
+                    choices = ['m', 'w']
+                    i = 0
+                    while i < 1:
+                        gender = input('Enter the gender: m or w: ')
+                        if gender not in choices:
+                            print(colored('You need to choose either \'w or \'m', 'red'))
+                        else:
+                            i += 1
+                            counter += 1
+                            self.gender.append(gender)
+                elif att == 'elo':
+                    i = 0
+                    while i < 1:
+                        try:
+                            elo = input('Elo ? ')
+                            if 1000 <= int(elo) <= 3000: 
+                                i += 1
+                            else:
+                                print(colored('Min ELO is 1000, max year is 3000', 'red'))
+                        except ValueError:
+                            print(colored('You need to type a four-digits composite number', 'red'))
+                    counter += 1
+                    self.elo.append(elo)
+
+    def __call__(self):
+        counter = 0
+        while counter < 8:
+            att_lst = ['name', 'surname', 'year_birth', 'gender', 'elo']
+            [self.get_att(counter, i) for i in att_lst]
             counter += 1
-            if counter == 8:
-                print()
-                print(colored(f'You have entered the {counter} players', 'green'))
-                time.sleep(.5)
-                print()
-                print(colored('Saving informations...', 'green'))
-                print()
-                time.sleep(1.0)
-                os.system('cls' if os.name == 'nt' else 'clear')
-                break
+        if counter == 8:
+                    print()
+                    print(colored(f'You have entered the {counter} players', 'green'))
+                    time.sleep(.5)
+                    print()
+                    print(colored('Saving informations...', 'green'))
+                    print()
+                    time.sleep(.5)
+                    os.system('cls' if os.name == 'nt' else 'clear')
         return self

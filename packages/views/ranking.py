@@ -11,6 +11,7 @@ from rich import print
 class RankingView:
     def __init__(self, players):
         self.players = players
+        self.player = None
 
     def choose(self):
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -30,19 +31,19 @@ class RankingView:
         elif choice == '3':
             self.show_scores()
         elif choice == '4':
-            return
+            return 
         else:
-            print("[red]"+"you need to choose between 1,2 or 3")
+            print("[red]"+"you need to choose between 1, 2 or 3")
             input(colored("press return to continue", "blue"))
             self.choose()
 
     def print_ranking(self, choice):
         if choice == '1':
-            players = sorted(self.players, key=lambda x: x.surname)
+            players = sorted(self.players, key=lambda x: x['surname'])
             color_surname = "[orange1]"
             color_score = "[white]"
         else:
-            players = sorted(self.players, key=lambda x: (x.score, x.elo), reverse=True)
+            players = sorted(self.players, key=lambda x: (x['score'], x['elo']), reverse=True)
             color_surname = "[white]"
             color_score = "[dark_violet]"
 
@@ -55,12 +56,12 @@ class RankingView:
         table.add_column("Elo", justify="center")
         table.add_column("Score", justify="center")
         for i in players:
-            table.add_row(str(i.name),
-                          str(color_surname + i.surname),
-                          str(i.year_birth),
-                          str(i.gender),
-                          str(i.elo),
-                          str(color_score + str(i.score))
+            table.add_row(str(i['name']),
+                          str(color_surname + i['surname']),
+                          str(i['year_birth']),
+                          str(i['gender']),
+                          str(i['elo']),
+                          str(color_score + str(i['score']))
                           )
         console.print(table)
         print()
@@ -78,8 +79,8 @@ class RankingView:
         for i in self.players:
             counter += 1
             table.add_row(str(counter),
-                          i.surname,
-                          str(i.score)
+                          i['surname'],
+                          str(i['score'])
                           )
         console.print(table)
         print()
@@ -93,12 +94,14 @@ class RankingView:
 
     def modify_score(self, choice):
         player = self.players[int(choice) - 1]
-        score = input('what is the new score of ' + colored(player.surname, 'yellow') + "? ")
-        player.score = float(score)
-        print('the new score of', player.surname, 'is', player.score)
+        score = input('what is the new score of ' + colored(player['surname'], 'yellow') + "? ")
+        player['score'] += float(score)
+        print('the new score of', player['surname'], 'is', player['score'])
         input('press return to continue')
+        self.player = player
+        self.player_new_score = float(score)
         self.choose()
 
     def __call__(self):
         self.choose()
-        return
+        return self.player

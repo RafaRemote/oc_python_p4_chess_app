@@ -27,8 +27,8 @@ class WelcomeView:
 
 
     """
-    def __init__(self, message, sub_title):
-        self.message = message
+    def __init__(self, title, sub_title):
+        self.title = title
         self.sub_title = sub_title
 
     def clean_message(self, message):
@@ -46,4 +46,4 @@ class WelcomeView:
         input(colored('press return to go to the main menu.', 'blue'))
 
     def __call__(self):
-        self.clean_message(self.message)
+        self.clean_message(self.title)

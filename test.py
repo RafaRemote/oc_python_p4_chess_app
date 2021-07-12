@@ -1,17 +1,19 @@
-import json
+class Person:
+    def __init__(self, name, age):
+        self.name = name,
+        self.age = age
 
 
-# from tinydb import TinyDB, Query
-# db = TinyDB('chess_db.json')
-# Fruit = Query()
-# # db.insert({'type': 'apple', 'count': 7})
-# # db.insert({'type': 'peach', 'count': 3})
-# x = db.search(Fruit.type == 'apple')
+jean = Person('jean', 23)
+marc = Person('marc', 44)
 
-# # print(x)
-# # print(type(x))
+lst = [jean, marc]
 
-f = 'chess_db.json'
 
-print(json.dumps(f, indent=2))
-  
+for i in lst:
+    if i.__dict__['name'][0] == 'jean':
+        print('yes')
+        i == 0
+
+print(lst)
+
