@@ -1,134 +1,212 @@
 """ model tournament """
 
-from typing import Match
-from tinydb import TinyDB, Query
-from tinydb.table import Document
-db = TinyDB('db.json')
-Tournament = Query()
-
 import datetime
 
+from tinydb import TinyDB, Query
+from tinydb.operations import add
+db = TinyDB('db.json', indent=4)
+Tournament = Query()
+tournaments_table = db.table('tournaments')
+
+from packages.models.round import RoundModel
 from packages.models.player import PlayerModel
+from packages.views.error  import Error
 from packages.models.match import MatchModel
 
 TOTALROUNDS = 4
 
-tournaments_list = list()
 
 class TournamentModel:
-    def __init__(self, place, tour_title, tour_time_control, tour_description, tour_start_date, rounds=[], players=[]):
+    def __init__(self, place, title, time_control, description, start_date, rounds=[]):
         self.place = place
-        self.tour_title = tour_title
-        self.tour_time_control = tour_time_control
-        self.tour_description = tour_description
-        self.tour_start_date = tour_start_date
+        self.title = title
+        self.time_control = time_control
+        self.description = description
+        self.start_date = start_date
         self.total_rounds = TOTALROUNDS
         self.rounds = rounds
-        self.players = players
 
     def insert(self):
-        db.insert({'place': self.place,
-                   'tour_title': self.tour_title,
-                   'tour_time_control': self.tour_time_control,
-                   'tour_description': self.tour_description,
-                   'tour_start_date': datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S"),
-                   'rounds': self.rounds,
-                   'players': self.players}
-                    )
-        return self
-
-    def search(self):
-        if db.search(Tournament.tour_title == self.tour_title):
-            tour = db.search(Tournament.tour_title == self.tour_title)
-            tournament =  TournamentModel(place=tour[0]['place'],
-                                   tour_title=tour[0]['tour_title'],
-                                   tour_time_control=tour[0]['tour_time_control'],
-                                   tour_description=tour[0]['tour_description'],
-                                   tour_start_date=tour[0]['tour_start_date'],
-                                   rounds=tour[0]['rounds'],
-                                   players=tour[0]['players'])
-            tournaments_list.append(tournament)
+        if len(tournaments_table.search(Tournament.title == self.title)) == 0:
+            tournaments_table.insert({'place': self.place,
+                       'title': self.title,
+                       'time_control': self.time_control,
+                       'description': self.description,
+                       'start_date': datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S"),
+                       'rounds': self.rounds}
+                       )
         else:
-            print('Did not find a tournament with this name', self.tour_title)
-            
-    def update_tour_list(self):
-        db_list = db.search(Tournament.tour_title.exists())
-        obj_round = list()
-        matches = list()
-        for tour in db_list:
-            tour_dico = dict(tour)
-            round = tour_dico.get('rounds')
-            if len(round) == 0:
-                break
-            else:
+            error = Error(f'Tournament \' {self.title} \' already exists, you can\'t add it again')
+            error()
+            return
+
+    def get_tournament(title):
+        searched_tour = tournaments_table.search(Tournament.title == title)
+        tour_db = None
+        if len(searched_tour) > 0:
+            tour_db = searched_tour[0]
+        else:
+            return
+        tour = TournamentModel(place=tour_db['place'],
+                               title=tour_db['title'],
+                               time_control=tour_db['time_control'],
+                               description=tour_db['description'],
+                               start_date=tour_db['start_date'],
+                               rounds=TournamentModel.deserialize_rounds(tour_db))
+        return tour
+
+    def deserialize_rounds(tour_db):
+        rounds_list = list()
+        matches_list = list()
+        rounds = tour_db['rounds']
+        numbers = list()
+        start_dates = list()
+        end_dates = list()
+        if len(rounds) == 0:
+            return []
+        else: 
+            for i in rounds:
                 for j in range(4):
-                    matches.append(MatchModel(PlayerModel(round['matches'][j][0]['name'],
-                                                            round['matches'][j][0]['surname'],
-                                                            round['matches'][j][0]['year_birth'],
-                                                            round['matches'][j][0]['gender'],
-                                                            round['matches'][j][0]['elo'],
-                                                            round['matches'][j][0]['score']),
-                                PlayerModel(round['matches'][j][1]['name'],
-                                            round['matches'][j][1]['surname'],
-                                            round['matches'][j][1]['year_birth'],
-                                            round['matches'][j][1]['gender'],
-                                            round['matches'][j][1]['elo'],
-                                            round['matches'][j][1]['score']))
-                        )
+                    matches_list.append(MatchModel(
+                        player1=PlayerModel(i['matches'][j][0]['name'],
+                                    i['matches'][j][0]['surname'],
+                                    i['matches'][j][0]['year_birth'],
+                                    i['matches'][j][0]['gender'],
+                                    i['matches'][j][0]['elo'],
+                                    i['matches'][j][0]['opponents']),
+                        player2=PlayerModel(i['matches'][j][2]['name'],
+                                    i['matches'][j][2]['surname'],
+                                    i['matches'][j][2]['year_birth'],
+                                    i['matches'][j][2]['gender'],
+                                    i['matches'][j][2]['elo'],
+                                    i['matches'][j][2]['opponents']),
+                        score1=i['matches'][j][1]['score1'],
+                        score2=i['matches'][j][3]['score2']
+                        ))
+                numbers.append(i['number'])
+                start_dates.append(i['start_date'])
+                end_dates.append(i['end_date'])
+                while len(numbers) > 0:
+                    for i in range(len(numbers)):
+                        rounds_list.append(RoundModel(
+                            matches=matches_list[:4],
+                            number=numbers[0],
+                            start_date=start_dates[0],
+                            end_date=end_dates[0]
+                        ))
+                        del matches_list[:4]
+                        del numbers[0]
+                        del start_dates[0]
+                        del end_dates[0]
+        return rounds_list
 
+    def deserialize_players(tour_db):
+        players = tour_db['players']
+        desserialized_players = list()
+        for i in players:
+            desserialized_players.append(PlayerModel(i['name'], 
+                                                                i['surname'], 
+                                                                i['year_birth'],
+                                                                i['gender'],
+                                                                i['elo'],
+                                                                i['opponents']
+                                                                ))
+        return desserialized_players
 
-        # players = [i['players'] for i in db_list]
-        # obj_players = self.deserialize_players(players)
-        [tournaments_list.append(i) for i in db_list if i not in tournaments_list]
-        return tournaments_list
+    def get_all_tournaments():
+        listing = tournaments_table.search(Tournament.title.exists())
+        return [TournamentModel.get_tournament(i['title']) for i in listing]
 
-    def deserialize_players(players):
-        pass
-
-    def add_players(tour_info, serialized_players):
-        db.update({'players': serialized_players} , Tournament.tour_title == tour_info['tour_title'])
-        for i in serialized_players:
-            tour_info['players'].append(PlayerModel(i['name'], 
-                                                    i['surname'], 
-                                                    i['year_birth'],
-                                                    i['gender'],
-                                                    i['elo'],
-                                                    i['score']))
-        return tour_info
-
-    def get_players():
-        return db.search(Tournament.players.exists())[0]['players']
+    def get_rounds_length(tour):
+        tournament = tournaments_table.search(Tournament.title == tour.title)[0]
+        return len(tournament['rounds'])
 
     def add_first_round_db(tour_info):
-        players = tour_info['players']
-        players_elo_sorted = sorted(players, key=lambda x: x['elo'], reverse=True)
+        players = PlayerModel.get_players()
+        players_elo_sorted = sorted(players, key=lambda x: x.elo, reverse=True)
         high_group = players_elo_sorted[:4]
         low_group = players_elo_sorted[4:]
         matches = []
         for i in range(0, len(high_group)):
-            matches.append([{"name": high_group[i]['name'],
-                             "surname": high_group[i]['surname'],
-                             "year_birth": high_group[i]['year_birth'],
-                             "gender": high_group[i]['gender'],
-                             "elo": high_group[i]['elo'],
-                             "score" : high_group[i]['score']
+            matches.append([{
+                                "name": high_group[i].name,
+                                "surname": high_group[i].surname,
+                                "year_birth": high_group[i].year_birth,
+                                "gender": high_group[i].gender,
+                                "elo": high_group[i].elo,
+                                "opponents": [low_group[i].surname]
                             },
-                             {"name": low_group[i]['name'],
-                              "surname": low_group[i]['surname'],
-                              "year_birth": low_group[i]['year_birth'],
-                              "gender": low_group[i]['gender'],
-                              "elo": low_group[i]['elo'],
-                              "score": low_group[i]['score']
-                             }
+                            {
+                                "score1": 0
+                            },
+                            {
+                                "name": low_group[i].name,
+                                "surname": low_group[i].surname,
+                                "year_birth": low_group[i].year_birth,
+                                "gender": low_group[i].gender,
+                                "elo": low_group[i].elo,
+                                "opponents": [high_group[i].surname]
+                            },
+                            {
+                                "score2": 0
+                            }
                             ])
-        round = {'matches': matches, 
-                 'number': 1,
-                 'start_date': str(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")),
-                 'end_date': ''
-        }
-        db.update({'rounds': round}, Tournament['tour_title'] == tour_info['tour_title'])
+            round = [{'matches': matches, 
+                    'number': 1,
+                    'start_date': str(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")),
+                    'end_date': ''
+            }]
+            tournaments_table.update({'rounds': round}, Tournament.title == tour_info.title)
+
+    def add_round(tour_info, matches):
+        tour = tournaments_table.search(Tournament.title == tour_info.title)[0]
+        round = dict()
+        round['matches'] = list()
+        for i in matches:
+            round['matches'].append([
+                                    {
+                                        "name":i.player1[0].name,
+                                        "surname":i.player1[0].surname,
+                                        "year_birth":i.player1[0].year_birth,
+                                        "gender":i.player1[0].gender,
+                                        "elo":i.player1[0].elo,
+                                        "opponents":i.player1[0].opponents
+                                    },
+                                    {
+                                        "score1": 0
+                                    },
+                                    {
+                                        "name":i.player2[0].name,
+                                        "surname":i.player2[0].surname,
+                                        "year_birth":i.player2[0].year_birth,
+                                        "gender":i.player2[0].gender,
+                                        "elo":i.player2[0].elo,
+                                        "opponents":i.player2[0].opponents
+                                    },
+                                    {
+                                        "score2": 0
+                                    }
+                                    ])
+        round['number'] = len(tour['rounds'])+1
+        round['start_date'] = str(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S"))
+        round['end_date'] = ""
+        tour['rounds'].append(round)
+        tournaments_table.remove(Tournament.title == tour_info.title)
+        tournaments_table.insert(tour)
+        return
+
+    def update_scores(tour_info, scores):
+        tour = tournaments_table.search(Tournament.title == tour_info.title)[0]
+        for i in scores:
+            for j in tour['rounds'][-1]['matches']:
+                if i[0].surname == j[0]['surname']:
+                    j[1]['score1'] = i[2]
+                if i[1].surname == j[2]['surname']: 
+                    j[3]['score2'] = i[3]
+        tour['rounds'][-1]['end_date'] = str(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S"))        
+        tournaments_table.remove(Tournament.title == tour_info.title )
+        tournaments_table.insert(tour)
     
     def __call__(self):
         self.insert()
-        self.search()
         return self

@@ -1,6 +1,7 @@
 """ display the details about the rounds """
 
 import os
+from packages.controllers.tournament import Tournament
 
 from termcolor import colored
 from rich.console import Console
@@ -8,9 +9,8 @@ from rich.table import Table
 
 
 class RoundView:
-    def __init__(self, rounds):
-        self.rounds = rounds
-
+    def __init__(self, tour):
+        self.rounds = tour.rounds
     def __call__(self):
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
@@ -19,10 +19,6 @@ class RoundView:
         table.add_column('Start Date')
         table.add_column('End Date')
         for i in self.rounds:
-            if i.start_date is None:
-                i.start_date = 'not yet'
-            if i.end_date is None:
-                i.end_date = 'not yet'
             table.add_row("Round"+str(i.number), i.start_date, i.end_date)
         console.print(table)
         print()

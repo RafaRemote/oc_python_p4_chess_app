@@ -13,6 +13,7 @@ class InputPlayerView:
         self.year_birth = []
         self.gender = []
         self.elo = []
+        # self.opponents = []
 
     def get_att(self, counter, att):
             os.system('cls' if os.name == 'nt' else 'clear')

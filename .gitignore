@@ -6,3 +6,5 @@ packages/models/__pycache__/
 packages/views/__pycache__/
 test.json
 db.json
+stuff.py 
+test.py

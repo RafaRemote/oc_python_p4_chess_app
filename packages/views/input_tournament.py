@@ -8,10 +8,10 @@ from termcolor import colored
 
 class InputTournamentView:
     def __init__(self):
-        self.tour_place = self.get_place()
-        self.tour_title = self.get_name()
-        self.tour_time_control = self.get_time_control()
-        self.tour_description = self.get_description()
+        self.place = self.get_place()
+        self.title = self.get_title()
+        self.time_control = self.get_time_control()
+        self.description = self.get_description()
 
     def display_title(self):
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -43,7 +43,7 @@ class InputTournamentView:
         else:
             self.get_place()
 
-    def get_name(self):
+    def get_title(self):
         name = input('Name of the tournament [max: 20 characters]: ')
         if self.check_len(name, 20):
             print()

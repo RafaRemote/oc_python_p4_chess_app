@@ -32,7 +32,7 @@ class WelcomeView:
         self.sub_title = sub_title
 
     def clean_message(self, message):
-        """ returns a table with the sentences specified """
+        """ returns a table with the sentences as attributes """
 
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()

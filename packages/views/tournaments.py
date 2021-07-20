@@ -16,12 +16,8 @@ class TournamentsView:
     def adjust_self_menu(self):
         counter = 0
         for i in self.tournaments_list:
-            print('ici ici',i, type(i))
-            import time
-            time.sleep(5)
-
-            if 'Manage tournament: ' + i['tour_title'] not in self.menu:
-                self.menu.insert(counter-1, 'Manage tournament: ' + i['tour_title'])
+            if 'Manage tournament: ' + i.title not in self.menu:
+                self.menu.insert(counter-1, 'Manage tournament: ' + i.title)
                 counter -= 1
 
     def print_tournaments_list(self):
@@ -30,8 +26,9 @@ class TournamentsView:
         table.add_column('Number', justify="center")
         table.add_column('Title')
         counter = 0
+        self.tournaments_list.reverse()
         for i in self.tournaments_list:
-            table.add_row(str(counter + 1), i['tour_title'])
+            table.add_row(str(counter + 1), i.title)
             counter += 1
         console.print(table)
         self.print_menu()
@@ -57,7 +54,7 @@ class TournamentsView:
                 i += 1
                 self.choice = choice
             else:
-                print("[red]"+"you need to choose between 0 and", len(self.menu)-1)
+                print(colored("you need to choose between 0 and " + str(len(self.menu)-1), "red"))
 
     def __call__(self):
         os.system('cls' if os.name == 'nt' else 'clear')

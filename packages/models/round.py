@@ -1,9 +1,6 @@
 """ round model """
 
 
-import datetime
-
-
 class RoundModel:
     def __init__(self, matches, number, start_date=None, end_date=None):
         self.number = number
