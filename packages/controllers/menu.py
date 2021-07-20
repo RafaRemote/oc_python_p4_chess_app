@@ -226,13 +226,14 @@ class MenuController:
                 choice = TournamentController.show_one(self.tour_info)
                 self.manage_tour_details_choice(choice)
         elif choice == '8':
-            if len(self.tour_info['players']) == 0:
+            if len(PlayerModel.get_players()) == 0:
                 error = Error('You need to add the players first.')
                 error()
                 choice = TournamentController.show_one(self.tour_info)
                 self.manage_tour_details_choice(choice)
-            opponents = OpponentsView(self.tour_info)
-            opponents()
+            opponents = PlayerModel.get_opponents(self.tour_info.title)
+            opponents_view = OpponentsView(opponents)
+            opponents_view()
             choice = TournamentController.show_one(self.tour_info)
             self.manage_tour_details_choice(choice)
         elif choice == '9':

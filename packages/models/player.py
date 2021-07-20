@@ -97,6 +97,7 @@ class PlayerModel:
         return players_scores
 
     def get_players_cumulated_score(tour_info_title):
+        tour = tournaments_table.search(Tournament.title == tour_info_title)[0]
         players = PlayerModel.get_players()
         scores = PlayerModel.get_players_score(tour_info_title)
         players_cumulated_scores = list()
@@ -104,9 +105,12 @@ class PlayerModel:
             scored = 0
             for score in scores:
                 if player.surname == score[0].surname:
-                    scored += score[1]
+                    if len(tour['rounds']) == 0 or (len(tour['rounds']) == 1 and tour['rounds'][0]['end_date'] == ""):
+                        scored = 0
+                    else:
+                        scored += score[1]
                     player.elo = score[0].elo
-            players_cumulated_scores.append([player, score[1], scored])
+            players_cumulated_scores.append([player, scored])
         return players_cumulated_scores
 
     def get_opponents(tour_info_title):

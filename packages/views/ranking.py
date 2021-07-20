@@ -45,7 +45,7 @@ class RankingView:
             color_surname = "[orange1]"
             color_score = "[white]"
         else:
-            players = sorted(self.scores, key=lambda x: (x[2], x[0].elo), reverse=True)
+            players = sorted(self.scores, key=lambda x: (x[1], x[0].elo), reverse=True)
             color_surname = "[white]"
             color_score = "[dark_violet]"
 
@@ -63,7 +63,7 @@ class RankingView:
                           str(i[0].year_birth),
                           str(i[0].gender),
                           str(i[0].elo),
-                          str(color_score + str(i[2]))
+                          str(color_score + str(i[1]))
                           )
         console.print(table)
         print()
