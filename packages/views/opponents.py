@@ -1,19 +1,17 @@
 """ display a of opponents for each player """
 
 import os
-from rich import table
 
 from termcolor import colored
 from rich.console import Console
 from rich.table import Table
-from rich import print
 
 from packages.views.error import Error
+
 
 class OpponentsView:
     def __init__(self, tour_info):
         self.tour_info = tour_info
-
 
     def show_opponents(self):
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -32,12 +30,12 @@ class OpponentsView:
                 table.add_column("Opponent 3")
                 table.add_column("Opponent 4")
                 for player in self.tour_info.__dict__['players']:
-                    table.add_row(player.surname, 
-                                player.opponents[0].surname,
-                                player.opponents[1].surname,
-                                player.opponents[2].surname,
-                                player.opponents[3].surname
-                                )
+                    table.add_row(player.surname,
+                                  player.opponents[0].surname,
+                                  player.opponents[1].surname,
+                                  player.opponents[2].surname,
+                                  player.opponents[3].surname
+                                  )
                 console.print(table)
                 input(colored("press return to continue", "blue"))
                 return

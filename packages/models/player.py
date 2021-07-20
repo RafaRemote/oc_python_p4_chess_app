@@ -8,6 +8,7 @@ tournaments_table = db.table("tournaments")
 Player = Query()
 Tournament = Query()
 
+
 class PlayerModel:
     def __init__(self, name, surname, year_birth, gender, elo, opponents=None):
         self.name = name
@@ -44,7 +45,7 @@ class PlayerModel:
             while i < 8:
                 serialized_players.append({
                     'name': input_players.name[i],
-                    'surname' : input_players.surname[i],
+                    'surname': input_players.surname[i],
                     'year_birth': input_players.year_birth[i],
                     'gender': input_players.gender[i],
                     # 'opponents': [],
@@ -63,23 +64,21 @@ class PlayerModel:
             })
             return serialized_players
 
-
-
     def desserialize_player(player, option_opponents):
         if option_opponents == 1:
             return PlayerModel(name=player['name'],
-                            surname=player['surname'],
-                            year_birth=player['year_birth'],
-                            gender=player['gender'],
-                            opponents=player['opponents'],
-                            elo=player['elo'])
+                               surname=player['surname'],
+                               year_birth=player['year_birth'],
+                               gender=player['gender'],
+                               opponents=player['opponents'],
+                               elo=player['elo'])
         else:
             return PlayerModel(name=player['name'],
-                            surname=player['surname'],
-                            year_birth=player['year_birth'],
-                            gender=player['gender'],
-                            opponents=[],
-                            elo=player['elo'])
+                               surname=player['surname'],
+                               year_birth=player['year_birth'],
+                               gender=player['gender'],
+                               opponents=[],
+                               elo=player['elo'])
 
     def get_players_score(tour_info_title):
         tournament = tournaments_table.search(Tournament.title == tour_info_title)[0]
@@ -110,7 +109,6 @@ class PlayerModel:
             players_cumulated_scores.append([player, score[1], scored])
         return players_cumulated_scores
 
-
     def get_opponents(tour_info_title):
         tournament = tournaments_table.search(Tournament.title == tour_info_title)[0]
         players_opponents = list()
@@ -119,17 +117,6 @@ class PlayerModel:
                 players_opponents.append(PlayerModel.desserialize_player(match[0], option_opponents=1))
                 players_opponents.append(PlayerModel.desserialize_player(match[2], option_opponents=1))
         return players_opponents
-
-    # def update_opponents(title, player1, player2):
-    #     tournament = tournaments_table.search(Tournament.title == title)[0]
-    #     for i in tournament['rounds'][-1]['matches']:
-    #         if i[0]['surname'] == player1.surname:
-    #            i[0]['opponents'].append(player2.surname)
-    #         if i[2]['surname'] == player2.surname:
-    #             i[2]['opponents'].append(player1.surname)
-    #     tournaments_table.remove(Tournament.title == title)    
-    #     tournaments_table.insert(tournament)
-    #     return
 
     def update_elo(title, ranking):
         tour = tournaments_table.search(Tournament.title == title)[0]
@@ -145,9 +132,9 @@ class PlayerModel:
         for i in players:
             if i.surname == ranking[0].surname:
                 i.elo = ranking[1]
-        new_players= list()
+        new_players = list()
         for i in players:
             new_players.append(PlayerModel.serialize_players(i, choice=1)[0])
         players_table.truncate()
-        [players_table.insert(i) for i in new_players]   
+        [players_table.insert(i) for i in new_players]
         return tour

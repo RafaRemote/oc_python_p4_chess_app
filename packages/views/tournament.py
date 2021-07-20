@@ -40,7 +40,6 @@ class TournamentView:
                 table.add_row("[red]"+"Current Round", "[red]"+str(current_round.number), "[red]"+"finished")
             else:
                 table.add_row("Current round", "[red]"+str(current_round.number))
-            
         else:
             table.add_row("Current round", "[red]"+"No round started yet")
         console.print(table)

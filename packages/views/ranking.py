@@ -33,7 +33,7 @@ class RankingView:
             self.show_elos()
             return
         elif choice == '4':
-            return 
+            return
         else:
             print("[red]"+"you need to choose between 1, 2, 3 or 4")
             input(colored("press return to continue", "blue"))
@@ -107,4 +107,3 @@ class RankingView:
     def __call__(self):
         self.choose()
         return self.player, self.player_new_elo
-

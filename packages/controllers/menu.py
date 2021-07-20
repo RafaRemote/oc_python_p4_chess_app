@@ -2,9 +2,13 @@
 
 import time
 
+from packages.controllers.tournament import TournamentController
+from packages.models.welcome import WelcomeModel
+from packages.models.menu import MenuModel
+from packages.models.tournament import TournamentModel
+from packages.models.player import PlayerModel
 from packages.views.welcome import WelcomeView
 from packages.views.input_player import InputPlayerView
-from packages.controllers.tournament import Tournament, TournamentController
 from packages.views.ranking import RankingView
 from packages.views.scoring import ScoringView
 from packages.views.menu import MenuView
@@ -13,11 +17,7 @@ from packages.views.error import Error
 from packages.views.round import RoundView
 from packages.views.match import MatchView
 from packages.views.info import InfoView
-from packages.views.opponents import OpponentsView 
-from packages.models.welcome import WelcomeModel
-from packages.models.menu import MenuModel
-from packages.models.tournament import TournamentModel
-from packages.models.player import PlayerModel
+from packages.views.opponents import OpponentsView
 
 
 class MenuController:
@@ -49,7 +49,7 @@ class MenuController:
             if len(tournaments_list) != 0:
                 chosen_option = TournamentController.show_all()
                 self.manage_list_choice(int(chosen_option))
-            else: 
+            else:
                 error = Error('No tournament created yet')
                 error()
                 menu = MenuController(self.tour_info)
@@ -98,8 +98,8 @@ class MenuController:
                 error()
                 tour = TournamentModel.get_tournament(self.tour_info.title)
                 choice = TournamentController.show_one(self.tour_info)
-                self.manage_tour_details_choice(choice)  
-            else:         
+                self.manage_tour_details_choice(choice)
+            else:
                 input_players = InputPlayerView()
                 PlayerModel.add_players(input_players())
             choice = TournamentController.show_one(self.tour_info)
@@ -121,7 +121,7 @@ class MenuController:
                 info = InfoView('First Round is starting now. You can check \'rounds details\' & \'matches details\'')
                 info()
                 choice = TournamentController.show_one(self.tour_info)
-                self.manage_tour_details_choice(choice)  
+                self.manage_tour_details_choice(choice)
         elif choice == '3':
             self.tour_info = TournamentModel.get_tournament(self.tour_info.title)
             if len(PlayerModel.get_players()) == 0:
@@ -173,7 +173,7 @@ class MenuController:
                     choice = TournamentController.show_one(self.tour_info)
                     self.manage_tour_details_choice(choice)
                 else:
-                    error = Error('this round ended the: ' + self.tour_info.rounds[-1].end_date )
+                    error = Error('this round ended the: ' + self.tour_info.rounds[-1].end_date)
                     error()
                     choice = TournamentController.show_one(self.tour_info)
                     self.manage_tour_details_choice(choice)
@@ -215,7 +215,7 @@ class MenuController:
                 scores = PlayerModel.get_players_cumulated_score(self.tour_info.title)
                 ranking = RankingView(scores)
                 new_elo = ranking()
-                if new_elo[0] == None and new_elo[1] == None:
+                if new_elo[0] is None and new_elo[1] is None:
                     choice = TournamentController.show_one(self.tour_info)
                     self.manage_tour_details_choice(choice)
                 else:
@@ -223,7 +223,6 @@ class MenuController:
                     self.tour_info = TournamentModel.get_tournament(tour['title'])
                     info = InfoView('Player\'s Elo has been updated')
                     info()
-                    
                 choice = TournamentController.show_one(self.tour_info)
                 self.manage_tour_details_choice(choice)
         elif choice == '8':
@@ -239,7 +238,7 @@ class MenuController:
         elif choice == '9':
             quit = QuitView('The app is shutting down')
             quit()
-            time.sleep(2)
+            time.sleep(1.5)
         else:
             error = Error('your choice is not in the list.')
             error()

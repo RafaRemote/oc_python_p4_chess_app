@@ -25,7 +25,7 @@ class ScoringView:
         super_title.add_row(f'ELO {player1_elo}', f'ELO {player2_elo}')
         console.print(super_title)
         info_console = Console()
-        info = Table(title=colored('INPUTS INFO', 'blue'), 
+        info = Table(title=colored('INPUTS INFO', 'blue'),
                      show_header=True,
                      header_style="bold blue")
         info.add_column('INPUT')
@@ -62,10 +62,10 @@ class ScoringView:
             score1 = 0.0
             player2 = i.player2[0]
             score2 = 0.0
-            points = self.check_score(player1.surname, 
-                                      player1.elo, 
-                                      player2.surname, 
-                                      player2.elo, 
+            points = self.check_score(player1.surname,
+                                      player1.elo,
+                                      player2.surname,
+                                      player2.elo,
                                       counter)
             if points == 1.0:
                 score1 += 1.0

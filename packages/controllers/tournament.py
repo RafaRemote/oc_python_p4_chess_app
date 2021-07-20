@@ -1,9 +1,5 @@
 """ controller for the tournament """
 
-from tinydb import TinyDB, Query
-db = TinyDB('db.json')
-Tournament = Query()
-
 from packages.views.input_tournament import InputTournamentView
 from packages.views.tournaments import TournamentsView
 from packages.views.tournament import TournamentView
@@ -13,6 +9,11 @@ from packages.models.tournament import TournamentModel
 from packages.models.player import PlayerModel
 
 
+from tinydb import TinyDB, Query
+db = TinyDB('db.json')
+Tournament = Query()
+
+
 class TournamentController:
     def __init__(self):
         self.tour_info = None
@@ -20,7 +21,7 @@ class TournamentController:
     def add_players(tour_info, serialized_players):
         tour = TournamentModel.add_players(tour_info, serialized_players)
         return tour
-        
+
     def add_round(tour_info):
         players_score = PlayerModel.get_players_score(tour_info.title)
         players_sorted = sorted(players_score, key=lambda x: (x[1], x[0].elo), reverse=True)
@@ -52,7 +53,6 @@ class TournamentController:
             if i.surname == player1.surname:
                 if player2.surname in i.opponents:
                     return True
-                
 
     def show_one(tour_info):
         menu = MenuModel()

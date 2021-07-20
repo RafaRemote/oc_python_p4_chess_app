@@ -2,16 +2,16 @@
 
 import datetime
 
+from packages.models.round import RoundModel
+from packages.models.player import PlayerModel
+from packages.views.error import Error
+from packages.models.match import MatchModel
+
 from tinydb import TinyDB, Query
-from tinydb.operations import add
+
 db = TinyDB('db.json', indent=4)
 Tournament = Query()
 tournaments_table = db.table('tournaments')
-
-from packages.models.round import RoundModel
-from packages.models.player import PlayerModel
-from packages.views.error  import Error
-from packages.models.match import MatchModel
 
 TOTALROUNDS = 4
 
@@ -29,12 +29,12 @@ class TournamentModel:
     def insert(self):
         if len(tournaments_table.search(Tournament.title == self.title)) == 0:
             tournaments_table.insert({'place': self.place,
-                       'title': self.title,
-                       'time_control': self.time_control,
-                       'description': self.description,
-                       'start_date': datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S"),
-                       'rounds': self.rounds}
-                       )
+                                      'title': self.title,
+                                      'time_control': self.time_control,
+                                      'description': self.description,
+                                      'start_date': datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S"),
+                                      'rounds': self.rounds
+                                      })
         else:
             error = Error(f'Tournament \' {self.title} \' already exists, you can\'t add it again')
             error()
@@ -64,25 +64,25 @@ class TournamentModel:
         end_dates = list()
         if len(rounds) == 0:
             return []
-        else: 
+        else:
             for i in rounds:
                 for j in range(4):
                     matches_list.append(MatchModel(
                         player1=PlayerModel(i['matches'][j][0]['name'],
-                                    i['matches'][j][0]['surname'],
-                                    i['matches'][j][0]['year_birth'],
-                                    i['matches'][j][0]['gender'],
-                                    i['matches'][j][0]['elo'],
-                                    i['matches'][j][0]['opponents']),
+                                            i['matches'][j][0]['surname'],
+                                            i['matches'][j][0]['year_birth'],
+                                            i['matches'][j][0]['gender'],
+                                            i['matches'][j][0]['elo'],
+                                            i['matches'][j][0]['opponents']),
                         player2=PlayerModel(i['matches'][j][2]['name'],
-                                    i['matches'][j][2]['surname'],
-                                    i['matches'][j][2]['year_birth'],
-                                    i['matches'][j][2]['gender'],
-                                    i['matches'][j][2]['elo'],
-                                    i['matches'][j][2]['opponents']),
-                        score1=i['matches'][j][1]['score1'],
-                        score2=i['matches'][j][3]['score2']
-                        ))
+                                            i['matches'][j][2]['surname'],
+                                            i['matches'][j][2]['year_birth'],
+                                            i['matches'][j][2]['gender'],
+                                            i['matches'][j][2]['elo'],
+                                            i['matches'][j][2]['opponents']),
+                                        score1=i['matches'][j][1]['score1'],
+                                        score2=i['matches'][j][3]['score2']
+                                        ))
                 numbers.append(i['number'])
                 start_dates.append(i['start_date'])
                 end_dates.append(i['end_date'])
@@ -104,13 +104,13 @@ class TournamentModel:
         players = tour_db['players']
         desserialized_players = list()
         for i in players:
-            desserialized_players.append(PlayerModel(i['name'], 
-                                                                i['surname'], 
-                                                                i['year_birth'],
-                                                                i['gender'],
-                                                                i['elo'],
-                                                                i['opponents']
-                                                                ))
+            desserialized_players.append(PlayerModel(i['name'],
+                                                     i['surname'],
+                                                     i['year_birth'],
+                                                     i['gender'],
+                                                     i['elo'],
+                                                     i['opponents']
+                                                     ))
         return desserialized_players
 
     def get_all_tournaments():
@@ -151,11 +151,11 @@ class TournamentModel:
                                 "score2": 0
                             }
                             ])
-            round = [{'matches': matches, 
-                    'number': 1,
-                    'start_date': str(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")),
-                    'end_date': ''
-            }]
+            round = [{'matches': matches,
+                      'number': 1,
+                      'start_date': str(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")),
+                      'end_date': ''
+                      }]
             tournaments_table.update({'rounds': round}, Tournament.title == tour_info.title)
 
     def add_round(tour_info, matches):
@@ -165,7 +165,7 @@ class TournamentModel:
         for i in matches:
             round['matches'].append([
                                     {
-                                        "name":i.player1[0].name,
+                                        "name": i.player1[0].name,
                                         "surname":i.player1[0].surname,
                                         "year_birth":i.player1[0].year_birth,
                                         "gender":i.player1[0].gender,
@@ -176,7 +176,7 @@ class TournamentModel:
                                         "score1": 0
                                     },
                                     {
-                                        "name":i.player2[0].name,
+                                        "name": i.player2[0].name,
                                         "surname":i.player2[0].surname,
                                         "year_birth":i.player2[0].year_birth,
                                         "gender":i.player2[0].gender,
@@ -201,12 +201,12 @@ class TournamentModel:
             for j in tour['rounds'][-1]['matches']:
                 if i[0].surname == j[0]['surname']:
                     j[1]['score1'] = i[2]
-                if i[1].surname == j[2]['surname']: 
+                if i[1].surname == j[2]['surname']:
                     j[3]['score2'] = i[3]
-        tour['rounds'][-1]['end_date'] = str(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S"))        
-        tournaments_table.remove(Tournament.title == tour_info.title )
+        tour['rounds'][-1]['end_date'] = str(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S"))
+        tournaments_table.remove(Tournament.title == tour_info.title)
         tournaments_table.insert(tour)
-    
+
     def __call__(self):
         self.insert()
         return self
