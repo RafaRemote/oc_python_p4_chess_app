@@ -93,7 +93,7 @@ class MenuController:
             menu = MenuController(tour_info=None)
             menu()
         elif choice == '1':
-            if PlayerModel.get_players(self.tour_info.title) is None:
+            if len(PlayerModel.get_players(self.tour_info.title)) == 0:
                 input_players = InputPlayerView()
                 PlayerModel.add_players(input_players(), self.tour_info.title)
             elif len(PlayerModel.get_players(self.tour_info.title)) == 8:

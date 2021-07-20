@@ -1,7 +1,6 @@
 """ retrieve user inputs for the scores """
 
 import os
-import time
 
 from termcolor import colored
 from rich.console import Console
@@ -44,7 +43,7 @@ class ScoringView:
             if score not in choices:
                 print(colored("invalid choice: you need to choose between: \'y\', \'n\' or \'d\'", "red"))
             elif score == 'y':
-                i+= 1
+                i += 1
                 return 1.0
             elif score == 'n':
                 i += 1

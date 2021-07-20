@@ -1,5 +1,6 @@
 env/
 flake-report/
+flake8-html/
 __pycache__/
 packages/controllers/__pycache__/
 packages/models/__pycache__/

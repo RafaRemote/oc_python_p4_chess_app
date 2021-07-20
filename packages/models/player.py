@@ -21,10 +21,10 @@ class PlayerModel:
     def get_elo(self):
         player = players_table.search(Player.surname == self.surname)[0]
         return player['elo']
- 
+
     def add_players(input_players, title):
         serialized_players = PlayerModel.serialize_players(input_players)
-        serialized_players.append({'tournament_participation': title })
+        serialized_players.append({'tournament_participation': title})
         players_table.truncate()
         players_table.insert_multiple(serialized_players)
 
@@ -80,14 +80,12 @@ class PlayerModel:
                                year_birth=player['year_birth'],
                                gender=player['gender'],
                                opponents=player['opponents'])
-                            #    elo=player['elo'])
         else:
             return PlayerModel(name=player['name'],
                                surname=player['surname'],
                                year_birth=player['year_birth'],
                                gender=player['gender'],
                                opponents=[])
-                            #    elo=player['elo'])
 
     def get_players_score(tour_info_title):
         tournament = tournaments_table.search(Tournament.title == tour_info_title)[0]
@@ -142,4 +140,4 @@ class PlayerModel:
         new_players.append({'tournament_participation': title})
         players_table.truncate()
         [players_table.insert(i) for i in new_players]
-        return 
+        return
