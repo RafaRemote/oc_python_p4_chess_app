@@ -30,7 +30,7 @@ class OpponentsView:
             if len(player.opponents) == 0:
                 table.add_row(player.surname)
             elif len(player.opponents) == 1:
-                table.add_row(player.suname,
+                table.add_row(player.surname,
                               player.opponents[0])
             elif len(player.opponents) == 2:
                 table.add_row(player.surname,

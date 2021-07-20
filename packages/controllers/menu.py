@@ -93,19 +93,16 @@ class MenuController:
             menu = MenuController(tour_info=None)
             menu()
         elif choice == '1':
-            if len(PlayerModel.get_players()) == 8:
+            if PlayerModel.get_players(self.tour_info.title) is None:
+                input_players = InputPlayerView()
+                PlayerModel.add_players(input_players(), self.tour_info.title)
+            elif len(PlayerModel.get_players(self.tour_info.title)) == 8:
                 error = Error('There is already a set of players for this tournament')
                 error()
-                tour = TournamentModel.get_tournament(self.tour_info.title)
-                choice = TournamentController.show_one(self.tour_info)
-                self.manage_tour_details_choice(choice)
-            else:
-                input_players = InputPlayerView()
-                PlayerModel.add_players(input_players())
             choice = TournamentController.show_one(self.tour_info)
             self.manage_tour_details_choice(choice)
         elif choice == '2':
-            if len(PlayerModel.get_players()) == 0:
+            if len(PlayerModel.get_players(self.tour_info.title)) == 0:
                 error = Error('No players added yet. First: add players, Second: start tournament')
                 error()
                 choice = TournamentController.show_one(self.tour_info)
@@ -124,7 +121,7 @@ class MenuController:
                 self.manage_tour_details_choice(choice)
         elif choice == '3':
             self.tour_info = TournamentModel.get_tournament(self.tour_info.title)
-            if len(PlayerModel.get_players()) == 0:
+            if len(PlayerModel.get_players(self.tour_info.title)) == 0:
                 error = Error('No players added yet! You have to add players first.')
                 error()
                 choice = TournamentController.show_one(self.tour_info)
@@ -206,7 +203,7 @@ class MenuController:
             choice = TournamentController.show_one(self.tour_info)
             self.manage_tour_details_choice(choice)
         elif choice == '7':
-            if len(PlayerModel.get_players()) == 0:
+            if len(PlayerModel.get_players(self.tour_info.title)) == 0:
                 error = Error('No players found in the database. Add players first.')
                 error()
                 choice = TournamentController.show_one(self.tour_info)
@@ -219,14 +216,13 @@ class MenuController:
                     choice = TournamentController.show_one(self.tour_info)
                     self.manage_tour_details_choice(choice)
                 else:
-                    tour = PlayerModel.update_elo(self.tour_info.title, new_elo)
-                    self.tour_info = TournamentModel.get_tournament(tour['title'])
+                    PlayerModel.update_elo(self.tour_info.title, new_elo)
                     info = InfoView('Player\'s Elo has been updated')
                     info()
                 choice = TournamentController.show_one(self.tour_info)
                 self.manage_tour_details_choice(choice)
         elif choice == '8':
-            if len(PlayerModel.get_players()) == 0:
+            if len(PlayerModel.get_players(self.tour_info.title)) == 0:
                 error = Error('You need to add the players first.')
                 error()
                 choice = TournamentController.show_one(self.tour_info)

@@ -48,7 +48,6 @@ class RankingView:
             players = sorted(self.scores, key=lambda x: (x[1], x[0].elo), reverse=True)
             color_surname = "[white]"
             color_score = "[dark_violet]"
-
         console = Console()
         table = Table(title="PLAYERS RANKING", show_header=True, header_style="bold magenta")
         table.add_column("Name", style="dim", width=12)
@@ -57,6 +56,8 @@ class RankingView:
         table.add_column("Gender", justify="center")
         table.add_column("Elo", justify="center")
         table.add_column("Score", justify="center")
+        for i in players:
+            print(i[1])
         for i in players:
             table.add_row(str(i[0].name),
                           str(color_surname + i[0].surname),

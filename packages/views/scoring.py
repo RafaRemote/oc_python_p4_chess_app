@@ -1,6 +1,7 @@
 """ retrieve user inputs for the scores """
 
 import os
+import time
 
 from termcolor import colored
 from rich.console import Console
@@ -36,17 +37,21 @@ class ScoringView:
         info_console.print(info)
         print(f'Did {player1_surname} won ?')
         print()
-        score = input('===> ')
-        print()
-        if score == 'y':
-            return 1.0
-        elif score == 'n':
-            return 0.0
-        elif score == 'd':
-            return 0.5
-        else:
-            print("[red]"+"invalid choice: you need to choose between: \'y\', \'n\' or \'d\'")
-            self.check_score(player1_surname, player1_elo, player2_surname, player2_elo, counter)
+        i = 0
+        while i < 1:
+            choices = ['y', 'n', 'd']
+            score = input('===> ')
+            if score not in choices:
+                print(colored("invalid choice: you need to choose between: \'y\', \'n\' or \'d\'", "red"))
+            elif score == 'y':
+                i+= 1
+                return 1.0
+            elif score == 'n':
+                i += 1
+                return 0.0
+            elif score == 'd':
+                i += 1
+                return 0.5
 
     def __call__(self):
         os.system('cls' if os.name == 'nt' else 'clear')

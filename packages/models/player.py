@@ -10,25 +10,34 @@ Tournament = Query()
 
 
 class PlayerModel:
-    def __init__(self, name, surname, year_birth, gender, elo, opponents=None):
+    def __init__(self, name, surname, year_birth, gender, elo=None, opponents=None):
         self.name = name
         self.surname = surname
         self.year_birth = year_birth
         self.gender = gender
         self.opponents = opponents
-        self.elo = elo
+        self.elo = self.get_elo()
 
-    def add_players(input_players):
+    def get_elo(self):
+        player = players_table.search(Player.surname == self.surname)[0]
+        return player['elo']
+ 
+    def add_players(input_players, title):
         serialized_players = PlayerModel.serialize_players(input_players)
+        serialized_players.append({'tournament_participation': title })
         players_table.truncate()
         players_table.insert_multiple(serialized_players)
 
-    def get_players():
-        players_list = list()
-        players = players_table.search(Player.year_birth.exists())
-        for i in players:
-            players_list.append(PlayerModel.desserialize_player(i, option_opponents=0))
-        return players_list
+    def get_players(title):
+        players_list = []
+        players = list()
+        if len(players_table.all()) == 0:
+            return players_list
+        elif players_table.all()[-1]['tournament_participation'] == title:
+            players = players_table.all()[0:8]
+            for i in players:
+                players_list.append(PlayerModel.desserialize_player(i, option_opponents=0))
+            return players_list
 
     def get_players_with_opponents(tour_info_title):
         tournament = tournaments_table.search(Tournament.title == tour_info_title)[0]
@@ -70,15 +79,15 @@ class PlayerModel:
                                surname=player['surname'],
                                year_birth=player['year_birth'],
                                gender=player['gender'],
-                               opponents=player['opponents'],
-                               elo=player['elo'])
+                               opponents=player['opponents'])
+                            #    elo=player['elo'])
         else:
             return PlayerModel(name=player['name'],
                                surname=player['surname'],
                                year_birth=player['year_birth'],
                                gender=player['gender'],
-                               opponents=[],
-                               elo=player['elo'])
+                               opponents=[])
+                            #    elo=player['elo'])
 
     def get_players_score(tour_info_title):
         tournament = tournaments_table.search(Tournament.title == tour_info_title)[0]
@@ -98,7 +107,7 @@ class PlayerModel:
 
     def get_players_cumulated_score(tour_info_title):
         tour = tournaments_table.search(Tournament.title == tour_info_title)[0]
-        players = PlayerModel.get_players()
+        players = PlayerModel.get_players(tour_info_title)
         scores = PlayerModel.get_players_score(tour_info_title)
         players_cumulated_scores = list()
         for player in players:
@@ -123,22 +132,14 @@ class PlayerModel:
         return players_opponents
 
     def update_elo(title, ranking):
-        tour = tournaments_table.search(Tournament.title == title)[0]
-        for count in range(0, len(tour['rounds'])):
-            for number in range(4):
-                if tour['rounds'][count]['matches'][number][0]['surname'] == ranking[0].surname:
-                    tour['rounds'][count]['matches'][number][0]['elo'] = ranking[1]
-                if tour['rounds'][count]['matches'][number][2]['surname'] == ranking[0].surname:
-                    tour['rounds'][count]['matches'][number][2]['elo'] = ranking[1]
-        tournaments_table.truncate()
-        tournaments_table.insert(tour)
-        players = PlayerModel.get_players()
+        players = PlayerModel.get_players(title)
         for i in players:
             if i.surname == ranking[0].surname:
                 i.elo = ranking[1]
         new_players = list()
         for i in players:
             new_players.append(PlayerModel.serialize_players(i, choice=1)[0])
+        new_players.append({'tournament_participation': title})
         players_table.truncate()
         [players_table.insert(i) for i in new_players]
-        return tour
+        return 

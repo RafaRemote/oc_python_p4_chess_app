@@ -41,12 +41,7 @@ class TournamentModel:
             return
 
     def get_tournament(title):
-        searched_tour = tournaments_table.search(Tournament.title == title)
-        tour_db = None
-        if len(searched_tour) > 0:
-            tour_db = searched_tour[0]
-        else:
-            return
+        tour_db = tournaments_table.search(Tournament.title == title)[0]
         tour = TournamentModel(place=tour_db['place'],
                                title=tour_db['title'],
                                time_control=tour_db['time_control'],
@@ -66,23 +61,24 @@ class TournamentModel:
             return []
         else:
             for i in rounds:
-                for j in range(4):
-                    matches_list.append(MatchModel(
-                        player1=PlayerModel(i['matches'][j][0]['name'],
-                                            i['matches'][j][0]['surname'],
-                                            i['matches'][j][0]['year_birth'],
-                                            i['matches'][j][0]['gender'],
-                                            i['matches'][j][0]['elo'],
-                                            i['matches'][j][0]['opponents']),
-                        player2=PlayerModel(i['matches'][j][2]['name'],
-                                            i['matches'][j][2]['surname'],
-                                            i['matches'][j][2]['year_birth'],
-                                            i['matches'][j][2]['gender'],
-                                            i['matches'][j][2]['elo'],
-                                            i['matches'][j][2]['opponents']),
-                                        score1=i['matches'][j][1]['score1'],
-                                        score2=i['matches'][j][3]['score2']
-                                        ))
+                if len(i['matches']) > 0:
+                    for j in range(4):
+                        matches_list.append(MatchModel(
+                            player1=PlayerModel(i['matches'][j][0]['name'],
+                                                i['matches'][j][0]['surname'],
+                                                i['matches'][j][0]['year_birth'],
+                                                i['matches'][j][0]['gender'],
+                                                i['matches'][j][0]['elo'],
+                                                i['matches'][j][0]['opponents']),
+                            player2=PlayerModel(i['matches'][j][2]['name'],
+                                                i['matches'][j][2]['surname'],
+                                                i['matches'][j][2]['year_birth'],
+                                                i['matches'][j][2]['gender'],
+                                                i['matches'][j][2]['elo'],
+                                                i['matches'][j][2]['opponents']),
+                                            score1=i['matches'][j][1]['score1'],
+                                            score2=i['matches'][j][3]['score2']
+                                            ))
                 numbers.append(i['number'])
                 start_dates.append(i['start_date'])
                 end_dates.append(i['end_date'])
@@ -122,7 +118,7 @@ class TournamentModel:
         return len(tournament['rounds'])
 
     def add_first_round_db(tour_info):
-        players = PlayerModel.get_players()
+        players = PlayerModel.get_players(tour_info.title)
         players_elo_sorted = sorted(players, key=lambda x: x.elo, reverse=True)
         high_group = players_elo_sorted[:4]
         low_group = players_elo_sorted[4:]
