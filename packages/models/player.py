@@ -31,7 +31,7 @@ class PlayerModel:
     def get_players(title):
         players_list = []
         players = list()
-        if len(players_table.all()) == 0:
+        if len(players_table.search(Player.tournament_participation == title)) == 0:
             return players_list
         elif players_table.all()[-1]['tournament_participation'] == title:
             players = players_table.all()[0:8]
@@ -57,7 +57,6 @@ class PlayerModel:
                     'surname': input_players.surname[i],
                     'year_birth': input_players.year_birth[i],
                     'gender': input_players.gender[i],
-                    # 'opponents': [],
                     'elo': input_players.elo[i]
                 })
                 i += 1
@@ -68,7 +67,6 @@ class PlayerModel:
                 'surname': input_players.surname,
                 'year_birth': input_players.year_birth,
                 'gender': input_players.gender,
-                # 'opponents': input_players.opponents,
                 'elo': input_players.elo
             })
             return serialized_players

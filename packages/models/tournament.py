@@ -50,6 +50,16 @@ class TournamentModel:
                                rounds=TournamentModel.deserialize_rounds(tour_db))
         return tour
 
+    def get_tournament_by_id(choice):
+        tour_db = tournaments_table.get(doc_id=choice)
+        tour = TournamentModel(place=tour_db['place'],
+                               title=tour_db['title'],
+                               time_control=tour_db['time_control'],
+                               description=tour_db['description'],
+                               start_date=tour_db['start_date'],
+                               rounds=TournamentModel.deserialize_rounds(tour_db))
+        return tour
+
     def deserialize_rounds(tour_db):
         rounds_list = list()
         matches_list = list()
@@ -111,7 +121,14 @@ class TournamentModel:
 
     def get_all_tournaments():
         listing = tournaments_table.search(Tournament.title.exists())
-        return [TournamentModel.get_tournament(i['title']) for i in listing]
+        sorted_listing = sorted(listing, key=lambda x: x['title'])
+        return [TournamentModel.get_tournament(i['title']) for i in sorted_listing]
+    
+    def get_all_tournaments_db_doc():
+        """ Returns the list of tournaments from the db, containing the doc_id.
+            Will be useful for the View tournaments.
+        """
+        return tournaments_table.search(Tournament.title.exists())
 
     def get_rounds_length(tour):
         tournament = tournaments_table.search(Tournament.title == tour.title)[0]

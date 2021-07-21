@@ -32,6 +32,8 @@ class MenuController:
         menu()
 
     def select_handler(self):
+        """ handle choice for the starting menu
+        """
         menu_model = MenuModel()
         menu_model()
         start_menu = menu_model().start_menu
@@ -62,22 +64,20 @@ class MenuController:
         """ handle choice in list of tournaments
         """
         checker_menu = MenuModel()
-        menu_length = len(checker_menu.all_tournaments_menu)
-        if choice == 0:
+        menu_length = len(checker_menu.all_tournaments_menu) + len(TournamentModel.get_all_tournaments())
+        if choice == menu_length - 2:
             menu = MenuController(self.tour_info)
             menu()
-        elif choice == 1:
+        elif choice == menu_length -1:
             tournament = TournamentController()
             tournament()
             menu = MenuController(self.tour_info)
             menu()
-        elif choice == menu_length - 1:
+        elif choice == menu_length:
             quit = QuitView('The app is shutting down.')
             quit()
-        elif choice in range(2, menu_length-1):
-            tournaments_list = TournamentModel.get_all_tournaments()
-            tournaments_list.reverse()
-            self.tour_info = tournaments_list[choice-2]
+        elif choice in range(1, menu_length-2):
+            self.tour_info = TournamentModel.get_tournament_by_id(choice)
             option = TournamentController.show_one(self.tour_info)
             self.manage_tour_details_choice(option)
         else:

@@ -64,7 +64,7 @@ class TournamentController:
     def show_all():
         menu = MenuModel()
         all_tournaments_menu = menu.all_tournaments_menu
-        tournaments_list = TournamentModel.get_all_tournaments()
+        tournaments_list = TournamentModel.get_all_tournaments_db_doc()
         show_tournaments = TournamentsView(tournaments_list, all_tournaments_menu)
         choice = show_tournaments()
         return choice

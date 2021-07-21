@@ -13,23 +13,13 @@ class TournamentsView:
         self.menu = menu
         self.choice = None
 
-    def adjust_self_menu(self):
-        counter = 0
-        for i in self.tournaments_list:
-            if 'Manage tournament: ' + i.title not in self.menu:
-                self.menu.insert(counter-1, 'Manage tournament: ' + i.title)
-                counter -= 1
-
     def print_tournaments_list(self):
         console = Console()
-        table = Table(title=colored('TOURNAMENTS', 'magenta'), show_header=True, header_style="bold blue")
+        table = Table(title=colored('CHOOSE THE TOURNAMENT YOU WANT TO MANAGE', 'magenta'), show_header=True, header_style="bold blue")
         table.add_column('Number', justify="center")
         table.add_column('Title')
-        counter = 0
-        self.tournaments_list.reverse()
         for i in self.tournaments_list:
-            table.add_row(str(counter + 1), i.title)
-            counter += 1
+            table.add_row(str(i.doc_id), i['title'])
         console.print(table)
         self.print_menu()
 
@@ -38,7 +28,7 @@ class TournamentsView:
         table = Table(title=colored('OPTIONS', 'blue'), show_header=True, header_style="bold blue")
         table.add_column('Choice', justify="center")
         table.add_column('Option')
-        counter = -1
+        counter = len(self.tournaments_list)
         for i in self.menu:
             table.add_row(str(counter + 1), i)
             counter += 1
@@ -46,18 +36,18 @@ class TournamentsView:
         self.check_choice()
 
     def check_choice(self):
+        correct_length = len(self.menu)+len(self.tournaments_list)
         i = 0
         while i < 1:
             print()
             choice = input('your choice ?: ')
-            if choice.isnumeric() and int(choice) in range(0, len(self.menu)):
+            if choice.isnumeric() and int(choice) in range(0, correct_length+1):
                 i += 1
                 self.choice = choice
             else:
-                print(colored("you need to choose between 0 and " + str(len(self.menu)-1), "red"))
+                print(colored("you need to choose between 0 and " + str(correct_length), "red"))
 
     def __call__(self):
         os.system('cls' if os.name == 'nt' else 'clear')
-        self.adjust_self_menu()
         self.print_tournaments_list()
         return self.choice
