@@ -116,7 +116,6 @@ class PlayerModel:
                         scored = 0
                     else:
                         scored += score[1]
-                    player.elo = score[0].elo
             players_cumulated_scores.append([player, scored])
         return players_cumulated_scores
 

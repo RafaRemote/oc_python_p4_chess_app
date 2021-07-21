@@ -37,6 +37,7 @@ class TournamentController:
                     i += 1
                     player2 = players[i+1]
                 except IndexError:
+                    i = 0
                     player2 = players[1]
                     break
             player1.opponents.append(player2.surname)

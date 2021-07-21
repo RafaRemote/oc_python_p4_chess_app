@@ -57,8 +57,6 @@ class RankingView:
         table.add_column("Elo", justify="center")
         table.add_column("Score", justify="center")
         for i in players:
-            print(i[1])
-        for i in players:
             table.add_row(str(i[0].name),
                           str(color_surname + i[0].surname),
                           str(i[0].year_birth),
