@@ -4,7 +4,7 @@ start_menu = ['Create a New Tournament',
               'Choose an Existing Tournament'
               ]
 
-all_tournaments_menu = ['Previous',
+all_tournaments_menu = ['Main Menu',
                         'Create new tournament',
                         'Quit'
                         ]

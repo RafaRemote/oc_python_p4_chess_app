@@ -19,8 +19,11 @@ class PlayerModel:
         self.elo = self.get_elo()
 
     def get_elo(self):
-        player = players_table.search(Player.surname == self.surname)[0]
-        return player['elo']
+        try:
+            player = players_table.search(Player.surname == self.surname)[0]
+            return player['elo']
+        except IndexError:
+            return
 
     def add_players(input_players, title):
         serialized_players = PlayerModel.serialize_players(input_players)
@@ -39,13 +42,16 @@ class PlayerModel:
                 players_list.append(PlayerModel.desserialize_player(i, option_opponents=0))
             return players_list
 
-    def get_players_with_opponents(tour_info_title):
+    def get_players_in_game(tour_info_title):
         tournament = tournaments_table.search(Tournament.title == tour_info_title)[0]
         players_list = list()
-        for match in tournament['rounds'][-1]['matches']:
-            players_list.append(PlayerModel.desserialize_player(match[0], option_opponents=1))
-            players_list.append(PlayerModel.desserialize_player(match[2], option_opponents=1))
-        return players_list
+        if len(tournament['rounds']) > 0:
+            for match in tournament['rounds'][-1]['matches']:
+                players_list.append(PlayerModel.desserialize_player(match[0], option_opponents=1))
+                players_list.append(PlayerModel.desserialize_player(match[2], option_opponents=1))
+            return players_list
+        else:
+            return []
 
     def serialize_players(input_players, choice=None):
         serialized_players = list()
@@ -87,35 +93,22 @@ class PlayerModel:
 
     def get_players_score(tour_info_title):
         tournament = tournaments_table.search(Tournament.title == tour_info_title)[0]
-        players_scores = list()
-        for count in range(0, len(tournament['rounds'])):
-            for match in tournament['rounds'][count]['matches']:
-                score1 = 0
-                score2 = 0
-                for player in PlayerModel.get_players_with_opponents(tour_info_title):
-                    if match[0]['surname'] == player.surname:
-                        score1 += match[1]['score1']
-                        players_scores.append([PlayerModel.desserialize_player(match[0], option_opponents=1), score1])
-                    if match[2]['surname'] == player.surname:
-                        score2 += match[3]['score2']
-                        players_scores.append([PlayerModel.desserialize_player(match[2], option_opponents=1), score2])
-        return players_scores
-
-    def get_players_cumulated_score(tour_info_title):
-        tour = tournaments_table.search(Tournament.title == tour_info_title)[0]
-        players = PlayerModel.get_players(tour_info_title)
-        scores = PlayerModel.get_players_score(tour_info_title)
-        players_cumulated_scores = list()
-        for player in players:
-            scored = 0
-            for score in scores:
-                if player.surname == score[0].surname:
-                    if len(tour['rounds']) == 0 or (len(tour['rounds']) == 1 and tour['rounds'][0]['end_date'] == ""):
-                        scored = 0
-                    else:
-                        scored += score[1]
-            players_cumulated_scores.append([player, scored])
-        return players_cumulated_scores
+        players = list()
+        if len(PlayerModel.get_players_in_game(tour_info_title)) > 0:
+            [players.append([i, []]) for i in PlayerModel.get_players_in_game(tour_info_title)]
+            for player in players:
+                for round_number in range(0, len(tournament['rounds'])):
+                    for match in tournament['rounds'][round_number]['matches']:
+                        if player[0].surname == match[0]['surname']:
+                            player[1].append(match[1]['score1'])
+                        if player[0].surname == match[2]['surname']:
+                            player[1].append(match[3]['score2'])
+            [player.append(sum(player[1])) for player in players]
+            return players
+        else:
+            [players.append([i, [0]] for i in PlayerModel.get_players(tour_info_title))]
+            [player.append(sum(player[1])) for player in players]
+            return players
 
     def get_opponents(tour_info_title):
         tournament = tournaments_table.search(Tournament.title == tour_info_title)[0]

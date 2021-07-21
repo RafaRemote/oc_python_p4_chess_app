@@ -123,12 +123,13 @@ class TournamentModel:
         listing = tournaments_table.search(Tournament.title.exists())
         sorted_listing = sorted(listing, key=lambda x: x['title'])
         return [TournamentModel.get_tournament(i['title']) for i in sorted_listing]
-    
+
     def get_all_tournaments_db_doc():
         """ Returns the list of tournaments from the db, containing the doc_id.
             Will be useful for the View tournaments.
+            List sorted by doc_id
         """
-        return tournaments_table.search(Tournament.title.exists())
+        return sorted(tournaments_table.search(Tournament.title.exists()), key=lambda x: x.doc_id)
 
     def get_rounds_length(tour):
         tournament = tournaments_table.search(Tournament.title == tour.title)[0]

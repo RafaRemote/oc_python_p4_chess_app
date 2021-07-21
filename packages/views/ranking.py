@@ -45,7 +45,7 @@ class RankingView:
             color_surname = "[orange1]"
             color_score = "[white]"
         else:
-            players = sorted(self.scores, key=lambda x: (x[1], x[0].elo), reverse=True)
+            players = sorted(self.scores, key=lambda x: (x[2], x[0].elo), reverse=True)
             color_surname = "[white]"
             color_score = "[dark_violet]"
         console = Console()
@@ -56,13 +56,13 @@ class RankingView:
         table.add_column("Gender", justify="center")
         table.add_column("Elo", justify="center")
         table.add_column("Score", justify="center")
-        for i in players:
-            table.add_row(str(i[0].name),
-                          str(color_surname + i[0].surname),
-                          str(i[0].year_birth),
-                          str(i[0].gender),
-                          str(i[0].elo),
-                          str(color_score + str(i[1]))
+        for player in players:    
+            table.add_row(str(player[0].name),
+                          str(color_surname + player[0].surname),
+                          str(player[0].year_birth),
+                          str(player[0].gender),
+                          str(player[0].elo),
+                          str(color_score + str(player[2]))
                           )
         console.print(table)
         print()
@@ -72,16 +72,16 @@ class RankingView:
     def show_elos(self):
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
-        table = Table(title="PLAYERS CURRENT SCORES", show_header=True, header_style="bold magenta")
+        table = Table(title="PLAYERS", show_header=True, header_style="bold magenta")
         table.add_column("Choice")
         table.add_column("Surname")
         table.add_column("Score", justify="center")
         counter = 0
-        for i in self.scores:
+        for player in self.scores:
             counter += 1
             table.add_row(str(counter),
-                          i[0].surname,
-                          str(i[0].elo)
+                          player[0].surname,
+                          str(player[0].elo)
                           )
         console.print(table)
         print()

@@ -15,7 +15,9 @@ class TournamentsView:
 
     def print_tournaments_list(self):
         console = Console()
-        table = Table(title=colored('CHOOSE THE TOURNAMENT YOU WANT TO MANAGE', 'magenta'), show_header=True, header_style="bold blue")
+        table = Table(title=colored('CHOOSE THE TOURNAMENT YOU WANT TO MANAGE', 'magenta'),
+                      show_header=True,
+                      header_style="bold blue")
         table.add_column('Number', justify="center")
         table.add_column('Title')
         for i in self.tournaments_list:

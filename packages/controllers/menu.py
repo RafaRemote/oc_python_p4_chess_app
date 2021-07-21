@@ -68,7 +68,7 @@ class MenuController:
         if choice == menu_length - 2:
             menu = MenuController(self.tour_info)
             menu()
-        elif choice == menu_length -1:
+        elif choice == menu_length - 1:
             tournament = TournamentController()
             tournament()
             menu = MenuController(self.tour_info)
@@ -209,7 +209,7 @@ class MenuController:
                 choice = TournamentController.show_one(self.tour_info)
                 self.manage_tour_details_choice(choice)
             else:
-                scores = PlayerModel.get_players_cumulated_score(self.tour_info.title)
+                scores = PlayerModel.get_players_score(self.tour_info.title)
                 ranking = RankingView(scores)
                 new_elo = ranking()
                 if new_elo[0] is None and new_elo[1] is None:

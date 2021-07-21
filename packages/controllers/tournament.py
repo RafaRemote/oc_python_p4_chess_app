@@ -24,7 +24,7 @@ class TournamentController:
 
     def add_round(tour_info):
         players_score = PlayerModel.get_players_score(tour_info.title)
-        players_sorted = sorted(players_score, key=lambda x: (x[1], x[0].elo), reverse=True)
+        players_sorted = sorted(players_score, key=lambda x: (x[2], x[0].elo), reverse=True)
         players = list()
         [players.append(i[0]) for i in players_sorted]
         matches = list()
