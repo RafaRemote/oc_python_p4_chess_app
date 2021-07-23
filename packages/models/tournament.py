@@ -179,7 +179,7 @@ class TournamentModel:
                                         "surname":i.player1[0].surname,
                                         "year_birth":i.player1[0].year_birth,
                                         "gender":i.player1[0].gender,
-                                        "elo": PlayerModel.get_elo(i.player1[0].name)
+                                        "elo": PlayerModel.get_elo(i.player1[0].surname)
                                     },
                                     {
                                         "score1": 0
@@ -189,7 +189,7 @@ class TournamentModel:
                                         "surname":i.player2[0].surname,
                                         "year_birth":i.player2[0].year_birth,
                                         "gender":i.player2[0].gender,
-                                        "elo": PlayerModel.get_elo(i.player2[0].name)
+                                        "elo": PlayerModel.get_elo(i.player2[0].surname)
                                     },
                                     {
                                         "score2": 0

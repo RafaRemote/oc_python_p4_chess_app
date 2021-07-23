@@ -75,8 +75,8 @@ class PlayerModel:
                 'elo': input_players.elo
                 }
 
-    def get_elo(name):
-        player = players_table.search(Player.name == name)[0]
+    def get_elo(surname):
+        player = players_table.search(Player.surname == surname)[0]
         return player['elo']
 
     def desserialize_player(player):
