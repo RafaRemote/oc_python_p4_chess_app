@@ -165,8 +165,8 @@ class MenuController:
                     tournament = TournamentModel.get_tournament(self.tour_info.title)
                     score_inputs = ScoringView(tournament)
                     scores = score_inputs().new_matches
-                    TournamentModel.update_scores(self.tour_info, scores)
-                    self.tour_info = TournamentModel.get_tournament(self.tour_info.title)
+                    self.tour_info = TournamentModel.update_scores(self.tour_info, scores)
+                    self.tour_info = TournamentModel.get_tournament(self.tour_info['title'])
                     choice = TournamentController.show_one(self.tour_info)
                     self.manage_tour_details_choice(choice)
                 else:
@@ -209,6 +209,8 @@ class MenuController:
                 choice = TournamentController.show_one(self.tour_info)
                 self.manage_tour_details_choice(choice)
             else:
+                print('when I click on 7 I can send this amount of rounds:', len(self.tour_info.rounds))
+                time.sleep(4)
                 scores = PlayerModel.get_players_score(self.tour_info.title)
                 ranking = RankingView(scores)
                 new_elo = ranking()

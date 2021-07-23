@@ -1,5 +1,7 @@
 """ controller for the tournament """
 
+import time
+
 from packages.views.input_tournament import InputTournamentView
 from packages.views.tournaments import TournamentsView
 from packages.views.tournament import TournamentView
