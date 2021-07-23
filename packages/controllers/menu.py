@@ -1,7 +1,5 @@
 """ main controller managing the choices in the menus """
 
-import time
-
 from packages.controllers.tournament import TournamentController
 from packages.models.welcome import WelcomeModel
 from packages.models.menu import MenuModel
@@ -25,6 +23,8 @@ class MenuController:
         self.tour_info = tour_info
 
     def welcome():
+        """ display a welcome message at the start of the app
+        """
         welcome = WelcomeModel()
         welcomeview = WelcomeView(welcome.title, welcome.sub_title)
         welcomeview()
@@ -209,8 +209,6 @@ class MenuController:
                 choice = TournamentController.show_one(self.tour_info)
                 self.manage_tour_details_choice(choice)
             else:
-                print('when I click on 7 I can send this amount of rounds:', len(self.tour_info.rounds))
-                time.sleep(4)
                 scores = PlayerModel.get_players_score(self.tour_info)
                 ranking = RankingView(scores)
                 new_elo = ranking()
@@ -237,7 +235,6 @@ class MenuController:
         elif choice == '9':
             quit = QuitView('The app is shutting down')
             quit()
-            time.sleep(1.5)
         else:
             error = Error('your choice is not in the list.')
             error()

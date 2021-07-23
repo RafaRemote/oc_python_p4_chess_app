@@ -1,5 +1,4 @@
 """ player model """
-import time
 
 from tinydb import TinyDB, Query
 db = TinyDB('db.json', indent=4)
@@ -93,14 +92,6 @@ class PlayerModel:
 
     def get_players_score(tour_info):
         rounds = tour_info.rounds
-        print('dealing with this amount of rounds:')
-        print(len(rounds))
-        time.sleep(3)
-        for i in range(0, len(rounds)):
-            for j in range(4):
-                print(rounds[i].matches[j].player1[0].surname)
-        time.sleep(3)
-
         players = list()
         if len(rounds) > 0:
             [players.append([i, []]) for i in PlayerModel.get_players(tour_info.title)]
@@ -112,11 +103,9 @@ class PlayerModel:
                         if player[0].surname == match.player2[0].surname:
                             player[1].append(match.player2[1])
             [player.append(sum(player[1])) for player in players]
-            print(players)
-            time.sleep(3)
             return players
         else:
-            [players.append([i, [0]] for i in PlayerModel.get_players(tour_info_title))]
+            [players.append([i, [0]] for i in PlayerModel.get_players(tour_info.title))]
             [player.append(sum(player[1])) for player in players]
             return players
 

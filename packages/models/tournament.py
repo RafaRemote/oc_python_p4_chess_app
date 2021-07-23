@@ -1,5 +1,5 @@
 """ model tournament """
-import time
+
 import datetime
 
 from packages.models.round import RoundModel
