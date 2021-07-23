@@ -79,13 +79,12 @@ class PlayerModel:
         player = players_table.search(Player.name == name)[0]
         return player['elo']
 
-
     def desserialize_player(player):
             return PlayerModel(name=player['name'],
                                surname=player['surname'],
                                year_birth=player['year_birth'],
                                gender=player['gender'],
-                               elo=PlayerModel.get_elo(player['name']))
+                               elo=PlayerModel.get_elo(player['surname']))
 
     def get_players_score(tour_info):
         rounds = tour_info.rounds
@@ -102,7 +101,7 @@ class PlayerModel:
             [player.append(sum(player[1])) for player in players]
             return players
         else:
-            [players.append([i, [0]] for i in PlayerModel.get_players(tour_info.title))]
+            [players.append([i, [0]]) for i in PlayerModel.get_players(tour_info.title)]
             [player.append(sum(player[1])) for player in players]
             return players
 
