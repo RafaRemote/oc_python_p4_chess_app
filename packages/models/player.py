@@ -91,24 +91,29 @@ class PlayerModel:
                                gender=player['gender'],
                                opponents=[])
 
-    def get_players_score(tour_info_title):
-        print('title', tour_info_title)
+    def get_players_score(tour_info):
+        rounds = tour_info.rounds
+        print('dealing with this amount of rounds:')
+        print(len(rounds))
         time.sleep(3)
-        
-        tournament = tournaments_table.search(Tournament.title == tour_info_title)[0]
-        print('get playrs score dealing with', len(tournament['rounds']), 'round(s)')
+        for i in range(0, len(rounds)):
+            for j in range(4):
+                print(rounds[i].matches[j].player1[0].surname)
         time.sleep(3)
+
         players = list()
-        if len(tournament['rounds']) > 0:
-            [players.append([i, []]) for i in PlayerModel.get_players(tour_info_title)]
+        if len(rounds) > 0:
+            [players.append([i, []]) for i in PlayerModel.get_players(tour_info.title)]
             for player in players:
-                for round_number in range(0, len(tournament['rounds'])):
-                    for match in tournament['rounds'][round_number]['matches']:
-                        if player[0].surname == match[0]['surname']:
-                            player[1].append(match[1]['score1'])
-                        if player[0].surname == match[2]['surname']:
-                            player[1].append(match[3]['score2'])
+                for round_number in range(0, len(rounds)):
+                    for match in rounds[round_number].matches:
+                        if player[0].surname == match.player1[0].surname:
+                            player[1].append(match.player1[1])
+                        if player[0].surname == match.player2[0].surname:
+                            player[1].append(match.player2[1])
             [player.append(sum(player[1])) for player in players]
+            print(players)
+            time.sleep(3)
             return players
         else:
             [players.append([i, [0]] for i in PlayerModel.get_players(tour_info_title))]

@@ -211,7 +211,7 @@ class MenuController:
             else:
                 print('when I click on 7 I can send this amount of rounds:', len(self.tour_info.rounds))
                 time.sleep(4)
-                scores = PlayerModel.get_players_score(self.tour_info.title)
+                scores = PlayerModel.get_players_score(self.tour_info)
                 ranking = RankingView(scores)
                 new_elo = ranking()
                 if new_elo[0] is None and new_elo[1] is None:
