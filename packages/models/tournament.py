@@ -1,6 +1,5 @@
 """ model tournament """
 
-import time
 import datetime
 
 from packages.models.round import RoundModel
@@ -198,7 +197,7 @@ class TournamentModel:
         round['number'] = len(tour['rounds'])+1
         round['start_date'] = str(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S"))
         round['end_date'] = ""
-        tour['rounds'].append(round)   
+        tour['rounds'].append(round)
         tournaments_table.remove(Tournament.title == tour['title'])
         tournaments_table.insert(tour)
         return

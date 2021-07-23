@@ -17,13 +17,6 @@ class PlayerModel:
         self.gender = gender
         self.elo = elo
 
-    def get_elo(self):
-        try:
-            player = players_table.search(Player.surname == self.surname)[0]
-            return player['elo']
-        except IndexError:
-            return
-
     def add_players(input_players, title):
         serialized_players = PlayerModel.serialize_players(input_players)
         serialized_players.append({'tournament_participation': title})
@@ -53,7 +46,7 @@ class PlayerModel:
             return []
 
     def serialize_players(input_players):
-        if isinstance(input_players, InputPlayerView):           
+        if isinstance(input_players, InputPlayerView):
             serialized_players = list()
             i = 0
             while i < 8:
@@ -80,11 +73,11 @@ class PlayerModel:
         return player['elo']
 
     def desserialize_player(player):
-            return PlayerModel(name=player['name'],
-                               surname=player['surname'],
-                               year_birth=player['year_birth'],
-                               gender=player['gender'],
-                               elo=PlayerModel.get_elo(player['surname']))
+        return PlayerModel(name=player['name'],
+                           surname=player['surname'],
+                           year_birth=player['year_birth'],
+                           gender=player['gender'],
+                           elo=PlayerModel.get_elo(player['surname']))
 
     def get_players_score(tour_info):
         rounds = tour_info.rounds
