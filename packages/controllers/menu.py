@@ -216,9 +216,11 @@ class MenuController:
                     choice = TournamentController.show_one(self.tour_info)
                     self.manage_tour_details_choice(choice)
                 else:
-                    PlayerModel.update_elo(self.tour_info.title, new_elo)
+                    self.tour_info = PlayerModel.update_elo(self.tour_info, new_elo)
                     info = InfoView('Player\'s Elo has been updated')
                     info()
+                    choice = TournamentController.show_one(self.tour_info)
+                    self.manage_tour_details_choice(choice)
                 choice = TournamentController.show_one(self.tour_info)
                 self.manage_tour_details_choice(choice)
         elif choice == '8':
@@ -227,7 +229,7 @@ class MenuController:
                 error()
                 choice = TournamentController.show_one(self.tour_info)
                 self.manage_tour_details_choice(choice)
-            opponents = PlayerModel.get_opponents(self.tour_info.title)
+            opponents = PlayerModel.get_opponents(self.tour_info)
             opponents_view = OpponentsView(opponents)
             opponents_view()
             choice = TournamentController.show_one(self.tour_info)

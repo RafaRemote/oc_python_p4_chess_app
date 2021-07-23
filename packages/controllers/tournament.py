@@ -32,7 +32,7 @@ class TournamentController:
             i = 0
             player1 = players[i]
             player2 = players[i+1]
-            while TournamentController.check_opponents(tour_info.title, player1, player2):
+            while PlayerModel.check_opponents(tour_info, player1, player2):
                 try:
                     i += 1
                     player2 = players[i+1]
@@ -40,20 +40,11 @@ class TournamentController:
                     i = 0
                     player2 = players[1]
                     break
-            player1.opponents.append(player2.surname)
-            player2.opponents.append(player1.surname)
             matches.append(MatchModel(player1, player2))
             del players[0]
             del players[i]
         TournamentModel.add_round(tour_info, matches)
         return
-
-    def check_opponents(title, player1, player2):
-        players_opponents = PlayerModel.get_opponents(title)
-        for i in players_opponents:
-            if i.surname == player1.surname:
-                if player2.surname in i.opponents:
-                    return True
 
     def show_one(tour_info):
         menu = MenuModel()

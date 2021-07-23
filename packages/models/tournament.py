@@ -1,5 +1,6 @@
 """ model tournament """
 
+import time
 import datetime
 
 from packages.models.round import RoundModel
@@ -78,14 +79,12 @@ class TournamentModel:
                                                 i['matches'][j][0]['surname'],
                                                 i['matches'][j][0]['year_birth'],
                                                 i['matches'][j][0]['gender'],
-                                                i['matches'][j][0]['elo'],
-                                                i['matches'][j][0]['opponents']),
+                                                i['matches'][j][0]['elo']),
                             player2=PlayerModel(i['matches'][j][2]['name'],
                                                 i['matches'][j][2]['surname'],
                                                 i['matches'][j][2]['year_birth'],
                                                 i['matches'][j][2]['gender'],
-                                                i['matches'][j][2]['elo'],
-                                                i['matches'][j][2]['opponents']),
+                                                i['matches'][j][2]['elo']),
                                             score1=i['matches'][j][1]['score1'],
                                             score2=i['matches'][j][3]['score2']
                                             ))
@@ -114,8 +113,7 @@ class TournamentModel:
                                                      i['surname'],
                                                      i['year_birth'],
                                                      i['gender'],
-                                                     i['elo'],
-                                                     i['opponents']
+                                                     i['elo']
                                                      ))
         return desserialized_players
 
@@ -147,8 +145,7 @@ class TournamentModel:
                                 "surname": high_group[i].surname,
                                 "year_birth": high_group[i].year_birth,
                                 "gender": high_group[i].gender,
-                                "elo": high_group[i].elo,
-                                "opponents": [low_group[i].surname]
+                                "elo": high_group[i].elo
                             },
                             {
                                 "score1": 0
@@ -158,8 +155,7 @@ class TournamentModel:
                                 "surname": low_group[i].surname,
                                 "year_birth": low_group[i].year_birth,
                                 "gender": low_group[i].gender,
-                                "elo": low_group[i].elo,
-                                "opponents": [high_group[i].surname]
+                                "elo": low_group[i].elo
                             },
                             {
                                 "score2": 0
@@ -183,8 +179,7 @@ class TournamentModel:
                                         "surname":i.player1[0].surname,
                                         "year_birth":i.player1[0].year_birth,
                                         "gender":i.player1[0].gender,
-                                        "elo":i.player1[0].elo,
-                                        "opponents":i.player1[0].opponents
+                                        "elo": PlayerModel.get_elo(i.player1[0].name)
                                     },
                                     {
                                         "score1": 0
@@ -194,8 +189,7 @@ class TournamentModel:
                                         "surname":i.player2[0].surname,
                                         "year_birth":i.player2[0].year_birth,
                                         "gender":i.player2[0].gender,
-                                        "elo":i.player2[0].elo,
-                                        "opponents":i.player2[0].opponents
+                                        "elo": PlayerModel.get_elo(i.player2[0].name)
                                     },
                                     {
                                         "score2": 0
@@ -204,8 +198,8 @@ class TournamentModel:
         round['number'] = len(tour['rounds'])+1
         round['start_date'] = str(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S"))
         round['end_date'] = ""
-        tour['rounds'].append(round)
-        tournaments_table.remove(Tournament.title == tour_info.title)
+        tour['rounds'].append(round)   
+        tournaments_table.remove(Tournament.title == tour['title'])
         tournaments_table.insert(tour)
         return
 
