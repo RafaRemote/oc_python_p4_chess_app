@@ -66,21 +66,21 @@ class OpponentsView:
         table.add_column("Opponent 4")
         for player in self.players:
             if len(player[1]) == 0:
-                table.add_row(player[0].surname)
+                table.add_row("[green]"+player[0].surname)
             elif len(player[1]) == 1:
-                table.add_row(player[0].surname,
+                table.add_row("[green]"+player[0].surname,
                               player[1][0])
             elif len(player[1]) == 2:
-                table.add_row(player[0].surname,
+                table.add_row("[green]"+player[0].surname,
                               player[1][0],
                               player[1][1])
             elif len(player[1]) == 3:
-                table.add_row(player[0].surname,
+                table.add_row("[green]"+player[0].surname,
                               player[1][0],
                               player[1][1],
                               player[1][2])
             elif len(player[1]) == 4:
-                table.add_row(player[0].surname,
+                table.add_row("[green]"+player[0].surname,
                               player[1][0],
                               player[1][1],
                               player[1][2],
