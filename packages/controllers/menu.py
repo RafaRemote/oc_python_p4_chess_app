@@ -19,12 +19,53 @@ from packages.views.opponents import OpponentsView
 
 
 class MenuController:
+    """
+    Class to handle the menu.
+
+    ...
+
+    Attributes
+    ----------
+    tour_info : instance
+        instance of tournament
+
+    Methods
+    -------
+    welcome():
+        print a welcoming message when app starts.
+    select_handler(self):
+        handles the choice in the main menu
+    manage_list_choice(self, choice):
+        handles the choice in the menu for the list of tournaments
+    manage_tour_details_choice(self, choice):
+        handles the choice in the menu for one tournament
+    """
+
     def __init__(self, tour_info):
+        """
+        Constructs all the necessary attributes for the menu object.
+
+        Parameters
+        ----------
+            tour_info : instance
+                instance of a tournament
+        """
+
         self.tour_info = tour_info
 
     def welcome():
-        """ display a welcome message at the start of the app
         """
+        Calls WelcomeModel then calls WelcomeView with the return
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        calls the MenuController with no instance of tournament
+        """
+
         welcome = WelcomeModel()
         welcomeview = WelcomeView(welcome.title, welcome.sub_title)
         welcomeview()
@@ -32,8 +73,23 @@ class MenuController:
         menu()
 
     def select_handler(self):
-        """ handle choice for the starting menu
         """
+        Handles the choice in the main menu.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        depending on the choice:
+            - calls: TournamentController():
+                to construct a new tournament
+            or
+            - calls: TournamentModel.get_all_tournaments():
+                to get the list of all the exising tournaments in the database
+        """
+
         menu_model = MenuModel()
         menu_model()
         start_menu = menu_model().start_menu
@@ -61,8 +117,20 @@ class MenuController:
             error()
 
     def manage_list_choice(self, choice):
-        """ handle choice in list of tournaments
         """
+        Handles the choice in the menu of the list of tournaments.
+
+
+        Parameters
+        ----------
+        choice : number
+            choice of the user in the menu, returned by TournamentController.show_all()
+
+        Returns
+        -------
+        depending on the choice: calls models, controllers or views.
+        """
+
         checker_menu = MenuModel()
         menu_length = len(checker_menu.all_tournaments_menu) + len(TournamentModel.get_all_tournaments())
         if choice == menu_length - 2:
@@ -87,7 +155,18 @@ class MenuController:
             menu()
 
     def manage_tour_details_choice(self, choice):
-        """ handle choice in list of options for each tournament
+        """
+        Handles the choice in the menu for one tournament.
+
+
+        Parameters
+        ----------
+        choice : str
+            choice of the user in the menu, returned by TournamentController.show_one(self.tour_info)
+
+        Returns
+        -------
+        depending on the choice: calls models, controllers or views.
         """
         if choice == '0':
             menu = MenuController(tour_info=None)

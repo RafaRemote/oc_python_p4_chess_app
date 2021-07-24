@@ -7,15 +7,68 @@ from termcolor import colored
 
 
 class InputPlayerView:
+    """
+    Class to represent a page of inputs for players
+
+    ...
+
+    Attributes
+    ----------
+    name: list
+        list of strings, player names
+    surname: list
+        list of strings, player surnames
+    year_birth: list
+        list of int, player year of birth
+    gender: list
+        list of strings, player gender('m' or 'w')
+    elo: list
+        list of int: player elos
+
+
+    Methods
+    -------
+    get_att(self, counter, att):
+        return user inputs for attributes
+
+    call(self):
+        calls get_att(self, counter, att) until 8 series of inputs
+    """
+
     def __init__(self):
+        """
+        Constructs attributes for InputPlayerView object.
+
+        Parameters
+        ----------
+        none
+
+        """
+
         self.name = []
         self.surname = []
         self.year_birth = []
         self.gender = []
         self.elo = []
-        # self.opponents = []
 
     def get_att(self, counter, att):
+        """
+        print questions, waiting for user inputs
+        appending inputs to the attributes lists
+
+        Parameters
+        ----------
+        counter: int
+            represent the number of player entered
+        att: str
+            represent attributes for which a user input is asked
+
+        Returns
+        -------
+        nothing
+
+        """
+
         os.system('cls' if os.name == 'nt' else 'clear')
         print(colored('      Enter infos about the players'.upper(), 'magenta'))
         print()
@@ -80,6 +133,21 @@ class InputPlayerView:
                 self.elo.append(elo)
 
     def __call__(self):
+        """
+        print informations about:
+            how many players have been entered
+            info when 8 players have been entered
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        instance of InputPlayerModel
+
+        """
+
         counter = 0
         while counter < 8:
             att_lst = ['name', 'surname', 'year_birth', 'gender', 'elo']

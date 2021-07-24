@@ -15,14 +15,69 @@ Tournament = Query()
 
 
 class TournamentController:
+    """
+    A class to handle the tournament.
+
+    ...
+
+    Attributes
+    ----------
+    tour_info : instance
+        instance of tournament
+
+    Methods
+    -------
+    add_players(tour_info, serialized_players):
+        calls TournamentModel.add_players(tour_info, serialized_players)
+    add_round(tour_info):
+        first round has specific rules
+        next rounds have other rules
+        this function calculates the composition of a round after the first one
+    """
     def __init__(self):
+        """
+        Constructs all the necessary attributes for the menu object.
+
+        Parameters
+        ----------
+        none
+        """
+
         self.tour_info = None
 
     def add_players(tour_info, serialized_players):
+        """
+        Calls TournamentModel to add players to the database
+
+        Parameters
+        ----------
+        tour_info:
+            instance of the current tournament
+        serialized_players:
+            list of players to add to the database
+
+        Returns
+        -------
+        tournament instance
+        """
+
         tour = TournamentModel.add_players(tour_info, serialized_players)
         return tour
 
     def add_round(tour_info):
+        """
+        Constructs the composition of a round after the first one
+
+        Parameters
+        ----------
+        tour_info: instance
+            instance of tournament
+
+        Returns
+        -------
+        none
+        """
+
         players_score = PlayerModel.get_players_score(tour_info)
         players_sorted = sorted(players_score, key=lambda x: (x[2], x[0].elo), reverse=True)
         players = list()
@@ -47,12 +102,35 @@ class TournamentController:
         return
 
     def show_one(tour_info):
+        """
+        Calls a model of menu for one tournament then a view
+
+        Parameters
+        ----------
+        tour_info: instance
+            instance of tournament
+
+        Returns
+        -------
+        choice of user in menu for one tourmaent
+        """
         menu = MenuModel()
         tournament_menu = menu.tournament_menu
         choice = TournamentView(tour_info, tournament_menu)
         return choice()
 
     def show_all():
+        """
+        Calls a model of menu for list of tournaments then a view
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        choice of user in list of tournaments menu
+        """
         menu = MenuModel()
         all_tournaments_menu = menu.all_tournaments_menu
         tournaments_list = TournamentModel.get_all_tournaments_db_doc()
@@ -61,6 +139,17 @@ class TournamentController:
         return choice
 
     def __call__(self):
+        """
+        on call: calls a view for user inputs for a tournament
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        tournament instance
+        """
         tournament = InputTournamentView()
         tour_inputs = tournament()
         tournament = TournamentModel(place=tour_inputs.place,

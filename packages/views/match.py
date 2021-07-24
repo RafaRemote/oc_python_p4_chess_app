@@ -9,10 +9,49 @@ from rich import print
 
 
 class MatchView:
+    """
+    Class to represent an a page with match details
+
+    ...
+
+    Attributes
+    ----------
+    rounds: list
+        list of MatchModel instances
+
+    Methods
+    -------
+    print_matches(self):
+        print matches details
+        no return
+    """
+
     def __init__(self, rounds):
+        """
+        Constructs attributes for Error object.
+
+        Parameters
+        ----------
+        ronuds: list
+            list of MatchModel instances
+
+        """
         self.rounds = rounds
 
     def print_matches(self):
+        """
+        prints table with matches details
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        no return
+
+        """
+
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
         table = Table(title=colored('MATCHES', 'magenta'), show_header=True, header_style="bold blue")
@@ -48,6 +87,18 @@ class MatchView:
         self.print_color_meanings()
 
     def print_color_meanings(self):
+        """
+        print a table for the meaning of the colors
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        no return
+        """
+
         console = Console()
         table = Table(title='Meaning of Colors')
         table.add_column('Yellow', header_style='bold yellow', style='yellow')
@@ -57,6 +108,18 @@ class MatchView:
         console.print(table)
 
     def __call__(self):
+        """
+        calls self.print_matches()
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        nothing
+
+        """
         self.print_matches()
         print()
         input(colored('press return to go back to the main menu', 'blue'))

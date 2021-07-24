@@ -8,12 +8,65 @@ from rich.table import Table
 
 
 class TournamentsView:
+    """
+    Class to represent a tournaments view page
+
+    ...
+
+    Attributes
+    ----------
+    tournaments_lsit: list
+        list of TournamentModel instances
+    menu: list
+        list of strings representing choices in a menu
+    choice: int
+        default set: none
+        int representing user input as choice in a menu
+
+    Methods
+    -------
+    print_tournaments_list(self):
+        prints table
+        returns nothing
+    print_menu(self):
+        prints table
+        returns nothing
+    check_choice(self):
+        check user input
+        assigns int to self.choice
+
+    """
+
     def __init__(self, tournaments_list, menu):
+        """
+        Constructs attributes for TournamentView object.
+
+        Parameters
+        ----------
+        tournaments_lsit: list
+            list of TournamentModel instances
+        menu: list
+            list of strings representing choices in a menu
+
+        """
+
         self.tournaments_list = tournaments_list
         self.menu = menu
         self.choice = None
 
     def print_tournaments_list(self):
+        """
+        prints table
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        nothing
+
+        """
         console = Console()
         table = Table(title=colored('CHOOSE THE TOURNAMENT YOU WANT TO MANAGE', 'magenta'),
                       show_header=True,
@@ -26,6 +79,19 @@ class TournamentsView:
         self.print_menu()
 
     def print_menu(self):
+        """
+        prints table
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        nothing
+
+        """
+
         console = Console()
         table = Table(title=colored('OPTIONS', 'blue'), show_header=True, header_style="bold blue")
         table.add_column('Choice', justify="center")
@@ -38,6 +104,19 @@ class TournamentsView:
         self.check_choice()
 
     def check_choice(self):
+        """
+        check user input
+        assign value (int) to self.choice
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        int
+
+        """
         correct_length = len(self.menu)+len(self.tournaments_list)
         i = 0
         while i < 1:
@@ -50,6 +129,18 @@ class TournamentsView:
                 print(colored("you need to choose between 0 and " + str(correct_length), "red"))
 
     def __call__(self):
+        """
+        calls self.print_tournaments_list()
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        instance of TournamentsView
+
+        """
         os.system('cls' if os.name == 'nt' else 'clear')
         self.print_tournaments_list()
         return self.choice

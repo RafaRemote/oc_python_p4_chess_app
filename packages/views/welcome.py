@@ -11,7 +11,7 @@ from termcolor import colored
 
 class WelcomeView:
     """
-    A class used to display a message in a table
+    A class used to display table with welcome messages
     ...
     Attributes
     ----------
@@ -23,22 +23,47 @@ class WelcomeView:
     Methods
     -------
     clean_sentence(message, sub_title)
+        modify strings
         prints the main message and the sub_title in a table
 
-
     """
+
     def __init__(self, title, sub_title):
+        """
+        Constructs attributes for WelcomeView object.
+
+        Parameters
+        ----------
+        message: string
+            message to be displayed as the title
+        sub_title : string
+            message to be displayed as the sub_title
+
+        """
+
         self.title = title
         self.sub_title = sub_title
 
-    def clean_message(self, message):
-        """ returns a table with the sentences as attributes """
+    def clean_message(self, title):
+        """
+        prints table
+
+        Parameters
+        ----------
+        title: str
+            string to be printed as the title
+
+        Returns
+        -------
+        nothing
+
+        """
 
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
         table = Table(show_header=True, header_style="bold orange1")
         f = Figlet(font='bubble')
-        table.add_column(f.renderText(message.strip(' ').upper()),
+        table.add_column(f.renderText(title.strip(' ').upper()),
                          justify="center")
         table.add_row(self.sub_title)
         console.print(table)
@@ -46,4 +71,17 @@ class WelcomeView:
         input(colored('press return to go to the main menu.', 'blue'))
 
     def __call__(self):
+        """
+        calls self.clean_message(self.title)
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        nothing
+
+        """
+
         self.clean_message(self.title)

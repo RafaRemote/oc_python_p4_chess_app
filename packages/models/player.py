@@ -10,7 +10,67 @@ Tournament = Query()
 
 
 class PlayerModel:
+    """
+    Class for represent a player
+
+    ...
+
+    Attributes
+    ----------
+    name: str
+        name
+    surname: str
+        surname
+    year_birth: int
+        year of birth
+    gender: str
+        man or woman
+    elo: int
+        elo
+
+    Methods
+    -------
+    add_players(input_players, title):
+        add a table of players in the database
+    get_players(title):
+        returns a list of players instances
+    get_players_in_game(tour_info_title):
+        returns a list of players instances currently playing
+    serialize_players(input_players):
+        return either a list or one serialized player object(s)
+    get_elo(surname):
+        returns the elo of a player in the players table
+    desserialize_player(player):
+        returns a player object from a serialized player object
+    get_players_score(tour_info):
+        returns a list of player instances with their score
+    get_opponents(tour_info):
+        returns a list of player instances with their opponents
+    check_opponents(tour_info, player1, player2):
+        returns boolean
+        True if player2 already played with player1, otherwise False
+    update_elo(tour_info, ranking):
+        returns tournament instances with updated players elos
+    """
+
     def __init__(self, name, surname, year_birth, gender, elo):
+        """
+        Constructs all the necessary attributes for the player object.
+
+        Parameters
+        ----------
+        name: str
+            name
+        surname: str
+            surname
+        year_birth: int
+            year of birth
+        gender: str
+            man or woman
+        elo: int
+            elo
+        """
+
         self.name = name
         self.surname = surname
         self.year_birth = year_birth
@@ -18,12 +78,40 @@ class PlayerModel:
         self.elo = elo
 
     def add_players(input_players, title):
+        """
+        insert players to the database
+
+        Parameters
+        ----------
+        input_players: list
+            list of player instances
+        title:
+            tournament titie
+
+        Returns
+        -------
+        none
+        """
+
         serialized_players = PlayerModel.serialize_players(input_players)
         serialized_players.append({'tournament_participation': title})
         players_table.truncate()
         players_table.insert_multiple(serialized_players)
 
     def get_players(title):
+        """
+        get the players in the player table
+
+        Parameters
+        ----------
+        title:
+            tournament titie
+
+        Returns
+        -------
+        a list of player instances
+        """
+
         players_list = []
         players = list()
         if len(players_table.search(Player.tournament_participation == title)) == 0:
@@ -35,6 +123,19 @@ class PlayerModel:
             return players_list
 
     def get_players_in_game(tour_info_title):
+        """
+        returns a list of players for a tournament
+
+        Parameters
+        ----------
+        tour_info_title:
+            tournament titie
+
+        Returns
+        -------
+        list of player instances, can be empty
+        """
+
         tournament = tournaments_table.search(Tournament.title == tour_info_title)[0]
         players_list = list()
         if len(tournament['rounds']) > 0:
@@ -46,6 +147,20 @@ class PlayerModel:
             return []
 
     def serialize_players(input_players):
+        """
+        serialize input for player
+
+
+        Parameters
+        ----------
+        input_players: list
+            list of player instances
+
+        Returns
+        -------
+        either a list or one serialized player object
+        """
+
         if isinstance(input_players, InputPlayerView):
             serialized_players = list()
             i = 0
@@ -69,10 +184,37 @@ class PlayerModel:
                 }
 
     def get_elo(surname):
+        """
+        check the elo of a player
+
+        Parameters
+        ----------
+        surname: str
+            surname of the player
+
+
+        Returns
+        -------
+        int
+        """
+
         player = players_table.search(Player.surname == surname)[0]
         return player['elo']
 
     def desserialize_player(player):
+        """
+        desserialized dict of player from the databse
+
+        Parameters
+        ----------
+        player: dict
+            dict representing player
+
+        Returns
+        -------
+        instance of a player
+        """
+
         return PlayerModel(name=player['name'],
                            surname=player['surname'],
                            year_birth=player['year_birth'],
@@ -80,6 +222,19 @@ class PlayerModel:
                            elo=PlayerModel.get_elo(player['surname']))
 
     def get_players_score(tour_info):
+        """
+        get players scores
+
+        Parameters
+        ----------
+        tour_info:
+            tournament instance
+
+        Returns
+        -------
+        list: [<player instance>, [score list], sum of scores list]
+        """
+
         rounds = tour_info.rounds
         players = list()
         if len(rounds) > 0:
@@ -99,6 +254,19 @@ class PlayerModel:
             return players
 
     def get_opponents(tour_info):
+        """
+        get opponents for each player
+
+        Parameters
+        ----------
+        tour_info:
+            tournament instance
+
+        Returns
+        -------
+        list: [<player instance>, ['opponent(s)']]
+        """
+
         players = list()
         [players.append([player, []]) for player in PlayerModel.get_players(tour_info.title)]
         for player in players:
@@ -111,6 +279,23 @@ class PlayerModel:
         return players
 
     def check_opponents(tour_info, player1, player2):
+        """
+        chek if two players did play together or not
+
+        Parameters
+        ----------
+        tour_info: instance
+            tournament instance
+        player1: instance
+            player instance
+        player2:
+            player instance
+
+        Returns
+        -------
+        boolean: True if they played together False if not
+        """
+
         players_opponents = PlayerModel.get_opponents(tour_info)
         for player in players_opponents:
             if player1.surname == player[0].surname:
@@ -120,6 +305,21 @@ class PlayerModel:
                     return False
 
     def update_elo(tour_info, ranking):
+        """
+        update elo of player in the database
+
+        Parameters
+        ----------
+        tour_info: instance
+            tournament instance
+        ranking:
+            [<player instance>, score]
+
+        Returns
+        -------
+        tournament instance
+        """
+
         players = PlayerModel.get_players(tour_info.title)
         new_players = list()
         for i in players:

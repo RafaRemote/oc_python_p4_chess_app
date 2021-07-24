@@ -9,12 +9,68 @@ from rich import print
 
 
 class TournamentView:
+    """
+    Class to represent a tournament view page
+
+    ...
+
+    Attributes
+    ----------
+    tour_info: instance
+        TournamentModel instance
+    menu: list
+        list of strings representing choices in a menu
+    choice: int
+        default set: none
+        represents user input as choice in a menu
+
+    Methods
+    -------
+    print_tournament_details(self):
+        prints table
+        no return
+    print_menu(self):
+        prints table
+        no return
+    check_choice(self):
+        prints input for choice
+        assigns int to self.choice
+    call(self):
+        calls print_tournament_details(self)
+        return self.choice
+    """
+
     def __init__(self, tour_info, menu):
+        """
+        Constructs attributes for TournamentView object.
+
+        Parameters
+        ----------
+        tour_info: instance
+            TournamentModel instance
+        menu: list
+            list of strings representing choices in a menu
+
+        """
+
         self.tour_info = tour_info
         self.menu = menu
         self.choice = None
 
     def print_tournament_details(self):
+        """
+        print table
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        nothing
+
+        """
+
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
         table = Table(title=colored(self.tour_info.title + ' CHESS TOURNAMENT', 'magenta'),
@@ -46,6 +102,19 @@ class TournamentView:
         self.print_menu()
 
     def print_menu(self):
+        """
+        prints table
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        nothing
+
+        """
+
         console = Console()
         table = Table(title=colored('OPTIONS', 'blue'), show_header=True, header_style="bold blue")
         table.add_column('Choice', justify="center")
@@ -69,5 +138,18 @@ class TournamentView:
                 print("[red]""you need to choose between 0 and " + str(len(self.menu)-1))
 
     def __call__(self):
+        """
+        calls self.print_tournament_details()
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        self.choice
+
+        """
+
         self.print_tournament_details()
         return self.choice

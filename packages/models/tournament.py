@@ -17,7 +17,87 @@ TOTALROUNDS = 4
 
 
 class TournamentModel:
+    """
+    Class to represent a tournament
+
+    ...
+
+    Attributes
+    ----------
+    place: str
+        place where the Tournament is played
+    title: str
+        title of the tournament
+    time_control: str
+        type of time control used for the tournament
+    description: srt
+        description of the tournament
+    start_date: str
+        date and hour the tournament starts
+    total_rounds: int
+        number of rounds for a tournament
+    rounds: list
+        list of the rounds which are dictionnaries
+
+    Methods
+    -------
+    insert(self):
+        insert a tournament in the database
+    get_tournament(title):
+        search a tournament from its title
+        and desserialize it as an instance of TournamentModel
+        returns a TournamentModel object
+    get_tournament_by_id(choice):
+        search a tournament by its doc_id from the database
+        returns a TournamentModel object
+    desserialize_rounds(tour_db):
+        receive a document searched from the database: a tournament
+        and desserialize ecah of its rounds as instances of RoundModel
+        returns a list of RoundModel objects
+    desserialize_players(tour_db):
+        receive a document searched from the database: a tournament
+        and desserialize its players a instances of PlayerModel
+        returns a list PlayerModel objects
+    get_all_tournaments():
+        returns all the tournaments from the database
+        as a list of TournamentModel objects
+    get_all_tournaments_db_doc():
+        returns a sorted list of all the tournaments from the database with their doc_ids
+    get_rounds_length(tour):
+        returns the length of a tournament as an int
+    add_first_round_db(tour_info):
+        updates tournament in database with its first round
+        no return
+    add_round(tour_info, matches):
+        updates round 2,3,4 of a tournament in the database
+        returns nothing
+    update_scores(tour_info, scores)
+        updates scores in the matches of a round of a tournament
+        inserts in the database
+        return an updated tour as a dict
+    """
+
     def __init__(self, place, title, time_control, description, start_date, rounds=[]):
+        """
+        Constructs attributes tournament object.
+
+        Parameters
+        ----------
+        place: str
+            place where takes place the tournament
+        title: str
+            title of the tournament
+        time_control: str
+            time control method for the tournament
+        description: str
+            decription of the tournament
+        start_date: str
+            date that the tournament starts
+        rounds: list
+            list of the rounds for a tournament
+
+        """
+
         self.place = place
         self.title = title
         self.time_control = time_control
@@ -27,6 +107,18 @@ class TournamentModel:
         self.rounds = rounds
 
     def insert(self):
+        """
+        inserts a serialized tournament in the table of tournaments
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        nothing
+        """
+
         if len(tournaments_table.search(Tournament.title == self.title)) == 0:
             tournaments_table.insert({'place': self.place,
                                       'title': self.title,
@@ -41,6 +133,20 @@ class TournamentModel:
             return
 
     def get_tournament(title):
+        """
+        searches a tournament in the database from its title
+
+        Parameters
+        ----------
+        title: str
+            title of the tournament
+
+        Returns
+        -------
+        tour: TournamentModel instance
+
+        """
+
         tour_db = tournaments_table.search(Tournament.title == title)[0]
         tour = TournamentModel(place=tour_db['place'],
                                title=tour_db['title'],
@@ -51,6 +157,20 @@ class TournamentModel:
         return tour
 
     def get_tournament_by_id(choice):
+        """
+        searches a tournament from its doc_id
+
+        Parameters
+        ----------
+        choice: int
+            int represents the reference of the doc_id
+
+        Returns
+        -------
+        tour: TournamentModel instance
+
+        """
+
         tour_db = tournaments_table.get(doc_id=choice)
         tour = TournamentModel(place=tour_db['place'],
                                title=tour_db['title'],
@@ -61,6 +181,21 @@ class TournamentModel:
         return tour
 
     def deserialize_rounds(tour_db):
+        """
+        desserializes round from a tournament in the database
+
+        Parameters
+        ----------
+        tour_db: dict
+            dict representing a tournament
+            (dict from a tournament document in the database)
+
+        Returns
+        -------
+        list of RoundModel instances
+
+        """
+
         rounds_list = list()
         matches_list = list()
         rounds = tour_db['rounds']
@@ -105,6 +240,21 @@ class TournamentModel:
         return rounds_list
 
     def deserialize_players(tour_db):
+        """
+        desserialize players from a tournament document
+
+        Parameters
+        ---------
+        tour_db: dict
+            dict representing a tournament
+            (dict from a tournament document in the database)
+
+        Returns
+        -------
+        list: of PlayerModel instances
+
+        """
+
         players = tour_db['players']
         desserialized_players = list()
         for i in players:
@@ -117,22 +267,69 @@ class TournamentModel:
         return desserialized_players
 
     def get_all_tournaments():
+        """
+        searches all tournament documents in the database
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        list: of TournamentModel instances
+
+        """
+
         listing = tournaments_table.search(Tournament.title.exists())
         sorted_listing = sorted(listing, key=lambda x: x['title'])
         return [TournamentModel.get_tournament(i['title']) for i in sorted_listing]
 
     def get_all_tournaments_db_doc():
-        """ Returns the list of tournaments from the db, containing the doc_id.
-            Will be useful for the View tournaments.
-            List sorted by doc_id
+        """
+        searches all tournament documents in the database without desserialization
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        list: of tournament documents (dictionnaries)
+
         """
         return sorted(tournaments_table.search(Tournament.title.exists()), key=lambda x: x.doc_id)
 
     def get_rounds_length(tour):
+        """
+        searches length of rounds for a tournament
+
+        Parameters
+        ----------
+        tour: instance
+            TournamentModel instance
+
+        Returns
+        -------
+        int: representing length of rounds
+
+        """
         tournament = tournaments_table.search(Tournament.title == tour.title)[0]
         return len(tournament['rounds'])
 
     def add_first_round_db(tour_info):
+        """
+        insert first round for a tournament
+
+        Parameters
+        ----------
+        tour_info: instance
+            instance of TournamentModel
+
+        Returns
+        -------
+        no return
+
+        """
         players = PlayerModel.get_players(tour_info.title)
         players_elo_sorted = sorted(players, key=lambda x: x.elo, reverse=True)
         high_group = players_elo_sorted[:4]
@@ -168,6 +365,21 @@ class TournamentModel:
             tournaments_table.update({'rounds': round}, Tournament.title == tour_info.title)
 
     def add_round(tour_info, matches):
+        """
+        insert a round after the first one
+
+        Parameters
+        ----------
+        tour_info: instance
+            TournamentModel instance
+        matches: list
+            list of MatchModel instances
+
+        Returns
+        -------
+        nothing
+
+        """
         tour = tournaments_table.search(Tournament.title == tour_info.title)[0]
         round = dict()
         round['matches'] = list()
@@ -203,6 +415,21 @@ class TournamentModel:
         return
 
     def update_scores(tour_info, scores):
+        """
+        updates scores for a tournament
+
+        Parameters
+        ----------
+        tour_info: instance
+            TournamentModel instance
+        scores: list
+            list of MatchModel instances
+
+        Returns
+        -------
+        dict: represent the updated tour
+
+        """
         tour = tournaments_table.search(Tournament.title == tour_info.title)[0]
         for i in scores:
             for j in tour['rounds'][-1]['matches']:
@@ -216,5 +443,18 @@ class TournamentModel:
         return tour
 
     def __call__(self):
+        """
+        calls insert()
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        instance of TournamentModel
+
+        """
+
         self.insert()
         return self

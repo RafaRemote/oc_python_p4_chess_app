@@ -9,12 +9,70 @@ from rich import print
 
 
 class RankingView:
+    """
+    Class to represent an ranking view page
+
+    ...
+
+    Attributes
+    ----------
+    scores: list
+        list = [<PlayerModel instance>, [floats], sum(list[1])]
+        [floats]: list of floats: every score for one player (list[0])
+    player: instance
+        default set: none
+        instance of PlayerModel
+    player_new_elo: int
+        int representing elo of a plyer
+
+    Methods
+    -------
+    choose(self):
+        prints table
+        returns nothing
+    print_ranking(self, choice):
+        prints table
+        returns nothing
+    show_elos(self):
+        prints table
+        returns nothing
+    modify_score(self, choice):
+        print input
+        return self.player, self.player_new_elo
+    call(self):
+        calls self.choose(self)
+        returns self.player, self.player_new_elo
+    """
+
     def __init__(self, scores):
+        """
+        Constructs attributes for ranking view page.
+
+        Parameters
+        ----------
+        scores: list
+            list = [<PlayerModel instance>, [floats], sum(list[1])]
+            [floats]: list of floats: every score for one player (list[0])
+
+        """
+
         self.scores = scores
         self.player = None
         self.player_new_elo = None
 
     def choose(self):
+        """
+        print table
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        nothing
+
+        """
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
         table = Table(title='PLAYERS MENU', show_header=True, header_style='bold magenta')
@@ -40,6 +98,20 @@ class RankingView:
             self.choose()
 
     def print_ranking(self, choice):
+        """
+        prints table
+
+        Parameters
+        ----------
+        choice: str
+            str representing user input choice in a menu
+
+        Returns
+        -------
+        nothing
+
+        """
+
         if choice == '1':
             players = sorted(self.scores, key=lambda x: x[0].surname)
             color_surname = "[orange1]"
@@ -70,6 +142,18 @@ class RankingView:
         self.choose()
 
     def show_elos(self):
+        """
+        prints table
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        nothing
+
+        """
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
         table = Table(title="PLAYERS", show_header=True, header_style="bold magenta")
@@ -95,6 +179,19 @@ class RankingView:
             self.show_elos()
 
     def modify_score(self, choice):
+        """
+        print table
+
+        Parameters
+        ----------
+        choice: str
+            str represents user choice in a menu
+
+        Returns
+        -------
+        self.player, self.player_new_elo
+
+        """
         player = self.scores[int(choice) - 1][0]
         new_elo = input('what is the new elo of ' + colored(player.surname, 'yellow') + "? ")
         print('the new elo of', player.surname, 'is', new_elo)
@@ -104,5 +201,18 @@ class RankingView:
         return self.player, self.player_new_elo
 
     def __call__(self):
+        """
+        calls self.choose(self)
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        self.player, self.player_new_elo
+
+        """
+
         self.choose()
         return self.player, self.player_new_elo

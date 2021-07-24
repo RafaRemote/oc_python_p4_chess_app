@@ -8,10 +8,54 @@ from rich.table import Table
 
 
 class OpponentsView:
+    """
+    Class to represent a view of player opponents
+
+    ...
+
+    Attributes
+    ----------
+    players: list
+        list [<PlayerModel instance>, []]
+        list[1] is a list of strings: surnames of the opponents
+
+    Methods
+    -------
+    show_opponents(self):
+        print a table
+        returns nothing
+    call(self):
+        calls self.show_opponents()
+    """
+
     def __init__(self, players):
+        """
+        Constructs attributes for OpponentsView instance.
+
+        Parameters
+        ----------
+        players: list
+            list [<PlayerModel instance>, []]
+            list[1] is a list of strings: surnames of the opponents
+
+        """
+
         self.players = players
 
     def show_opponents(self):
+        """
+        prints table
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        nothing
+
+        """
+
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
         table = Table(title='Opponents', show_header=True, header_style='bold magenta')
@@ -46,4 +90,17 @@ class OpponentsView:
         return
 
     def __call__(self):
+        """
+        calls self.show_opponents()
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        no return
+
+        """
+
         self.show_opponents()

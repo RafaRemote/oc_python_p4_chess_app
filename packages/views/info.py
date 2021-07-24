@@ -1,4 +1,4 @@
-""" display error """
+""" display information """
 
 import os
 
@@ -7,24 +7,48 @@ from rich import print
 
 
 class InfoView:
-    """ expect a string
+    """
+    Class to represent an information page
+
+    ...
 
     Attributes
     ----------
-
-    message: string to be printed
-
+    message: str
+        message displayed on information page
 
     Methods
     -------
-
-    __call__: displays a message and returns nothing when return key is pressed on input
+    call(self):
+        print
+        returns nothing
     """
 
     def __init__(self, message):
+        """
+        Constructs attributes for InfoView object.
+
+        Parameters
+        ----------
+        message: str
+            string displayed on inforamtion page
+
+        """
         self.message = message
 
     def __call__(self):
+        """
+        printing self.message
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        nothing
+
+        """
         os.system('cls' if os.name == 'nt' else 'clear')
         print()
         print('[orange1]' + '*** ' + self.message.upper() + ' ***')

@@ -8,7 +8,45 @@ from rich.table import Table
 
 
 class ScoringView:
+    """
+    Class to represent a scoring view page
+
+    ...
+
+    Attributes
+    ----------
+    round_number: int
+        int representing length of rounds list in a TournamentModel instance
+    matches: list
+        list ot MatchModel instances
+    player1: tuple
+        empty tuple
+    player2: tuple
+        empty tuple
+    new_matches: list
+        empty list
+
+    Methods
+    -------
+    checks_score(self, player1_surname, player1_elo, player2_surname, player2_elo, counter):
+        print tables
+        returns floats
+    call(self):
+        prints tables
+        assigns values for self attributes
+        return instance of ScoringView
+    """
+
     def __init__(self, tour_info):
+        """
+        Constructs attributes for ScoringView object.
+
+        Parameters
+        ----------
+        tour_info: instance
+            TournamentModel instance
+        """
+
         self.round_number = len(tour_info.rounds)
         self.matches = tour_info.rounds[-1].matches
         self.player1 = tuple()
@@ -16,6 +54,28 @@ class ScoringView:
         self.new_matches = []
 
     def check_score(self, player1_surname, player1_elo, player2_surname, player2_elo, counter):
+        """
+        prints tables, retrieves user inputs for scores
+
+        Parameters
+        ----------
+        player1_surname: str
+            player surname
+        player1_elo: int
+            player_elo
+        player2_surname: str
+            player surname
+        player2_elo: int
+            player elo
+        counter: int
+            represents number of the match
+
+        Returns
+        -------
+        instance of ScoringView
+
+        """
+
         console = Console()
         super_title = Table(title=colored('MATCH ', 'yellow')+str(counter),
                             show_header=True,
@@ -53,6 +113,19 @@ class ScoringView:
                 return 0.5
 
     def __call__(self):
+        """
+        print table
+        assign value for self.attributes
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        instance of ScoringView
+
+        """
         os.system('cls' if os.name == 'nt' else 'clear')
         counter = 0
         for i in self.matches:

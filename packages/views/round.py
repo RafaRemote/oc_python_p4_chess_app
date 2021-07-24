@@ -8,10 +8,50 @@ from rich.table import Table
 
 
 class RoundView:
+    """
+    Class to represent an round view page
+
+    ...
+
+    Attributes
+    ----------
+    rounds: list
+        list of RoundModel instances
+
+    Methods
+    -------
+    call(self):
+        prints table
+        returns nothing
+    """
+
     def __init__(self, tour):
+        """
+        Constructs attributes for RoundView object.
+
+        Parameters
+        ----------
+        tour: instance
+            instance of TournamentModel
+
+        """
+
         self.rounds = tour.rounds
 
     def __call__(self):
+        """
+        printing table
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        nothing
+
+        """
+
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
         table = Table(title=colored('ROUNDS DETAILS', 'magenta'), show_header=True, header_style="bold magenta")

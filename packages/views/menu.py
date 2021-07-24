@@ -8,11 +8,56 @@ from rich.table import Table
 
 
 class MenuView:
+    """
+    Class to represent a view of a menu
+
+    ...
+
+    Attributes
+    ----------
+    menu: list
+        list of strings representing choices in a menu
+    choice: int
+        default set: none
+        when int assigned: represent user input for choice in a menu
+
+    Methods
+    -------
+    check_choice(self):
+        check if the choice (int) is whith a correct range
+    call(self):
+        print table with list in self.menu
+    """
+
     def __init__(self, menu):
+        """
+        Constructs attributes for MenuView object.
+
+        Parameters
+        ----------
+        menu: list
+            list of stings representing the choices in a menu
+
+        """
+
         self.menu = menu
         self.choice = None
 
     def check_choice(self):
+        """
+        check if the user input (int for choice) is in a range
+        assigns value to self.choice
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        int
+
+        """
+
         i = 0
         while i < 1:
             print()
@@ -24,6 +69,18 @@ class MenuView:
                 print(colored("you need to choose between 0 and " + str(len(self.menu)-1), "red"))
 
     def __call__(self):
+        """
+        prints table with the strings in the list of self.menu
+
+        Parameters
+        ----------
+        none
+
+        Returns
+        -------
+        instance of MenuView
+
+        """
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
         table = Table(title=colored('MENU', 'magenta'), show_header=True, header_style="bold blue")

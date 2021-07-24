@@ -23,7 +23,36 @@ tournament_menu = ['Main Menu',
 
 
 class MenuModel:
+    """
+    Class for represent a menu
+
+    ...
+
+    Attributes
+    ----------
+    none
+
+    Methods
+    -------
+    call:
+        returns self
+    """
+
     def __init__(self):
+        """
+        Constructs all the necessary attributes for the menus.
+
+        Parameters
+        ----------
+        start_menu: list
+            list of str represents the menu for the main menu at start
+        all_tournaments_menu: list
+            list of str represents the menu for the list of tournaments
+        tournament_menu: list
+            list of str represents the menu for one tournament
+
+        """
+
         self.start_menu = start_menu
         self.all_tournaments_menu = all_tournaments_menu
         self.tournament_menu = tournament_menu
