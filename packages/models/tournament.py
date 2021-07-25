@@ -1,4 +1,4 @@
-""" model tournament """
+""" Tournament model """
 
 import datetime
 
@@ -19,7 +19,6 @@ TOTALROUNDS = 4
 class TournamentModel:
     """
     Class to represent a tournament
-
     ...
 
     Attributes
@@ -193,7 +192,6 @@ class TournamentModel:
         Returns
         -------
         list of RoundModel instances
-
         """
 
         rounds_list = list()
@@ -452,7 +450,7 @@ class TournamentModel:
 
         Returns
         -------
-        instance of TournamentModel
+        TournamentModel instance
 
         """
 

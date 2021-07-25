@@ -1,4 +1,4 @@
-""" retrieve user inputs about tournament details """
+""" Input_tournament view """
 
 import time
 import os
@@ -8,8 +8,7 @@ from termcolor import colored
 
 class InputTournamentView:
     """
-    Class to represent a page of inputs for a tournament
-
+    Class to represent a page to retrieve user inputs for a tournament
     ...
 
     Attributes
@@ -26,19 +25,19 @@ class InputTournamentView:
     Methods
     -------
     display_title(self):
-        print title
+        prints title
     check_len(self, name, max):
         helper function
-        check length of a string
+        checks length of a string
     get_place(self):
-        assign str value for attribute place
+        assigns str value for attribute place
     get_title(self):
-        assign str value for attribute title
+        assigns str value for attribute title
     get_time_control(self):
-        assign str value for attribute time_control
+        assigns str value for attribute time_control
         from whithin a list
     get_description(self):
-        assign str value for attribte description
+        assigns str value for attribte description
     call(self):
         returns instance of InputTournamentView
     """
@@ -50,7 +49,6 @@ class InputTournamentView:
         Parameters
         ----------
         none
-
         """
 
         self.place = self.get_place()
@@ -59,17 +57,7 @@ class InputTournamentView:
         self.description = self.get_description()
 
     def display_title(self):
-        """
-        print string
-
-        Parameters
-        ----------
-        none
-
-        Returns
-        -------
-        none
-        """
+        """ prints string """
 
         os.system('cls' if os.name == 'nt' else 'clear')
         print(colored('      ENTER TOURNAMENT INFORMATIONS',
@@ -80,7 +68,7 @@ class InputTournamentView:
 
     def check_len(self, name, max):
         """
-        check length of a str
+        checks length of a str
 
         Parameters
         ----------
@@ -106,17 +94,7 @@ class InputTournamentView:
             return True
 
     def get_place(self):
-        """
-        print input
-
-        Parameters
-        ----------
-        none
-
-        Returns
-        -------
-        str
-        """
+        """ prints input, returns string """
 
         self.display_title()
         print()
@@ -128,17 +106,7 @@ class InputTournamentView:
             self.get_place()
 
     def get_title(self):
-        """
-        print input
-
-        Parameters
-        ----------
-        none
-
-        Returns
-        -------
-        str
-        """
+        """ prints input, returns string """
 
         name = input('Name of the tournament [max: 20 characters]: ')
         if self.check_len(name, 20):
@@ -148,17 +116,7 @@ class InputTournamentView:
             self.get_name()
 
     def get_time_control(self):
-        """
-        print string
-
-        Parameters
-        ----------
-        none
-
-        Returns
-        -------
-        none
-        """
+        """ prints input, returns string """
 
         times = ['bullet', 'blitz', 'rapid']
         time_control = input('Enter time option: bullet, blitz or rapid: ')
@@ -172,17 +130,7 @@ class InputTournamentView:
             return time_control
 
     def get_description(self):
-        """
-        print string
-
-        Parameters
-        ----------
-        none
-
-        Returns
-        -------
-        str
-        """
+        """ prints input, returns string """
 
         description = input('Enter a description for the tournament [max 500 characters]: ')
         if self.check_len(description, 500):
@@ -191,17 +139,7 @@ class InputTournamentView:
             self.get_description()
 
     def __call__(self):
-        """
-        print string
-
-        Parameters
-        ----------
-        none
-
-        Returns
-        -------
-        instance of InputTournamentView
-        """
+        """ prints input, returns instance of InputTournamentView """
 
         print()
         input(colored('press return to go to the main menu', "blue"))

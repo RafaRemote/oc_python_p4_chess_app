@@ -1,4 +1,4 @@
-""" main controller managing the choices in the menus """
+""" Menu controller """
 
 from packages.controllers.tournament import TournamentController
 from packages.models.welcome import WelcomeModel
@@ -21,7 +21,6 @@ from packages.views.opponents import OpponentsView
 class MenuController:
     """
     Class to handle the menu.
-
     ...
 
     Attributes
@@ -120,11 +119,10 @@ class MenuController:
         """
         Handles the choice in the menu of the list of tournaments.
 
-
         Parameters
         ----------
-        choice : number
-            choice of the user in the menu, returned by TournamentController.show_all()
+        choice : int
+            user input representing the choice in the menu, returned by TournamentController.show_all()
 
         Returns
         -------
@@ -158,7 +156,6 @@ class MenuController:
         """
         Handles the choice in the menu for one tournament.
 
-
         Parameters
         ----------
         choice : str
@@ -168,6 +165,7 @@ class MenuController:
         -------
         depending on the choice: calls models, controllers or views.
         """
+
         if choice == '0':
             menu = MenuController(tour_info=None)
             menu()
@@ -323,4 +321,6 @@ class MenuController:
             self.manage_tour_details_choice(choice)
 
     def __call__(self):
+        """ calls self.select_handler() """
+
         self.select_handler()

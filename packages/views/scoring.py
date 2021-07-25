@@ -1,4 +1,4 @@
-""" retrieve user inputs for the scores """
+""" Scoring view """
 
 import os
 
@@ -9,8 +9,7 @@ from rich.table import Table
 
 class ScoringView:
     """
-    Class to represent a scoring view page
-
+    Class to represent a view to retrieve user inputs for the scores
     ...
 
     Attributes
@@ -72,8 +71,7 @@ class ScoringView:
 
         Returns
         -------
-        instance of ScoringView
-
+        float: representing the score of the player
         """
 
         console = Console()
@@ -115,7 +113,7 @@ class ScoringView:
     def __call__(self):
         """
         print table
-        assign value for self.attributes
+        appends values as tuples in list: self.new_matches
 
         Parameters
         ----------
@@ -124,8 +122,8 @@ class ScoringView:
         Returns
         -------
         instance of ScoringView
-
         """
+
         os.system('cls' if os.name == 'nt' else 'clear')
         counter = 0
         for i in self.matches:

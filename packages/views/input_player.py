@@ -1,4 +1,4 @@
-""" retrieves user inputs for players details """
+""" Input_player view """
 
 import os
 import time
@@ -8,8 +8,7 @@ from termcolor import colored
 
 class InputPlayerView:
     """
-    Class to represent a page of inputs for players
-
+    Class to represent a page to retreive user inputs for players
     ...
 
     Attributes
@@ -24,7 +23,6 @@ class InputPlayerView:
         list of strings, player gender('m' or 'w')
     elo: list
         list of int: player elos
-
 
     Methods
     -------
@@ -53,8 +51,8 @@ class InputPlayerView:
 
     def get_att(self, counter, att):
         """
-        print questions, waiting for user inputs
-        appending inputs to the attributes lists
+        prints questions, waiting for user inputs
+        appending user inputs to the attributes lists
 
         Parameters
         ----------
@@ -134,9 +132,9 @@ class InputPlayerView:
 
     def __call__(self):
         """
-        print informations about:
+        prints informations about:
             how many players have been entered
-            info when 8 players have been entered
+            message when 8 players have been entered
 
         Parameters
         ----------
@@ -144,7 +142,7 @@ class InputPlayerView:
 
         Returns
         -------
-        instance of InputPlayerModel
+        instance of InputPlayerView
 
         """
 

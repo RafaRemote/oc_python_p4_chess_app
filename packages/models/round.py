@@ -1,16 +1,15 @@
-""" round model """
+""" Round model """
 
 
 class RoundModel:
     """
     Class to represent a round
-
     ...
 
     Attributes
     ----------
     matches: list
-        list of match instances
+        list of MatchModel instances
     number: int
         number of the round
     start_date: str, optional
@@ -23,8 +22,9 @@ class RoundModel:
     Methods
     -------
     call:
-        returns self
+        returns RoundModel instance
     """
+
     def __init__(self, matches, number, start_date=None, end_date=None):
         """
         Constructs attributes for player object.
@@ -41,24 +41,14 @@ class RoundModel:
         end_date: str
             default set: none
             date end hour tournamanet ends
-
         """
+
         self.matches = matches
         self.number = number
         self.start_date = start_date
         self.end_date = end_date
 
     def __call__(self):
-        """
-        returns attributes and their values for a RoundModel
+        """ returns RoundModel instance """
 
-        Parameters
-        ----------
-        none
-
-
-        Returns
-        -------
-        self: attributes and their values for RoundModel instance
-        """
         return self

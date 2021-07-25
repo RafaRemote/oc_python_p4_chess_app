@@ -1,4 +1,4 @@
-""" display error """
+""" Error view """
 
 import os
 
@@ -36,18 +36,7 @@ class Error:
         self.message = message
 
     def __call__(self):
-        """
-        printing self.message
-
-        Parameters
-        ----------
-        none
-
-        Returns
-        -------
-        nothing
-
-        """
+        """ prints self.message, returns nothing """
 
         os.system('cls' if os.name == 'nt' else 'clear')
         print()

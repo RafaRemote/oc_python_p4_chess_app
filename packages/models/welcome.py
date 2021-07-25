@@ -1,4 +1,4 @@
-""" welcome model """
+""" Welcome model """
 
 title = 'Welcome'
 sub_title = 'to your chess tournament app'
@@ -7,7 +7,6 @@ sub_title = 'to your chess tournament app'
 class WelcomeModel:
     """
     Class to represent the welcome page
-
     ...
 
     Attributes
@@ -22,6 +21,7 @@ class WelcomeModel:
     call(self):
         returns attributes for a WelcomeModel instance
     """
+
     def __init__(self):
         """
         Constructs attributes for WelcomeModel object.
@@ -29,23 +29,12 @@ class WelcomeModel:
         Parameters
         ----------
         none
-
         """
+
         self.title = title
         self.sub_title = sub_title
 
     def __call__(self):
-        """
-        returns attributes and their values for WelcomedModel instance
-
-        Parameters
-        ----------
-        none
-
-        Returns
-        -------
-        instance of WelcomeModel
-
-        """
+        """ returns WelcomeModel instance """
 
         return self

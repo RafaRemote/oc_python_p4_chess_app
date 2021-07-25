@@ -1,4 +1,4 @@
-""" controller for the tournament """
+""" Tournament controller """
 
 from packages.views.input_tournament import InputTournamentView
 from packages.views.tournaments import TournamentsView
@@ -16,14 +16,13 @@ Tournament = Query()
 
 class TournamentController:
     """
-    A class to handle the tournament.
-
+    Class to handle a tournament.
     ...
 
     Attributes
     ----------
     tour_info : instance
-        instance of tournament
+        TournamentModel instance
 
     Methods
     -------
@@ -34,6 +33,7 @@ class TournamentController:
         next rounds have other rules
         this function calculates the composition of a round after the first one
     """
+
     def __init__(self):
         """
         Constructs all the necessary attributes for the menu object.
@@ -47,7 +47,7 @@ class TournamentController:
 
     def add_players(tour_info, serialized_players):
         """
-        Calls TournamentModel to add players to the database
+        Calls TournamentModel.add_players
 
         Parameters
         ----------
@@ -58,7 +58,7 @@ class TournamentController:
 
         Returns
         -------
-        tournament instance
+        TournamentModel instance
         """
 
         tour = TournamentModel.add_players(tour_info, serialized_players)
@@ -108,12 +108,13 @@ class TournamentController:
         Parameters
         ----------
         tour_info: instance
-            instance of tournament
+            TournamentModel instance
 
         Returns
         -------
-        choice of user in menu for one tourmaent
+        user input from TournamentView
         """
+
         menu = MenuModel()
         tournament_menu = menu.tournament_menu
         choice = TournamentView(tour_info, tournament_menu)
@@ -121,7 +122,11 @@ class TournamentController:
 
     def show_all():
         """
-        Calls a model of menu for list of tournaments then a view
+        calls MenuModel to retreive the menu for a view for all tournaments
+        calls TournamentModel.get_all_tournaments_db_doc to get a list of dict of tournements,
+        including their doc_ids. (no desserialization in this case).
+        doc_ids will be use to order the list of tournaments.
+        calls TournamentsView to display a view of all the tournaments
 
         Parameters
         ----------
@@ -129,8 +134,9 @@ class TournamentController:
 
         Returns
         -------
-        choice of user in list of tournaments menu
+        user input from TournamentsView
         """
+
         menu = MenuModel()
         all_tournaments_menu = menu.all_tournaments_menu
         tournaments_list = TournamentModel.get_all_tournaments_db_doc()
@@ -140,7 +146,9 @@ class TournamentController:
 
     def __call__(self):
         """
-        on call: calls a view for user inputs for a tournament
+        calls InputTournamentView
+        recieve user inputs from TournamentView()
+        calls TournamentModel to build an instance of TournamentModel
 
         Parameters
         ----------
@@ -148,8 +156,9 @@ class TournamentController:
 
         Returns
         -------
-        tournament instance
+        TournamentModel instance title
         """
+
         tournament = InputTournamentView()
         tour_inputs = tournament()
         tournament = TournamentModel(place=tour_inputs.place,

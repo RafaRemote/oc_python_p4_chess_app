@@ -1,4 +1,4 @@
-""" display quitting message """
+""" Quit view """
 
 import time
 import os
@@ -10,7 +10,6 @@ from termcolor import colored
 class QuitView:
     """
     Class to represent an quit view page
-
     ...
 
     Attributes
@@ -32,13 +31,13 @@ class QuitView:
         ----------
         message: str
             string displayed on quit page
-
         """
+
         self.message = message
 
     def clean_sentence(self, sentence):
         """
-        print
+        prints string
 
         Parameters
         ----------
@@ -58,17 +57,6 @@ class QuitView:
         exit()
 
     def __call__(self):
-        """
-        calls self.clean_sentence(self.message)
-
-        Parameters
-        ----------
-        none
-
-        Returns
-        -------
-        no return
-
-        """
+        """ calls self.clean_sentence(self.message) """
 
         self.clean_sentence(self.message)

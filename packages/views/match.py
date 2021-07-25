@@ -1,4 +1,4 @@
-""" display details for the matches """
+""" Match view """
 
 import os
 
@@ -10,8 +10,7 @@ from rich import print
 
 class MatchView:
     """
-    Class to represent an a page with match details
-
+    Class to represent a view for match details
     ...
 
     Attributes
@@ -36,6 +35,7 @@ class MatchView:
             list of MatchModel instances
 
         """
+
         self.rounds = rounds
 
     def print_matches(self):
@@ -49,7 +49,6 @@ class MatchView:
         Returns
         -------
         no return
-
         """
 
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -87,17 +86,7 @@ class MatchView:
         self.print_color_meanings()
 
     def print_color_meanings(self):
-        """
-        print a table for the meaning of the colors
-
-        Parameters
-        ----------
-        none
-
-        Returns
-        -------
-        no return
-        """
+        """ prints a table for the meaning of the colors """
 
         console = Console()
         table = Table(title='Meaning of Colors')
@@ -108,18 +97,8 @@ class MatchView:
         console.print(table)
 
     def __call__(self):
-        """
-        calls self.print_matches()
+        """ calls self.print_matches(), prints input, returns nothing """
 
-        Parameters
-        ----------
-        none
-
-        Returns
-        -------
-        nothing
-
-        """
         self.print_matches()
         print()
         input(colored('press return to go back to the main menu', 'blue'))

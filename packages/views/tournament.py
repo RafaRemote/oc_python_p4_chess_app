@@ -1,4 +1,4 @@
-"""  display the menu for one tournament """
+"""  Tournament view """
 
 import os
 
@@ -10,8 +10,7 @@ from rich import print
 
 class TournamentView:
     """
-    Class to represent a tournament view page
-
+    Class to represent a view for a tournament
     ...
 
     Attributes
@@ -58,18 +57,7 @@ class TournamentView:
         self.choice = None
 
     def print_tournament_details(self):
-        """
-        print table
-
-        Parameters
-        ----------
-        none
-
-        Returns
-        -------
-        nothing
-
-        """
+        """ prints table """
 
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
@@ -102,18 +90,7 @@ class TournamentView:
         self.print_menu()
 
     def print_menu(self):
-        """
-        prints table
-
-        Parameters
-        ----------
-        none
-
-        Returns
-        -------
-        nothing
-
-        """
+        """ prints table with self.menu, calls self.check_choice() """
 
         console = Console()
         table = Table(title=colored('OPTIONS', 'blue'), show_header=True, header_style="bold blue")
@@ -127,6 +104,8 @@ class TournamentView:
         self.check_choice()
 
     def check_choice(self):
+        """ prints input, checks if input is in a range, assigns a value (string) to self.choice """
+
         i = 0
         while i < 1:
             print()
@@ -138,18 +117,7 @@ class TournamentView:
                 print("[red]""you need to choose between 0 and " + str(len(self.menu)-1))
 
     def __call__(self):
-        """
-        calls self.print_tournament_details()
-
-        Parameters
-        ----------
-        none
-
-        Returns
-        -------
-        self.choice
-
-        """
+        """ calls self.print_tournament_details(), returns self.choice """
 
         self.print_tournament_details()
         return self.choice

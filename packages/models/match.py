@@ -1,10 +1,9 @@
-""" match model """
+""" Match model """
 
 
 class MatchModel:
     """
-    Class for represent a match
-
+    Class to represent a match
     ...
 
     Attributes

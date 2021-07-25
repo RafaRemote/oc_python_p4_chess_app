@@ -1,4 +1,4 @@
-""" display a welcome message """
+""" Welcome view """
 
 import os
 
@@ -11,8 +11,9 @@ from termcolor import colored
 
 class WelcomeView:
     """
-    A class used to display table with welcome messages
+    Class to represent a Welcome view
     ...
+
     Attributes
     ----------
     message: string
@@ -22,10 +23,9 @@ class WelcomeView:
 
     Methods
     -------
-    clean_sentence(message, sub_title)
+    clean_message(message, title)
         modify strings
         prints the main message and the sub_title in a table
-
     """
 
     def __init__(self, title, sub_title):
@@ -34,11 +34,10 @@ class WelcomeView:
 
         Parameters
         ----------
-        message: string
+        title: string
             message to be displayed as the title
         sub_title : string
             message to be displayed as the sub_title
-
         """
 
         self.title = title
@@ -55,8 +54,7 @@ class WelcomeView:
 
         Returns
         -------
-        nothing
-
+        no return
         """
 
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -80,8 +78,7 @@ class WelcomeView:
 
         Returns
         -------
-        nothing
-
+        no return
         """
 
         self.clean_message(self.title)

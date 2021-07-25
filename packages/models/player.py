@@ -1,4 +1,4 @@
-""" player model """
+""" Player model """
 
 from packages.views.input_player import InputPlayerView
 from tinydb import TinyDB, Query
@@ -12,7 +12,6 @@ Tournament = Query()
 class PlayerModel:
     """
     Class for represent a player
-
     ...
 
     Attributes
@@ -105,11 +104,11 @@ class PlayerModel:
         Parameters
         ----------
         title:
-            tournament titie
+            tournament title
 
         Returns
         -------
-        a list of player instances
+        list of PlayerModel instances
         """
 
         players_list = []
@@ -133,7 +132,7 @@ class PlayerModel:
 
         Returns
         -------
-        list of player instances, can be empty
+        list of PlaerModel instancs, can be empty
         """
 
         tournament = tournaments_table.search(Tournament.title == tour_info_title)[0]
@@ -255,7 +254,7 @@ class PlayerModel:
 
     def get_opponents(tour_info):
         """
-        get opponents for each player
+        get opponents for each player, only surnames of opponents
 
         Parameters
         ----------
@@ -264,7 +263,7 @@ class PlayerModel:
 
         Returns
         -------
-        list: [<player instance>, ['opponent(s)']]
+        list: within 8 times: [<player instance>, ['opponent(s)'s surname']]
         """
 
         players = list()
@@ -311,13 +310,13 @@ class PlayerModel:
         Parameters
         ----------
         tour_info: instance
-            tournament instance
+            TournamentModel instance
         ranking:
-            [<player instance>, score]
+            [<PlayerModel instance>, score]
 
         Returns
         -------
-        tournament instance
+        TournamentModel instance
         """
 
         players = PlayerModel.get_players(tour_info.title)

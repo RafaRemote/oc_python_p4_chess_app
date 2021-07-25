@@ -1,4 +1,4 @@
-""" display information """
+""" Information view """
 
 import os
 
@@ -9,7 +9,6 @@ from rich import print
 class InfoView:
     """
     Class to represent an information page
-
     ...
 
     Attributes
@@ -34,21 +33,12 @@ class InfoView:
             string displayed on inforamtion page
 
         """
+
         self.message = message
 
     def __call__(self):
-        """
-        printing self.message
+        """ prints self.message, returns nothing """
 
-        Parameters
-        ----------
-        none
-
-        Returns
-        -------
-        nothing
-
-        """
         os.system('cls' if os.name == 'nt' else 'clear')
         print()
         print('[orange1]' + '*** ' + self.message.upper() + ' ***')

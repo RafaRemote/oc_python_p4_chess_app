@@ -1,4 +1,4 @@
-""" display a of opponents for each player """
+""" Opponents view """
 
 import os
 
@@ -10,7 +10,6 @@ from rich.table import Table
 class OpponentsView:
     """
     Class to represent a view of player opponents
-
     ...
 
     Attributes
@@ -37,24 +36,12 @@ class OpponentsView:
         players: list
             list [<PlayerModel instance>, []]
             list[1] is a list of strings: surnames of the opponents
-
         """
 
         self.players = players
 
     def show_opponents(self):
-        """
-        prints table
-
-        Parameters
-        ----------
-        none
-
-        Returns
-        -------
-        nothing
-
-        """
+        """ prints table with self.players """
 
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
@@ -90,17 +77,6 @@ class OpponentsView:
         return
 
     def __call__(self):
-        """
-        calls self.show_opponents()
-
-        Parameters
-        ----------
-        none
-
-        Returns
-        -------
-        no return
-
-        """
+        """ calls self.show_opponents() """
 
         self.show_opponents()

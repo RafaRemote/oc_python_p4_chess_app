@@ -1,4 +1,4 @@
-""" menu model """
+""" Menu model """
 
 start_menu = ['Create a New Tournament',
               'Choose an Existing Tournament'
@@ -25,12 +25,16 @@ tournament_menu = ['Main Menu',
 class MenuModel:
     """
     Class for represent a menu
-
     ...
 
     Attributes
     ----------
-    none
+    start_menu: list
+            list of str represents the menu for the main menu at start
+    all_tournaments_menu: list
+            list of str represents the menu for the list of tournaments
+    tournament_menu: list
+            list of str represents the menu for one tournament
 
     Methods
     -------
@@ -44,12 +48,7 @@ class MenuModel:
 
         Parameters
         ----------
-        start_menu: list
-            list of str represents the menu for the main menu at start
-        all_tournaments_menu: list
-            list of str represents the menu for the list of tournaments
-        tournament_menu: list
-            list of str represents the menu for one tournament
+        none
 
         """
 
@@ -58,4 +57,6 @@ class MenuModel:
         self.tournament_menu = tournament_menu
 
     def __call__(self):
+        """ Returns MenuModel instance """
+
         return self

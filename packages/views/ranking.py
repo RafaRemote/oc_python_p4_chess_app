@@ -1,4 +1,4 @@
-""" display a menu for players details and their rankings """
+""" Ranking view """
 
 import os
 
@@ -10,8 +10,7 @@ from rich import print
 
 class RankingView:
     """
-    Class to represent an ranking view page
-
+    Class a view for a ranking
     ...
 
     Attributes
@@ -53,7 +52,6 @@ class RankingView:
         scores: list
             list = [<PlayerModel instance>, [floats], sum(list[1])]
             [floats]: list of floats: every score for one player (list[0])
-
         """
 
         self.scores = scores
@@ -61,18 +59,8 @@ class RankingView:
         self.player_new_elo = None
 
     def choose(self):
-        """
-        print table
+        """ prints table, calls function depending on user inputs """
 
-        Parameters
-        ----------
-        none
-
-        Returns
-        -------
-        nothing
-
-        """
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
         table = Table(title='PLAYERS MENU', show_header=True, header_style='bold magenta')
@@ -109,7 +97,6 @@ class RankingView:
         Returns
         -------
         nothing
-
         """
 
         if choice == '1':
@@ -142,18 +129,8 @@ class RankingView:
         self.choose()
 
     def show_elos(self):
-        """
-        prints table
+        """ prints table, depending on user input calls self.modify_score(choice) """
 
-        Parameters
-        ----------
-        none
-
-        Returns
-        -------
-        nothing
-
-        """
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
         table = Table(title="PLAYERS", show_header=True, header_style="bold magenta")
@@ -190,8 +167,8 @@ class RankingView:
         Returns
         -------
         self.player, self.player_new_elo
-
         """
+
         player = self.scores[int(choice) - 1][0]
         new_elo = input('what is the new elo of ' + colored(player.surname, 'yellow') + "? ")
         print('the new elo of', player.surname, 'is', new_elo)
@@ -211,7 +188,6 @@ class RankingView:
         Returns
         -------
         self.player, self.player_new_elo
-
         """
 
         self.choose()

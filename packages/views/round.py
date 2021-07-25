@@ -1,4 +1,4 @@
-""" display the details about the rounds """
+""" Round view"""
 
 import os
 
@@ -9,8 +9,7 @@ from rich.table import Table
 
 class RoundView:
     """
-    Class to represent an round view page
-
+    Class to represent a view for the rounds
     ...
 
     Attributes
@@ -33,24 +32,12 @@ class RoundView:
         ----------
         tour: instance
             instance of TournamentModel
-
         """
 
         self.rounds = tour.rounds
 
     def __call__(self):
-        """
-        printing table
-
-        Parameters
-        ----------
-        none
-
-        Returns
-        -------
-        nothing
-
-        """
+        """ prints table with self.rounds , returns nothing """
 
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()

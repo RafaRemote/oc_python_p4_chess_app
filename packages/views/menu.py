@@ -1,4 +1,4 @@
-""" display menus """
+""" Menu view """
 
 import os
 
@@ -9,8 +9,7 @@ from rich.table import Table
 
 class MenuView:
     """
-    Class to represent a view of a menu
-
+    Class for a menu view
     ...
 
     Attributes
@@ -54,7 +53,7 @@ class MenuView:
 
         Returns
         -------
-        int
+        str: the user input
 
         """
 
@@ -79,8 +78,8 @@ class MenuView:
         Returns
         -------
         instance of MenuView
-
         """
+
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
         table = Table(title=colored('MENU', 'magenta'), show_header=True, header_style="bold blue")

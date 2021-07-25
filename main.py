@@ -1,4 +1,4 @@
-""" entry point of the application"""
+""" Application entry point """
 
 from packages.controllers.menu import MenuController
 
