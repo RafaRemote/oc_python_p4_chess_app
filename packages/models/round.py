@@ -23,6 +23,7 @@ class RoundModel:
     -------
     call:
         returns RoundModel instance
+
     """
 
     def __init__(self, matches, number, start_date=None, end_date=None):
@@ -41,6 +42,7 @@ class RoundModel:
         end_date: str
             default set: none
             date end hour tournamanet ends
+
         """
 
         self.matches = matches

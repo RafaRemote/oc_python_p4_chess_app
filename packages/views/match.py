@@ -23,6 +23,7 @@ class MatchView:
     print_matches(self):
         print matches details
         no return
+
     """
 
     def __init__(self, rounds):
@@ -49,6 +50,7 @@ class MatchView:
         Returns
         -------
         no return
+
         """
 
         os.system('cls' if os.name == 'nt' else 'clear')

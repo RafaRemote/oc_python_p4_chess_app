@@ -125,6 +125,7 @@ class ScoringView:
         Returns
         -------
         instance of ScoringView
+
         """
 
         os.system('cls' if os.name == 'nt' else 'clear')

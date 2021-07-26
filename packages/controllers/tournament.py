@@ -9,11 +9,6 @@ from packages.models.tournament import TournamentModel
 from packages.models.player import PlayerModel
 
 
-from tinydb import TinyDB, Query
-db = TinyDB('db.json')
-Tournament = Query()
-
-
 class TournamentController:
     """
     Class to handle a tournament.
@@ -32,6 +27,7 @@ class TournamentController:
         first round has specific rules
         next rounds have other rules
         this function calculates the composition of a round after the first one
+
     """
 
     def __init__(self):
@@ -41,6 +37,7 @@ class TournamentController:
         Parameters
         ----------
         none
+
         """
 
         self.tour_info = None
@@ -59,6 +56,7 @@ class TournamentController:
         Returns
         -------
         TournamentModel instance
+
         """
 
         tour = TournamentModel.add_players(tour_info, serialized_players)
@@ -76,6 +74,7 @@ class TournamentController:
         Returns
         -------
         no return
+
         """
 
         players_score = PlayerModel.get_players_score(tour_info)
@@ -112,6 +111,7 @@ class TournamentController:
         Returns
         -------
         user input from TournamentView
+
         """
 
         menu = MenuModel()
@@ -134,6 +134,7 @@ class TournamentController:
         Returns
         -------
         user input from TournamentsView
+
         """
 
         menu = MenuModel()
@@ -156,6 +157,7 @@ class TournamentController:
         Returns
         -------
         TournamentModel instance title
+
         """
 
         tournament = InputTournamentView()

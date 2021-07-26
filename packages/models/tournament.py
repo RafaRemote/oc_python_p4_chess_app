@@ -74,6 +74,7 @@ class TournamentModel:
         updates scores in the matches of a round of a tournament
         inserts in the database
         return an updated tour as a dict
+
     """
 
     def __init__(self, place, title, time_control, description, start_date, rounds=[]):
@@ -116,6 +117,7 @@ class TournamentModel:
         Returns
         -------
         no return
+
         """
 
         if len(tournaments_table.search(Tournament.title == self.title)) == 0:

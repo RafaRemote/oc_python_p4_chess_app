@@ -38,6 +38,7 @@ class MenuController:
         handles the choice in the menu for the list of tournaments
     manage_tour_details_choice(self, choice):
         handles the choice in the menu for one tournament
+
     """
 
     def __init__(self, tour_info):
@@ -48,6 +49,7 @@ class MenuController:
         ----------
             tour_info : instance
                 instance of a tournament
+
         """
 
         self.tour_info = tour_info
@@ -63,6 +65,7 @@ class MenuController:
         Returns
         -------
         calls the MenuController with no instance of tournament
+
         """
 
         welcome = WelcomeModel()
@@ -87,6 +90,7 @@ class MenuController:
             or
             - calls: TournamentModel.get_all_tournaments():
                 to get the list of all the exising tournaments in the database
+
         """
 
         menu_model = MenuModel()
@@ -127,6 +131,7 @@ class MenuController:
         Returns
         -------
         depending on the choice: calls models, controllers or views, no return.
+
         """
 
         checker_menu = MenuModel()
@@ -164,6 +169,7 @@ class MenuController:
         Returns
         -------
         depending on the choice: calls models, controllers or views, no return
+
         """
 
         if choice == '0':

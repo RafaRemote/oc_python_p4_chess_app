@@ -50,6 +50,7 @@ class PlayerModel:
         True if player2 already played with player1, otherwise False
     update_elo(tour_info, ranking):
         returns tournament instances with updated players elos
+
     """
 
     def __init__(self, name, surname, year_birth, gender, elo):
@@ -68,6 +69,7 @@ class PlayerModel:
             man or woman
         elo: int
             elo
+
         """
 
         self.name = name
@@ -90,6 +92,7 @@ class PlayerModel:
         Returns
         -------
         no return
+
         """
 
         serialized_players = PlayerModel.serialize_players(input_players)
@@ -109,6 +112,7 @@ class PlayerModel:
         Returns
         -------
         list of PlayerModel instances
+
         """
 
         players_list = []
@@ -133,6 +137,7 @@ class PlayerModel:
         Returns
         -------
         list of PlaerModel instancs, can be empty
+
         """
 
         tournament = tournaments_table.search(Tournament.title == tour_info_title)[0]
@@ -158,6 +163,7 @@ class PlayerModel:
         Returns
         -------
         either a list or one serialized player object
+
         """
 
         if isinstance(input_players, InputPlayerView):
@@ -194,6 +200,7 @@ class PlayerModel:
         Returns
         -------
         int: representing the elo of the player
+
         """
 
         player = players_table.search(Player.surname == surname)[0]
@@ -211,6 +218,7 @@ class PlayerModel:
         Returns
         -------
         instance of a player
+
         """
 
         return PlayerModel(name=player['name'],
@@ -231,6 +239,7 @@ class PlayerModel:
         Returns
         -------
         list: [<player instance>, [score list], sum of scores list]
+
         """
 
         rounds = tour_info.rounds
@@ -263,6 +272,7 @@ class PlayerModel:
         Returns
         -------
         list: within 8 times: [<player instance>, ['opponent(s)'s surname']]
+
         """
 
         players = list()
@@ -292,6 +302,7 @@ class PlayerModel:
         Returns
         -------
         boolean: True if they played together False if not
+
         """
 
         players_opponents = PlayerModel.get_opponents(tour_info)
@@ -316,6 +327,7 @@ class PlayerModel:
         Returns
         -------
         TournamentModel instance
+
         """
 
         players = PlayerModel.get_players(tour_info.title)
