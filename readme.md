@@ -48,21 +48,41 @@ Check your version of Python, if needed, upgrade your version.
   
 Open a terminal wherever you want then follow these steps:  
 
+- Clone the repository:
+
 ```python
 git clone https://github.com/RafaRemote/chess.git
 ```
+
+- Mode to the root folder:
+
+```python
+cd chess
+```
+
+- Install the virtual environment:
 
 ```python
 python3 -m venv env
 ```
 
+or on windows: py -m venv env
+
+- Activate the virtual environment:
+
 ```python
 source env/bin/activate
 ```
 
+or on windows: env\Scripts\activate
+
+- Upgrade pip:
+
 ```python
 pip install --upgrade pip
 ```
+
+- Install the project dependencies:
 
 ```python
 pip install -r requirements.txt
