@@ -21,6 +21,7 @@ class InfoView:
     call(self):
         print
         returns nothing
+
     """
 
     def __init__(self, message):
@@ -37,11 +38,10 @@ class InfoView:
         self.message = message
 
     def __call__(self):
-        """ prints self.message, returns nothing """
+        """ prints self.message, no return """
 
         os.system('cls' if os.name == 'nt' else 'clear')
         print()
         print('[orange1]' + '*** ' + self.message.upper() + ' ***')
         print()
         input(colored('press return to continue', 'blue'))
-        return

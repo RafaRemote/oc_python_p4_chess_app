@@ -11,7 +11,7 @@ Tournament = Query()
 
 class PlayerModel:
     """
-    Class for represent a player
+    Class to represent a player
     ...
 
     Attributes
@@ -89,7 +89,7 @@ class PlayerModel:
 
         Returns
         -------
-        none
+        no return
         """
 
         serialized_players = PlayerModel.serialize_players(input_players)
@@ -191,10 +191,9 @@ class PlayerModel:
         surname: str
             surname of the player
 
-
         Returns
         -------
-        int
+        int: representing the elo of the player
         """
 
         player = players_table.search(Player.surname == surname)[0]

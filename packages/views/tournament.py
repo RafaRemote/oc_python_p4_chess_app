@@ -37,6 +37,7 @@ class TournamentView:
     call(self):
         calls print_tournament_details(self)
         return self.choice
+
     """
 
     def __init__(self, tour_info, menu):
@@ -57,7 +58,7 @@ class TournamentView:
         self.choice = None
 
     def print_tournament_details(self):
-        """ prints table """
+        """ prints table, calls self.print_menu(), no return"""
 
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
@@ -90,7 +91,7 @@ class TournamentView:
         self.print_menu()
 
     def print_menu(self):
-        """ prints table with self.menu, calls self.check_choice() """
+        """ prints table with self.menu, calls self.check_choice(), no return """
 
         console = Console()
         table = Table(title=colored('OPTIONS', 'blue'), show_header=True, header_style="bold blue")

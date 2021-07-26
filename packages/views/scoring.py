@@ -34,6 +34,7 @@ class ScoringView:
         prints tables
         assigns values for self attributes
         return instance of ScoringView
+
     """
 
     def __init__(self, tour_info):
@@ -44,6 +45,7 @@ class ScoringView:
         ----------
         tour_info: instance
             TournamentModel instance
+
         """
 
         self.round_number = len(tour_info.rounds)
@@ -72,6 +74,7 @@ class ScoringView:
         Returns
         -------
         float: representing the score of the player
+
         """
 
         console = Console()

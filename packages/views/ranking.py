@@ -41,6 +41,7 @@ class RankingView:
     call(self):
         calls self.choose(self)
         returns self.player, self.player_new_elo
+
     """
 
     def __init__(self, scores):
@@ -52,6 +53,7 @@ class RankingView:
         scores: list
             list = [<PlayerModel instance>, [floats], sum(list[1])]
             [floats]: list of floats: every score for one player (list[0])
+
         """
 
         self.scores = scores
@@ -77,7 +79,6 @@ class RankingView:
             self.print_ranking(choice)
         elif choice == '3':
             self.show_elos()
-            return
         elif choice == '4':
             return
         else:
@@ -96,7 +97,7 @@ class RankingView:
 
         Returns
         -------
-        nothing
+        no return
         """
 
         if choice == '1':
@@ -129,7 +130,7 @@ class RankingView:
         self.choose()
 
     def show_elos(self):
-        """ prints table, depending on user input calls self.modify_score(choice) """
+        """ prints table, depending on user input calls self.modify_score(choice), no return """
 
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
@@ -149,7 +150,6 @@ class RankingView:
         choice = input('which player\'s score do you want to modify?: ')
         if choice.isnumeric() and int(choice) in range(1, 9):
             self.modify_score(choice)
-            return
         else:
             print('invalid choice. You need to choose a number between 1 and 8')
             input(colored('press return to continue', 'blue'))
@@ -167,6 +167,7 @@ class RankingView:
         Returns
         -------
         self.player, self.player_new_elo
+
         """
 
         player = self.scores[int(choice) - 1][0]
@@ -188,6 +189,7 @@ class RankingView:
         Returns
         -------
         self.player, self.player_new_elo
+
         """
 
         self.choose()

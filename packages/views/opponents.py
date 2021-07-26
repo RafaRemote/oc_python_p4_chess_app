@@ -25,6 +25,7 @@ class OpponentsView:
         returns nothing
     call(self):
         calls self.show_opponents()
+
     """
 
     def __init__(self, players):
@@ -36,12 +37,13 @@ class OpponentsView:
         players: list
             list [<PlayerModel instance>, []]
             list[1] is a list of strings: surnames of the opponents
+
         """
 
         self.players = players
 
     def show_opponents(self):
-        """ prints table with self.players """
+        """ prints table with self.players, no return """
 
         os.system('cls' if os.name == 'nt' else 'clear')
         console = Console()
@@ -74,7 +76,6 @@ class OpponentsView:
                               player[1][3])
         console.print(table)
         input(colored("press return to continue", "blue"))
-        return
 
     def __call__(self):
         """ calls self.show_opponents() """

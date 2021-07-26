@@ -115,7 +115,7 @@ class TournamentModel:
 
         Returns
         -------
-        nothing
+        no return
         """
 
         if len(tournaments_table.search(Tournament.title == self.title)) == 0:
@@ -129,7 +129,6 @@ class TournamentModel:
         else:
             error = Error(f'Tournament \' {self.title} \' already exists, you can\'t add it again')
             error()
-            return
 
     def get_tournament(title):
         """
@@ -192,6 +191,7 @@ class TournamentModel:
         Returns
         -------
         list of RoundModel instances
+
         """
 
         rounds_list = list()
@@ -295,6 +295,7 @@ class TournamentModel:
         list: of tournament documents (dictionnaries)
 
         """
+
         return sorted(tournaments_table.search(Tournament.title.exists()), key=lambda x: x.doc_id)
 
     def get_rounds_length(tour):
@@ -311,6 +312,7 @@ class TournamentModel:
         int: representing length of rounds
 
         """
+
         tournament = tournaments_table.search(Tournament.title == tour.title)[0]
         return len(tournament['rounds'])
 
@@ -375,9 +377,10 @@ class TournamentModel:
 
         Returns
         -------
-        nothing
+        no return
 
         """
+
         tour = tournaments_table.search(Tournament.title == tour_info.title)[0]
         round = dict()
         round['matches'] = list()
@@ -410,7 +413,6 @@ class TournamentModel:
         tour['rounds'].append(round)
         tournaments_table.remove(Tournament.title == tour['title'])
         tournaments_table.insert(tour)
-        return
 
     def update_scores(tour_info, scores):
         """
@@ -428,6 +430,7 @@ class TournamentModel:
         dict: represent the updated tour
 
         """
+
         tour = tournaments_table.search(Tournament.title == tour_info.title)[0]
         for i in scores:
             for j in tour['rounds'][-1]['matches']:

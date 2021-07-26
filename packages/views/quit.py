@@ -21,6 +21,7 @@ class QuitView:
     -------
     clean_sentence(self, sentence):
         print a sentence
+
     """
 
     def __init__(self, message):
@@ -31,6 +32,7 @@ class QuitView:
         ----------
         message: str
             string displayed on quit page
+
         """
 
         self.message = message
@@ -57,6 +59,6 @@ class QuitView:
         exit()
 
     def __call__(self):
-        """ calls self.clean_sentence(self.message) """
+        """ calls self.clean_sentence(self.message), no return """
 
         self.clean_sentence(self.message)

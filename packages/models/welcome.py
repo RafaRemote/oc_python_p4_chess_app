@@ -20,6 +20,7 @@ class WelcomeModel:
     -------
     call(self):
         returns attributes for a WelcomeModel instance
+
     """
 
     def __init__(self):
@@ -29,6 +30,7 @@ class WelcomeModel:
         Parameters
         ----------
         none
+
         """
 
         self.title = title

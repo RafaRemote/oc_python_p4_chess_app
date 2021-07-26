@@ -31,6 +31,7 @@ class InputPlayerView:
 
     call(self):
         calls get_att(self, counter, att) until 8 series of inputs
+
     """
 
     def __init__(self):
@@ -63,7 +64,7 @@ class InputPlayerView:
 
         Returns
         -------
-        nothing
+        no return
 
         """
 

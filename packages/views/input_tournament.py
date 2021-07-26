@@ -40,6 +40,7 @@ class InputTournamentView:
         assigns str value for attribte description
     call(self):
         returns instance of InputTournamentView
+
     """
 
     def __init__(self):
@@ -49,6 +50,7 @@ class InputTournamentView:
         Parameters
         ----------
         none
+
         """
 
         self.place = self.get_place()
@@ -57,7 +59,7 @@ class InputTournamentView:
         self.description = self.get_description()
 
     def display_title(self):
-        """ prints string """
+        """ prints string, no return """
 
         os.system('cls' if os.name == 'nt' else 'clear')
         print(colored('      ENTER TOURNAMENT INFORMATIONS',
@@ -80,6 +82,7 @@ class InputTournamentView:
         Returns
         -------
         boolean
+
         """
 
         if(len(name) == 0):

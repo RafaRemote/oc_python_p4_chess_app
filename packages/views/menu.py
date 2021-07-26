@@ -26,6 +26,7 @@ class MenuView:
         check if the choice (int) is whith a correct range
     call(self):
         print table with list in self.menu
+
     """
 
     def __init__(self, menu):
@@ -78,6 +79,7 @@ class MenuView:
         Returns
         -------
         instance of MenuView
+
         """
 
         os.system('cls' if os.name == 'nt' else 'clear')

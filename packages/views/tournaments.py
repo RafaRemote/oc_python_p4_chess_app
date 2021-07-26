@@ -33,6 +33,7 @@ class TournamentsView:
     check_choice(self):
         check user input
         assigns int to self.choice
+
     """
 
     def __init__(self, tournaments_list, menu):
@@ -45,6 +46,7 @@ class TournamentsView:
             list of TournamentModel instances
         menu: list
             list of strings representing choices in a menu
+
         """
 
         self.tournaments_list = tournaments_list
@@ -66,7 +68,7 @@ class TournamentsView:
         self.print_menu()
 
     def print_menu(self):
-        """ prints table with self.tournaments_list, calls self.check_choice() """
+        """ prints table with self.tournaments_list, calls self.check_choice(), no return """
 
         console = Console()
         table = Table(title=colored('OPTIONS', 'blue'), show_header=True, header_style="bold blue")

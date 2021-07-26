@@ -24,7 +24,7 @@ tournament_menu = ['Main Menu',
 
 class MenuModel:
     """
-    Class for represent a menu
+    Class to represent a menu
     ...
 
     Attributes
@@ -39,7 +39,7 @@ class MenuModel:
     Methods
     -------
     call:
-        returns self
+        returns MenuModel instance
     """
 
     def __init__(self):

@@ -75,7 +75,7 @@ class TournamentController:
 
         Returns
         -------
-        none
+        no return
         """
 
         players_score = PlayerModel.get_players_score(tour_info)
@@ -99,7 +99,6 @@ class TournamentController:
             del players[0]
             del players[i]
         TournamentModel.add_round(tour_info, matches)
-        return
 
     def show_one(tour_info):
         """

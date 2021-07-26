@@ -102,4 +102,3 @@ class MatchView:
         self.print_matches()
         print()
         input(colored('press return to go back to the main menu', 'blue'))
-        return

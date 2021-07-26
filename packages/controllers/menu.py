@@ -126,7 +126,7 @@ class MenuController:
 
         Returns
         -------
-        depending on the choice: calls models, controllers or views.
+        depending on the choice: calls models, controllers or views, no return.
         """
 
         checker_menu = MenuModel()
@@ -163,7 +163,7 @@ class MenuController:
 
         Returns
         -------
-        depending on the choice: calls models, controllers or views.
+        depending on the choice: calls models, controllers or views, no return
         """
 
         if choice == '0':
@@ -321,6 +321,6 @@ class MenuController:
             self.manage_tour_details_choice(choice)
 
     def __call__(self):
-        """ calls self.select_handler() """
+        """ calls self.select_handler(), no return """
 
         self.select_handler()

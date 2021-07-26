@@ -26,6 +26,7 @@ class WelcomeView:
     clean_message(message, title)
         modify strings
         prints the main message and the sub_title in a table
+
     """
 
     def __init__(self, title, sub_title):
@@ -38,6 +39,7 @@ class WelcomeView:
             message to be displayed as the title
         sub_title : string
             message to be displayed as the sub_title
+
         """
 
         self.title = title
@@ -69,16 +71,6 @@ class WelcomeView:
         input(colored('press return to go to the main menu.', 'blue'))
 
     def __call__(self):
-        """
-        calls self.clean_message(self.title)
-
-        Parameters
-        ----------
-        none
-
-        Returns
-        -------
-        no return
-        """
+        """ calls self.clean_message(self.title), no return """
 
         self.clean_message(self.title)

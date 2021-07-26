@@ -19,7 +19,8 @@ class Error:
     -------
     call(self):
         print
-        returns nothing
+        no return
+
     """
 
     def __init__(self, message):
@@ -36,11 +37,10 @@ class Error:
         self.message = message
 
     def __call__(self):
-        """ prints self.message, returns nothing """
+        """ prints self.message, no return """
 
         os.system('cls' if os.name == 'nt' else 'clear')
         print()
         print(colored('*** ' + self.message.upper() + ' ***', 'red'))
         print()
         input(colored('press return to continue', 'blue'))
-        return

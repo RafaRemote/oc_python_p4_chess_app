@@ -21,7 +21,7 @@ class RoundView:
     -------
     call(self):
         prints table
-        returns nothing
+        no return
     """
 
     def __init__(self, tour):
@@ -32,6 +32,7 @@ class RoundView:
         ----------
         tour: instance
             instance of TournamentModel
+
         """
 
         self.rounds = tour.rounds
@@ -50,4 +51,3 @@ class RoundView:
         console.print(table)
         print()
         input(colored('press return to go back to the main menu', 'blue'))
-        return
