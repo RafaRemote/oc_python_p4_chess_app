@@ -54,7 +54,7 @@ Open a terminal wherever you want then follow these steps:
 git clone https://github.com/RafaRemote/chess.git
 ```
 
-- Mode to the root folder:
+- Move to the root folder:
 
 ```python
 cd chess
